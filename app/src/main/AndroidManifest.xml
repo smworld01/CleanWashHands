@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.s.cleanwashhands">
+    package="com.hands.clean">
 
     <application
         android:allowBackup="true"
@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CleanWashHands">
         <activity
-            android:name=".NavigationActivity"
+            android:name="com.hands.clean.NavigationActivity"
             android:theme="@style/Theme.CleanWashHands.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,10 +18,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".TutorialActivity" />
-        <activity android:name=".setting.GpsSettingActivity" />
-        <activity android:name=".setting.WifiSettingActivity" />
-        <activity android:name=".setting.BluetoothSettingActivity" />
+        <activity android:name="com.hands.clean.TutorialActivity" />
+        <activity android:name="com.hands.clean.setting.GpsSettingActivity" />
+        <activity android:name="com.hands.clean.setting.WifiSettingActivity" />
+        <activity android:name="com.hands.clean.setting.BluetoothSettingActivity" />
     </application>
 
 </manifest>

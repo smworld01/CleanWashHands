@@ -1,9 +1,9 @@
-package com.s.cleanwashhands.setting
+package com.hands.clean.setting
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
-import com.s.cleanwashhands.R
+import com.hands.clean.R
 
 class GpsSettingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

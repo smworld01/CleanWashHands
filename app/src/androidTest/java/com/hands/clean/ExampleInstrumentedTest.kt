@@ -1,4 +1,4 @@
-package com.s.cleanwashhands
+package com.hands.clean
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

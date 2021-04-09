@@ -1,11 +1,11 @@
-package com.s.cleanwashhands.adapter
+package com.hands.clean.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.s.cleanwashhands.R
+import com.hands.clean.R
 
 class WashAdapter (private val washRecord :ArrayList<WashRecord>) : RecyclerView.Adapter<WashAdapter.Holder>() {
 

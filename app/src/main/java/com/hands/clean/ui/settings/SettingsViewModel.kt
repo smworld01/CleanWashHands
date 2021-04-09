@@ -1,4 +1,4 @@
-package com.s.cleanwashhands.ui.settings
+package com.hands.clean.ui.settings
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

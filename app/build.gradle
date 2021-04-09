@@ -9,7 +9,7 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "com.s.cleanwashhands"
+        applicationId "com.hands.clean"
         minSdkVersion 16
         targetSdkVersion 30
         versionCode 1

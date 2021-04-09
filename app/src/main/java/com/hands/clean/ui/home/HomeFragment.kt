@@ -1,19 +1,18 @@
-package com.s.cleanwashhands.ui.home
+package com.hands.clean.ui.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.s.cleanwashhands.R
-import com.s.cleanwashhands.adapter.WashAdapter
-import com.s.cleanwashhands.adapter.WashRecord
-import kotlinx.android.synthetic.main.fragment_home.*
+import com.hands.clean.R
+import com.hands.clean.adapter.WashAdapter
+import com.hands.clean.adapter.WashRecord
 
 class HomeFragment : Fragment() {
 
@@ -30,6 +29,10 @@ class HomeFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View? {
         homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+
+        homeViewModel.text.observe(viewLifecycleOwner, Observer<String> {
+            Log.e("test", it)
+        })
         val root = inflater.inflate(R.layout.fragment_home, container, false)
 
         initRecycler(root)

@@ -1,4 +1,4 @@
-package com.s.cleanwashhands
+package com.hands.clean
 
 import org.junit.Test
 

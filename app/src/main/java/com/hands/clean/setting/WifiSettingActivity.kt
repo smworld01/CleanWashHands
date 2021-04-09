@@ -1,20 +1,20 @@
-package com.s.cleanwashhands.setting
+package com.hands.clean.setting
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
-import com.s.cleanwashhands.R
+import com.hands.clean.R
 
-class BluetoothSettingActivity : AppCompatActivity() {
+class WifiSettingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_bluetooth_setting)
+        setContentView(R.layout.activity_wifi_setting)
 
         initActionBar()
     }
 
     private fun initActionBar() {
-        supportActionBar?.title = "블루투스 설정"
+        supportActionBar?.title = "와이파이 설정"
         supportActionBar?.setDisplayHomeAsUpEnabled(true);
     }
     // 상단바 뒤로가기 버튼 이벤트
