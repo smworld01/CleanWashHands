@@ -1,61 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.hands.clean.ui.settings.SettingsFragment">
+    tools:context="com.hands.clean.ui.settings.SettingsFragment"
+    android:orientation="vertical"
+    android:divider="?attr/dividerHorizontal"
+    android:showDividers="middle|end">
+
     <Button
         android:id="@+id/buttonBlueTooth"
         android:background="?attr/selectableItemBackground"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="블루투스 설정"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="블루투스 설정"/>
 
     <Button
         android:id="@+id/buttonWifi"
         android:background="?attr/selectableItemBackground"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="WiFi 설정"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonBlueTooth" />
+        android:text="WiFi 설정" />
 
     <Button
         android:id="@+id/buttonGPS"
         android:background="?attr/selectableItemBackground"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="GPS 설정"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonWifi" />
+        android:text="GPS 설정" />
 
     <Button
         android:id="@+id/buttonSwitch"
         android:background="?attr/selectableItemBackground"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="손 씻기 인식 설정"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonGPS" />
+        android:text="손 씻기 인식 설정" />
 
     <Button
         android:id="@+id/buttonTutorial"
         android:background="?attr/selectableItemBackground"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="튜토리얼 다시보기"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonSwitch" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:text="튜토리얼 다시보기" />
+</LinearLayout>
