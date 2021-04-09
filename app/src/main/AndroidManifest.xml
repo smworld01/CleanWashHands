@@ -22,7 +22,6 @@
         <activity android:name=".setting.GpsSettingActivity" />
         <activity android:name=".setting.WifiSettingActivity" />
         <activity android:name=".setting.BluetoothSettingActivity" />
-        <activity android:name=".SettingActivity" />
     </application>
 
 </manifest>
