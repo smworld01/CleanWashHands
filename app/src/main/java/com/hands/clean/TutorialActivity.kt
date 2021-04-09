@@ -11,7 +11,7 @@ class TutorialActivity : AppCompatActivity() {
 
         initActionBar()
 
-         buttonSkip.setOnClickListener {
+        buttonSkip.setOnClickListener {
              finish()
         }
     }
