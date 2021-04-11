@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -42,8 +43,8 @@ class HomeFragment : Fragment() {
     }
 
     private fun initRecycler(root: View) {
-        var recyclerViewWash: RecyclerView = root.findViewById(R.id.recyclerViewWash)
-        var mAdapter = RecyclerWashAdapter(washRecord)
+        val recyclerViewWash: RecyclerView = root.findViewById(R.id.recyclerViewWash)
+        val mAdapter = RecyclerWashAdapter(washRecord)
 
         val lm = LinearLayoutManager(root.context)
 
@@ -51,8 +52,8 @@ class HomeFragment : Fragment() {
             setHasFixedSize(true)
             adapter = mAdapter
             layoutManager = lm
-            var itemDecoration = DividerItemDecoration(root.context, LinearLayoutManager.VERTICAL)
-            itemDecoration.setDrawable(resources.getDrawable(R.drawable.divider, null)!!)
+            val itemDecoration = DividerItemDecoration(root.context, LinearLayoutManager.VERTICAL)
+            itemDecoration.setDrawable(ResourcesCompat.getDrawable(resources, R.drawable.divider, null)!!)
             addItemDecoration(itemDecoration)
         }
 

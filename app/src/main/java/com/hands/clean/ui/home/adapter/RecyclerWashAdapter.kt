@@ -14,8 +14,8 @@ class RecyclerWashAdapter (private val washData :ArrayList<RecyclerWashData>) : 
 
     inner class RecyclerWashHeader(headerView: View): RecyclerView.ViewHolder(headerView)
     inner class RecyclerWashItem(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var date = itemView.findViewById<TextView>(R.id.date)
-        var count = itemView.findViewById<TextView>(R.id.count)
+        var date: TextView = itemView.findViewById<TextView>(R.id.date)
+        var count: TextView = itemView.findViewById<TextView>(R.id.count)
 
         fun bind (data: RecyclerWashData) {
             date.text = data.date
@@ -24,7 +24,7 @@ class RecyclerWashAdapter (private val washData :ArrayList<RecyclerWashData>) : 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        var view : View?
+        val view : View?
         val holder:RecyclerView.ViewHolder
         if (viewType == TYPE_HEADER) {
             view = LayoutInflater.from(parent.context).inflate(R.layout.wash_recycler_header, parent, false)
@@ -40,7 +40,7 @@ class RecyclerWashAdapter (private val washData :ArrayList<RecyclerWashData>) : 
         if (holder is RecyclerWashHeader) {
 //            var recyclerWashHeader: RecyclerWashHeader = holder as RecyclerWashHeader
         } else {
-            var recyclerWashItem: RecyclerWashItem = holder as RecyclerWashItem
+            val recyclerWashItem: RecyclerWashItem = holder as RecyclerWashItem
             recyclerWashItem.bind(washData[position - 1])
         }
     }
