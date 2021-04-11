@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.hands.clean.R
 
-class RecyclerWashAdapter (private val washData :ArrayList<RecyclerWashData>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class RecyclerWashAdapter(private val washData: ArrayList<RecyclerWashData>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val TYPE_HEADER = 0
     private val TYPE_ITEM = 1
 

@@ -4,12 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.hands.clean.setting.WifiSettingActivity">
+    tools:context=".setting">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewWifi"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="98dp"
-        tools:layout_editor_absoluteY="28dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
