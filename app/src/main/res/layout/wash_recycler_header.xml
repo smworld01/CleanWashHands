@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/blue_200"
+    android:divider="@drawable/divider"
+    android:showDividers="middle"
+    >
+
+    <TextView
+        android:id="@+id/date"
+        app:layout_constraintHorizontal_weight="3"
+        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_weight="2"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:text="날짜" />
+
+
+    <TextView
+        android:id="@+id/count"
+        app:layout_constraintHorizontal_weight="1"
+        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:text="횟수" />
+
+</LinearLayout>
