@@ -48,7 +48,7 @@ class WifiSettingActivity : AppCompatActivity() {
             adapter = mAdapter
             layoutManager = lm
             val itemDecoration = DividerItemDecoration(context, LinearLayoutManager.VERTICAL)
-            itemDecoration.setDrawable(ResourcesCompat.getDrawable(resources, R.drawable.divider, null)!!)
+            itemDecoration.setDrawable(ResourcesCompat.getDrawable(resources, R.color.black, null)!!)
             addItemDecoration(itemDecoration)
         }
 

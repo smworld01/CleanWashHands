@@ -53,7 +53,7 @@ class HomeFragment : Fragment() {
             adapter = mAdapter
             layoutManager = lm
             val itemDecoration = DividerItemDecoration(root.context, LinearLayoutManager.VERTICAL)
-            itemDecoration.setDrawable(ResourcesCompat.getDrawable(resources, R.drawable.divider, null)!!)
+            itemDecoration.setDrawable(ResourcesCompat.getDrawable(resources, R.color.black, null)!!)
             addItemDecoration(itemDecoration)
         }
 
