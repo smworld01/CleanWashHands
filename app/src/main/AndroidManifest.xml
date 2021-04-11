@@ -24,4 +24,7 @@
         <activity android:name="com.hands.clean.setting.BluetoothSettingActivity" />
     </application>
 
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <!-- If your app targets Android 9 or lower, you can declare ACCESS_COARSE_LOCATION instead. -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 </manifest>

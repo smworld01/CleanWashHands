@@ -1,9 +1,11 @@
 package com.hands.clean.setting
 
+import android.bluetooth.BluetoothAdapter
+import android.bluetooth.BluetoothDevice
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
-import android.view.View
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -38,6 +40,7 @@ class BluetoothSettingActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
+
     private fun initRecycler() {
         val recyclerViewWash: RecyclerView = findViewById(R.id.recyclerViewBluetooth)
         val mAdapter = RecyclerDeviceAdapter(deviceList)
@@ -52,7 +55,13 @@ class BluetoothSettingActivity : AppCompatActivity() {
             itemDecoration.setDrawable(ResourcesCompat.getDrawable(resources, R.color.black, null)!!)
             addItemDecoration(itemDecoration)
         }
+    }
 
+    private fun getBluetoothRecyclerDataArrayList(): List<RecyclerDeviceData> {
+        val mBluetoothAdapter: BluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        val pairedDevices: Set<BluetoothDevice> = mBluetoothAdapter.bondedDevices;
+
+        return ArrayList<RecyclerDeviceData>(pairedDevices.map { RecyclerDeviceData(it.name) })
     }
 
 }
