@@ -10,6 +10,7 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import com.hands.clean.function.notification.*
 
 class NavigationActivity : AppCompatActivity() {
 
@@ -31,10 +32,18 @@ class NavigationActivity : AppCompatActivity() {
         ), drawerLayout)
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        initNotification()
     }
 
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
+
+    private fun initNotification() {
+        BluetoothNotify(this).initChannel()
+        WifiNotify(this).initChannel()
+        GPSNotify(this).initChannel()
     }
 }

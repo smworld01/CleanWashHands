@@ -43,7 +43,7 @@ class BluetoothSettingActivity : AppCompatActivity() {
 
     private fun initRecycler() {
         val recyclerViewWash: RecyclerView = findViewById(R.id.recyclerViewBluetooth)
-        val mAdapter = RecyclerDeviceAdapter(deviceList)
+        val mAdapter = RecyclerDeviceAdapter(getBluetoothRecyclerDataArrayList())
         val context = this
         val lm = LinearLayoutManager(this)
 
@@ -57,7 +57,7 @@ class BluetoothSettingActivity : AppCompatActivity() {
         }
     }
 
-    private fun getBluetoothRecyclerDataArrayList(): List<RecyclerDeviceData> {
+    private fun getBluetoothRecyclerDataArrayList(): ArrayList<RecyclerDeviceData> {
         val mBluetoothAdapter: BluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         val pairedDevices: Set<BluetoothDevice> = mBluetoothAdapter.bondedDevices;
 

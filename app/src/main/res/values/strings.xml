@@ -11,4 +11,10 @@
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
+
+    <string name="channel_bluetooth_name">블루투스 알림</string>
+    <string name="channel_wifi_name">와이파이 알림</string>
+    <string name="channel_gps_name">GPS 알림</string>
+    <string name="channel_description">알림</string>
+    <string name="notification_title">손을 씻어주세요</string>
 </resources>

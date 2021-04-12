@@ -12,6 +12,7 @@ import com.hands.clean.R
 import com.hands.clean.TutorialActivity
 import com.hands.clean.setting.BluetoothSettingActivity
 import com.hands.clean.setting.GpsSettingActivity
+import com.hands.clean.setting.TestActivity
 import com.hands.clean.setting.WifiSettingActivity
 
 class SettingsFragment : Fragment() {
@@ -29,10 +30,11 @@ class SettingsFragment : Fragment() {
         return root
     }
     private fun initLayout(root: View) {
-        var buttonBlueTooth: Button= root.findViewById(R.id.buttonBlueTooth)
-        var buttonWifi: Button= root.findViewById(R.id.buttonWifi)
-        var buttonGPS: Button= root.findViewById(R.id.buttonGPS)
-        var buttonTutorial: Button= root.findViewById(R.id.buttonTutorial)
+        val buttonBlueTooth: Button = root.findViewById(R.id.buttonBlueTooth)
+        val buttonWifi: Button = root.findViewById(R.id.buttonWifi)
+        val buttonGPS: Button = root.findViewById(R.id.buttonGPS)
+        val buttonTutorial: Button = root.findViewById(R.id.buttonTutorial)
+        val buttonTest: Button = root.findViewById(R.id.buttonTest)
 
 
 
@@ -50,6 +52,10 @@ class SettingsFragment : Fragment() {
 
         buttonTutorial.setOnClickListener {
             startActivity(Intent(root.context, TutorialActivity::class.java))
+        }
+
+        buttonTest.setOnClickListener {
+            startActivity(Intent(root.context, TestActivity::class.java))
         }
     }
 }
