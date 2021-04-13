@@ -14,11 +14,11 @@ import com.hands.clean.R
 abstract class Notify(private val context: Context) {
     abstract val channelId: String
     abstract val channelName: String
-    private val channelDescription: String = context.getString(R.string.channel_description)
+    open val channelDescription: String = context.getString(R.string.channel_description)
 
-    private val contentTitle: String = context.getString(R.string.notification_title)
-    abstract val contentText: String
+    open val contentTitle: String = context.getString(R.string.notification_title)
 
+    lateinit var builder: NotificationCompat.Builder
 
     fun initChannel(): Notify {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -43,20 +43,21 @@ abstract class Notify(private val context: Context) {
         notificationManager.createNotificationChannel(channel)
     }
 
-    fun createNotification(): NotificationCompat.Builder {
-        return NotificationCompat.Builder(context, channelId)
+    fun setNotification(contentText: String): Notify {
+        builder = NotificationCompat.Builder(context, channelId)
             .setSmallIcon(R.drawable.ic_baseline_home_24)
             .setContentTitle(contentTitle)
             .setContentText(contentText)
             .setDefaults(Notification.FLAG_NO_CLEAR)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+        return this
     }
 
     fun sendNotification(id: Int = 0) {
 
         with(NotificationManagerCompat.from(context)) {
             // notificationId is a unique int for each notification that you must define
-            notify(id, createNotification().build())
+            notify(id, builder.build())
         }
     }
 }

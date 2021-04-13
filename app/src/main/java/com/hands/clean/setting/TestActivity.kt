@@ -15,18 +15,19 @@ class TestActivity : AppCompatActivity() {
     }
 
     private fun initLayout() {
-        var i: Int = 0
         val buttonSendNotification : Button = findViewById(R.id.buttonSendNotification)
         val buttonChangeNotificationChannel : Button = findViewById(R.id.buttonChangeNotificationChannel)
 
         buttonSendNotification.setOnClickListener {
             BluetoothNotify(this)
-                .sendNotification()
+                    .setNotification("블루투스에 연결되었습니다.")
+                    .sendNotification()
         }
 
         buttonChangeNotificationChannel.setOnClickListener {
             WifiNotify(this)
-                .sendNotification()
+                    .setNotification("와이파이에 연결되었습니다.")
+                    .sendNotification()
         }
     }
 }

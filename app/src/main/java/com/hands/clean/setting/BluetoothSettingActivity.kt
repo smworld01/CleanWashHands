@@ -6,24 +6,47 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.view.View
+import android.widget.CompoundButton
+import android.widget.TextView
+import androidx.appcompat.widget.SwitchCompat
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.isEmpty
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.hands.clean.R
-import com.hands.clean.ui.home.adapter.RecyclerDeviceAdapter
-import com.hands.clean.ui.home.adapter.RecyclerDeviceData
+import com.hands.clean.setting.adapter.RecyclerDeviceAdapter
+import com.hands.clean.setting.adapter.RecyclerDeviceData
+import com.hands.clean.setting.adapter.adaptRecyclerDevice
 
 class BluetoothSettingActivity : AppCompatActivity() {
-    private var deviceList= arrayListOf<RecyclerDeviceData>(
-            RecyclerDeviceData("기가 지니"), RecyclerDeviceData("차")
-    )
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bluetooth_setting)
 
+        initLayout()
+    }
+
+    private fun initLayout() {
         initActionBar()
-        initRecycler()
+        val switchBluetooth: SwitchCompat = findViewById(R.id.switchBluetooth)
+
+        val recyclerViewBluetooth: RecyclerView = findViewById(R.id.recyclerViewBluetooth)
+        val deviceList = getBluetoothRecyclerDataArrayList()
+        adaptRecyclerDevice(this, recyclerViewBluetooth, deviceList)
+
+
+        val textViewEmptyRecycler: TextView = findViewById(R.id.textViewEmptyRecycler)
+        if(deviceList.isEmpty()) {
+            textViewEmptyRecycler.visibility = View.VISIBLE
+        } else {
+            textViewEmptyRecycler.visibility = View.GONE
+        }
+
+        switchBluetooth.setOnCheckedChangeListener{ compoundButton: CompoundButton, isChecked: Boolean ->
+            // Todo control recycler
+        }
     }
 
     private fun initActionBar() {
@@ -41,27 +64,11 @@ class BluetoothSettingActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun initRecycler() {
-        val recyclerViewWash: RecyclerView = findViewById(R.id.recyclerViewBluetooth)
-        val mAdapter = RecyclerDeviceAdapter(getBluetoothRecyclerDataArrayList())
-        val context = this
-        val lm = LinearLayoutManager(this)
-
-        recyclerViewWash.apply {
-            setHasFixedSize(true)
-            adapter = mAdapter
-            layoutManager = lm
-            val itemDecoration = DividerItemDecoration(context, LinearLayoutManager.VERTICAL)
-            itemDecoration.setDrawable(ResourcesCompat.getDrawable(resources, R.color.black, null)!!)
-            addItemDecoration(itemDecoration)
-        }
-    }
-
     private fun getBluetoothRecyclerDataArrayList(): ArrayList<RecyclerDeviceData> {
         val mBluetoothAdapter: BluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         val pairedDevices: Set<BluetoothDevice> = mBluetoothAdapter.bondedDevices;
 
-        return ArrayList<RecyclerDeviceData>(pairedDevices.map { RecyclerDeviceData(it.name) })
+        return ArrayList<RecyclerDeviceData>(pairedDevices.map { RecyclerDeviceData(it.name, it.address) })
     }
 
 }

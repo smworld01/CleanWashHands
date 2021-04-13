@@ -4,14 +4,40 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="10dp"
     tools:context="com.hands.clean.setting.BluetoothSettingActivity">
+
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switchBluetooth"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="블루투스 알림"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewBluetooth"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:background="@drawable/recycler_border"
+        android:layout_marginTop="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@+id/switchBluetooth" />
+
+    <TextView
+        android:id="@+id/textViewEmptyRecycler"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:visibility="gone"
+        android:text="블루투스 기기가 없습니다."
+        app:layout_constraintBottom_toBottomOf="@+id/recyclerViewBluetooth"
+        app:layout_constraintEnd_toEndOf="@+id/recyclerViewBluetooth"
+        app:layout_constraintStart_toStartOf="@+id/recyclerViewBluetooth"
+        app:layout_constraintTop_toTopOf="@+id/recyclerViewBluetooth" />
 </androidx.constraintlayout.widget.ConstraintLayout>

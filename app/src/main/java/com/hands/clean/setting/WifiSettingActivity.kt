@@ -3,24 +3,45 @@ package com.hands.clean.setting
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
-import androidx.core.content.res.ResourcesCompat
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
+import android.view.View
+import android.widget.CompoundButton
+import android.widget.TextView
+import androidx.appcompat.widget.SwitchCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.hands.clean.R
-import com.hands.clean.ui.home.adapter.RecyclerDeviceAdapter
-import com.hands.clean.ui.home.adapter.RecyclerDeviceData
+import com.hands.clean.setting.adapter.RecyclerDeviceData
+import com.hands.clean.setting.adapter.adaptRecyclerDevice
 
 class WifiSettingActivity : AppCompatActivity() {
     private var deviceList= arrayListOf<RecyclerDeviceData>(
-            RecyclerDeviceData("KT"), RecyclerDeviceData("SKT")
+            RecyclerDeviceData("KT", ""), RecyclerDeviceData("SKT", "")
     )
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_wifi_setting)
 
+        initLayout()
+    }
+
+    private fun initLayout() {
         initActionBar()
-        initRecycler()
+        val switchWifi: SwitchCompat = findViewById(R.id.switchWifi)
+
+        val recyclerViewWifi: RecyclerView = findViewById(R.id.recyclerViewWifi)
+        val deviceList = deviceList
+        adaptRecyclerDevice(this, recyclerViewWifi, deviceList)
+
+
+        val textViewEmptyRecycler: TextView = findViewById(R.id.textViewEmptyRecycler)
+        if(deviceList.isEmpty()) {
+            textViewEmptyRecycler.visibility = View.VISIBLE
+        } else {
+            textViewEmptyRecycler.visibility = View.GONE
+        }
+
+        switchWifi.setOnCheckedChangeListener{ compoundButton: CompoundButton, isChecked: Boolean ->
+            // Todo control recycler
+        }
     }
 
     private fun initActionBar() {
@@ -36,21 +57,5 @@ class WifiSettingActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
-    }
-    private fun initRecycler() {
-        val recyclerViewWash: RecyclerView = findViewById(R.id.recyclerViewWifi)
-        val mAdapter = RecyclerDeviceAdapter(deviceList)
-        val context = this
-        val lm = LinearLayoutManager(this)
-
-        recyclerViewWash.apply {
-            setHasFixedSize(true)
-            adapter = mAdapter
-            layoutManager = lm
-            val itemDecoration = DividerItemDecoration(context, LinearLayoutManager.VERTICAL)
-            itemDecoration.setDrawable(ResourcesCompat.getDrawable(resources, R.color.black, null)!!)
-            addItemDecoration(itemDecoration)
-        }
-
     }
 }
