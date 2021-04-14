@@ -3,12 +3,18 @@
     <string name="title_activity_navigation">NavigationActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_title">Hands Clean</string>
+    <string name="nav_header_subtitle">개발 중...</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
+
+    <string name="channel_bluetooth_name">블루투스 알림</string>
+    <string name="channel_wifi_name">와이파이 알림</string>
+    <string name="channel_gps_name">GPS 알림</string>
+    <string name="channel_description">알림</string>
+    <string name="notification_title">손을 씻어주세요</string>
 </resources>

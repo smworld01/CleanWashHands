@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.hands.clean">
 
+    <uses-permission android:name="android.permission.BLUETOOTH" /> <!-- If your app targets Android 9 or lower, you can declare ACCESS_COARSE_LOCATION instead. -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,8 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CleanWashHands">
+        <activity android:name=".setting.TestActivity"></activity>
         <activity
-            android:name="com.hands.clean.NavigationActivity"
+            android:name=".NavigationActivity"
             android:theme="@style/Theme.CleanWashHands.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,10 +22,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.hands.clean.TutorialActivity" />
-        <activity android:name="com.hands.clean.setting.GpsSettingActivity" />
-        <activity android:name="com.hands.clean.setting.WifiSettingActivity" />
-        <activity android:name="com.hands.clean.setting.BluetoothSettingActivity" />
+        <activity android:name=".TutorialActivity" />
+        <activity android:name=".setting.GpsSettingActivity" />
+        <activity android:name=".setting.WifiSettingActivity" />
+        <activity android:name=".setting.BluetoothSettingActivity" />
     </application>
 
 </manifest>
