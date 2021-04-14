@@ -15,7 +15,10 @@ import androidx.core.view.isEmpty
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.room.Room
 import com.hands.clean.R
+import com.hands.clean.room.AppDatabase
+import com.hands.clean.room.BluetoothEntry
 import com.hands.clean.setting.adapter.RecyclerDeviceAdapter
 import com.hands.clean.setting.adapter.RecyclerDeviceData
 import com.hands.clean.setting.adapter.adaptRecyclerDevice
@@ -35,8 +38,6 @@ class BluetoothSettingActivity : AppCompatActivity() {
         val recyclerViewBluetooth: RecyclerView = findViewById(R.id.recyclerViewBluetooth)
         val deviceList = getBluetoothRecyclerDataArrayList()
         adaptRecyclerDevice(this, recyclerViewBluetooth, deviceList)
-
-
         val textViewEmptyRecycler: TextView = findViewById(R.id.textViewEmptyRecycler)
         if(deviceList.isEmpty()) {
             textViewEmptyRecycler.visibility = View.VISIBLE
@@ -44,8 +45,25 @@ class BluetoothSettingActivity : AppCompatActivity() {
             textViewEmptyRecycler.visibility = View.GONE
         }
 
+
+
+        val db = Room.databaseBuilder(
+                    applicationContext,
+                    AppDatabase::class.java, "database-name"
+                ).build()
+
         switchBluetooth.setOnCheckedChangeListener{ compoundButton: CompoundButton, isChecked: Boolean ->
             // Todo control recycler
+            Thread {
+                if (isChecked) {
+                    db.bluetoothDao().insertAll(BluetoothEntry(0, "기가지니", "", true))
+                    Log.e("test", db.bluetoothDao().getAll()[0].toString())
+                } else {
+                    Log.e("test", db.bluetoothDao().getAll().toString())
+                    db.bluetoothDao().delete(db.bluetoothDao().findByName("기가지니"))
+                    Log.e("test", db.bluetoothDao().getAll().toString())
+                }
+            }.start()
         }
     }
 
@@ -67,6 +85,7 @@ class BluetoothSettingActivity : AppCompatActivity() {
     private fun getBluetoothRecyclerDataArrayList(): ArrayList<RecyclerDeviceData> {
         val mBluetoothAdapter: BluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         val pairedDevices: Set<BluetoothDevice> = mBluetoothAdapter.bondedDevices;
+
 
         return ArrayList<RecyclerDeviceData>(pairedDevices.map { RecyclerDeviceData(it.name, it.address) })
     }
