@@ -6,8 +6,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.hands.clean.R
+import com.hands.clean.room.DateCount
 
-class RecyclerWashAdapter(private val washData: ArrayList<RecyclerWashData>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class RecyclerWashAdapter(private val washData: List<DateCount>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val TYPE_HEADER = 0
     private val TYPE_ITEM = 1
 
@@ -17,7 +18,7 @@ class RecyclerWashAdapter(private val washData: ArrayList<RecyclerWashData>) : R
         var date: TextView = itemView.findViewById<TextView>(R.id.date)
         var count: TextView = itemView.findViewById<TextView>(R.id.count)
 
-        fun bind (data: RecyclerWashData) {
+        fun bind (data: DateCount) {
             date.text = data.date
             count.text = data.count.toString()
         }
