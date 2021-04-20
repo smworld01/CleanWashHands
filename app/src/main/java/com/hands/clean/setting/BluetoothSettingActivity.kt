@@ -10,16 +10,11 @@ import android.view.View
 import android.widget.CompoundButton
 import android.widget.TextView
 import androidx.appcompat.widget.SwitchCompat
-import androidx.core.content.res.ResourcesCompat
-import androidx.core.view.isEmpty
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import com.hands.clean.R
-import com.hands.clean.room.AppDatabase
-import com.hands.clean.room.BluetoothEntry
-import com.hands.clean.setting.adapter.RecyclerDeviceAdapter
+import com.hands.clean.function.room.AppDatabase
+import com.hands.clean.function.room.BluetoothEntry
 import com.hands.clean.setting.adapter.RecyclerDeviceData
 import com.hands.clean.setting.adapter.adaptRecyclerDevice
 

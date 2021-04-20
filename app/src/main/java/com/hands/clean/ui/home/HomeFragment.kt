@@ -14,9 +14,9 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.hands.clean.R
-import com.hands.clean.room.AppDatabase
-import com.hands.clean.room.DateCount
-import com.hands.clean.room.useDatabase
+import com.hands.clean.function.room.AppDatabase
+import com.hands.clean.function.room.DateCount
+import com.hands.clean.function.room.useDatabase
 import com.hands.clean.ui.home.adapter.RecyclerWashAdapter
 import kotlin.concurrent.thread
 

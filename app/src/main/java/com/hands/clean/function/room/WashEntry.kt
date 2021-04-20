@@ -1,9 +1,8 @@
-package com.hands.clean.room
+package com.hands.clean.function.room
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.util.*
 
 @Entity
 data class WashEntry(

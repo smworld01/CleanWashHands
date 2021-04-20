@@ -1,4 +1,4 @@
-package com.hands.clean.room
+package com.hands.clean.function.room
 
 import androidx.room.TypeConverter
 import java.text.SimpleDateFormat
