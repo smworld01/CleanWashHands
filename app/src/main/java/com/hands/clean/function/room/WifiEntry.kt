@@ -6,8 +6,8 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class WifiEntry(
-    @PrimaryKey val uid: Int,
+    @PrimaryKey(autoGenerate = true) val uid: Int,
     @ColumnInfo(name = "name") val name: String,
     @ColumnInfo(name = "address") val address: String,
-    @ColumnInfo(name = "notification") val notification: Boolean,
+    @ColumnInfo(name = "notification") val isNotification: Boolean,
 )

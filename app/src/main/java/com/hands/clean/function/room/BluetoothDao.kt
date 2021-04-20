@@ -14,10 +14,10 @@ interface BluetoothDao {
     fun loadAllByIds(userIds: IntArray): List<BluetoothEntry>
 
     @Query("SELECT * FROM bluetoothEntry WHERE address = :address")
-    fun findByAddress(address: String): BluetoothEntry
+    fun findByAddress(address: String): BluetoothEntry?
 
     @Query("SELECT * FROM bluetoothEntry WHERE name = :name")
-    fun findByName(name: String): BluetoothEntry
+    fun findByName(name: String): BluetoothEntry?
 
     @Insert
     fun insertAll(vararg users: BluetoothEntry)
