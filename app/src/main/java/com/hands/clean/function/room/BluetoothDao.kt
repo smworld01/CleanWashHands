@@ -19,6 +19,9 @@ interface BluetoothDao {
     @Query("SELECT * FROM bluetoothEntry WHERE name = :name")
     fun findByName(name: String): BluetoothEntry?
 
+    @Query("UPDATE bluetoothEntry SET notification = :bool WHERE address = :address")
+    fun changeNotification(address: String, bool: Boolean)
+
     @Insert
     fun insertAll(vararg users: BluetoothEntry)
 
