@@ -6,9 +6,10 @@ import android.content.Intent
 import com.hands.clean.R
 import com.hands.clean.function.receiver.ACTION_REGISTER_NOTIFICATION_DEVICE
 
-class NewDeviceNotify(private val context: Context) : Notify(context) {
+class NewDeviceNotify(private val context: Context) : ActionNotify(context) {
     override val channelId: String = "Bluetooth"
     override val contentTitle: String = "새로운 기기에 연결되었습니다."
+
     override val channelName: String = context.getString(R.string.channel_bluetooth_name)
 
     fun addRegisterDeviceAction(address: String): Notify {

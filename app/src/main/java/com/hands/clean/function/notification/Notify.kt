@@ -53,10 +53,12 @@ abstract class Notify(private val context: Context) {
         return this
     }
 
-    fun sendNotification() {
+    protected fun sendNotification() {
         with(NotificationManagerCompat.from(context)) {
             // notificationId is a unique int for each notification that you must define
             notify(NotificationIdCounter.getNotificationId(), builder.build())
         }
     }
+
+    abstract fun send()
 }

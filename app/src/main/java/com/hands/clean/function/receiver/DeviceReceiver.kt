@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import com.hands.clean.function.room.BluetoothEntry
+import com.hands.clean.function.room.db
 import com.hands.clean.function.room.useDatabase
 import kotlin.concurrent.thread
 
@@ -14,7 +15,7 @@ const val ACTION_REGISTER_NOTIFICATION_DEVICE: String = "com.hands.clean.ACTION_
 val deviceReceiver = object : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         val action: String = intent.action!!
-        val db = useDatabase(context)
+        db = useDatabase(context)
         when(action) {
             ACTION_REGISTER_NOTIFICATION_DEVICE  -> {
                 registerNotificationDevice(context, intent)
@@ -23,8 +24,6 @@ val deviceReceiver = object : BroadcastReceiver() {
     }
 
     fun registerNotificationDevice(context: Context, intent: Intent) {
-        val db = useDatabase(context)
-
         val address = intent.getStringExtra("address")!!
         db.bluetoothDao().changeNotification(address, true)
 
