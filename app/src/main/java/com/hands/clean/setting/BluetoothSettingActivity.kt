@@ -10,16 +10,12 @@ import android.view.View
 import android.widget.CompoundButton
 import android.widget.TextView
 import androidx.appcompat.widget.SwitchCompat
-import androidx.core.content.res.ResourcesCompat
-import androidx.core.view.isEmpty
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import com.hands.clean.R
-import com.hands.clean.room.AppDatabase
-import com.hands.clean.room.BluetoothEntry
-import com.hands.clean.setting.adapter.RecyclerDeviceAdapter
+import com.hands.clean.function.room.AppDatabase
+import com.hands.clean.function.room.BluetoothEntry
+import com.hands.clean.function.room.db
 import com.hands.clean.setting.adapter.RecyclerDeviceData
 import com.hands.clean.setting.adapter.adaptRecyclerDevice
 
@@ -45,25 +41,8 @@ class BluetoothSettingActivity : AppCompatActivity() {
             textViewEmptyRecycler.visibility = View.GONE
         }
 
-
-
-        val db = Room.databaseBuilder(
-                    applicationContext,
-                    AppDatabase::class.java, "database-name"
-                ).build()
-
         switchBluetooth.setOnCheckedChangeListener{ compoundButton: CompoundButton, isChecked: Boolean ->
             // Todo control recycler
-            Thread {
-                if (isChecked) {
-                    db.bluetoothDao().insertAll(BluetoothEntry(0, "기가지니", "", true))
-                    Log.e("test", db.bluetoothDao().getAll()[0].toString())
-                } else {
-                    Log.e("test", db.bluetoothDao().getAll().toString())
-                    db.bluetoothDao().delete(db.bluetoothDao().findByName("기가지니"))
-                    Log.e("test", db.bluetoothDao().getAll().toString())
-                }
-            }.start()
         }
     }
 

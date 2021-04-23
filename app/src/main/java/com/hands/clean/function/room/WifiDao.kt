@@ -1,4 +1,4 @@
-package com.hands.clean.room
+package com.hands.clean.function.room
 
 import androidx.room.Dao
 import androidx.room.Delete
@@ -14,10 +14,10 @@ interface WifiDao {
     fun loadAllByIds(userIds: IntArray): List<WifiEntry>
 
     @Query("SELECT * FROM WifiEntry WHERE address = :address")
-    fun findByAddress(address: String): WifiEntry
+    fun findByAddress(address: String): WifiEntry?
 
     @Query("SELECT * FROM WifiEntry WHERE name = :name")
-    fun findByName(name: String): WifiEntry
+    fun findByName(name: String): WifiEntry?
 
     @Insert
     fun insertAll(vararg users: WifiEntry)

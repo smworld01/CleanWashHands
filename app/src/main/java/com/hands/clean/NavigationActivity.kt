@@ -1,5 +1,7 @@
 package com.hands.clean
 
+import android.bluetooth.BluetoothDevice
+import android.content.IntentFilter
 import android.os.Bundle
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
@@ -11,6 +13,11 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.hands.clean.function.notification.*
+import com.hands.clean.function.receiver.ACTION_REGISTER_NOTIFICATION_DEVICE
+import com.hands.clean.function.receiver.bluetoothReceiver
+import com.hands.clean.function.receiver.deviceReceiver
+import com.hands.clean.function.room.db
+import com.hands.clean.function.room.useDatabase
 
 class NavigationActivity : AppCompatActivity() {
 
@@ -34,6 +41,8 @@ class NavigationActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
 
         initNotification()
+        initReceiver()
+        db = useDatabase(applicationContext)
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -45,5 +54,17 @@ class NavigationActivity : AppCompatActivity() {
         BluetoothNotify(this).initChannel()
         WifiNotify(this).initChannel()
         GPSNotify(this).initChannel()
+    }
+
+    private  fun initReceiver() {
+        val bluetoothFilter = IntentFilter()
+        bluetoothFilter.addAction(BluetoothDevice.ACTION_ACL_CONNECTED)
+
+        registerReceiver(bluetoothReceiver, bluetoothFilter)
+
+        val deviceFilter = IntentFilter()
+        deviceFilter.addAction(ACTION_REGISTER_NOTIFICATION_DEVICE)
+
+        registerReceiver(deviceReceiver, deviceFilter)
     }
 }

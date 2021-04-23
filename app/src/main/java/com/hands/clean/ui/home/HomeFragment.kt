@@ -14,9 +14,10 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.hands.clean.R
-import com.hands.clean.room.AppDatabase
-import com.hands.clean.room.DateCount
-import com.hands.clean.room.useDatabase
+import com.hands.clean.function.room.AppDatabase
+import com.hands.clean.function.room.DateCount
+import com.hands.clean.function.room.db
+import com.hands.clean.function.room.useDatabase
 import com.hands.clean.ui.home.adapter.RecyclerWashAdapter
 import kotlin.concurrent.thread
 
@@ -37,19 +38,17 @@ class HomeFragment : Fragment() {
         })
         val root = inflater.inflate(R.layout.fragment_home, container, false)
 
-        val db: AppDatabase = useDatabase(root.context)
-
-        initLayout(root, db)
+        initLayout(root)
 
 
         return root
     }
 
-    private fun initLayout(root: View, db: AppDatabase) {
+    private fun initLayout(root: View) {
         thread {
-            val dateCount: List<DateCount> = getCountByDate(db)
+            val dateCount: List<DateCount> = getCountByDate()
             initRecycler(root, dateCount)
-            val todayCount = getTodayNotification(db)
+            val todayCount = getTodayNotification()
             initTextView(root, todayCount)
         }
 
@@ -71,7 +70,7 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun getCountByDate(db :AppDatabase): List<DateCount> {
+    private fun getCountByDate(): List<DateCount> {
         return db.washDao().countByDate()
     }
 
@@ -82,7 +81,7 @@ class HomeFragment : Fragment() {
 
     }
 
-    private fun getTodayNotification(db :AppDatabase): Int {
+    private fun getTodayNotification(): Int {
         return db.washDao().countToday()
     }
 }

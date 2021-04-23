@@ -21,13 +21,13 @@ class TestActivity : AppCompatActivity() {
         buttonSendNotification.setOnClickListener {
             BluetoothNotify(this)
                     .setNotification("블루투스에 연결되었습니다.")
-                    .sendNotification()
+                    .send()
         }
 
         buttonChangeNotificationChannel.setOnClickListener {
             WifiNotify(this)
                     .setNotification("와이파이에 연결되었습니다.")
-                    .sendNotification()
+                    .send()
         }
     }
 }

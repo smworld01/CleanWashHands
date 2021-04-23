@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.hands.clean.R
-import com.hands.clean.room.DateCount
+import com.hands.clean.function.room.DateCount
 
 class RecyclerWashAdapter(private val washData: List<DateCount>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val TYPE_HEADER = 0

@@ -1,4 +1,4 @@
-package com.hands.clean.room
+package com.hands.clean.function.room
 
 import androidx.room.Dao
 import androidx.room.Delete
@@ -14,10 +14,13 @@ interface BluetoothDao {
     fun loadAllByIds(userIds: IntArray): List<BluetoothEntry>
 
     @Query("SELECT * FROM bluetoothEntry WHERE address = :address")
-    fun findByAddress(address: String): BluetoothEntry
+    fun findByAddress(address: String): BluetoothEntry?
 
     @Query("SELECT * FROM bluetoothEntry WHERE name = :name")
-    fun findByName(name: String): BluetoothEntry
+    fun findByName(name: String): BluetoothEntry?
+
+    @Query("UPDATE bluetoothEntry SET notification = :bool WHERE address = :address")
+    fun changeNotification(address: String, bool: Boolean)
 
     @Insert
     fun insertAll(vararg users: BluetoothEntry)

@@ -1,4 +1,4 @@
-package com.hands.clean.room
+package com.hands.clean.function.room
 
 import androidx.room.Dao
 import androidx.room.Delete
