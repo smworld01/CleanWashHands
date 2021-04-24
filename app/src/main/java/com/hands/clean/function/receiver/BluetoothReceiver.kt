@@ -13,6 +13,7 @@ import com.hands.clean.function.room.useDatabase
 import kotlin.concurrent.thread
 
 val bluetoothReceiver = object : BroadcastReceiver() {
+
     override fun onReceive(context: Context, intent: Intent) {
         val action: String = intent.action!!
         when(action) {
@@ -24,27 +25,52 @@ val bluetoothReceiver = object : BroadcastReceiver() {
 
     private fun connectBluetooth(context: Context, intent: Intent) {
         db = useDatabase(context)
-        val device: BluetoothDevice =
-                intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE)!!
+        val device: BluetoothDevice = getDevice(intent)
 
         thread {
-            val queryDevice: BluetoothEntry? =
-                    db.bluetoothDao().findByAddress(device.address)
+            val queryDevice: BluetoothEntry? = findDeviceInDB(device.address)
 
-            if (queryDevice == null) {
-                db.bluetoothDao().insertAll(BluetoothEntry(0, device.name, device.address, false))
-                NewDeviceNotify(context)
-                        .setNotification("연결하시겠습니까?")
-                        // .addRegisterDeviceAction(device.address)
-                        .send()
+            if (isNewDevice(queryDevice)) {
+                registerDeviceInDB(device)
+                askUserForNewDeviceIsNotification(context)
             } else {
+                updateDeviceName(device, queryDevice!!)
+
                 if (queryDevice.isNotification) {
-                    BluetoothNotify(context)
-                            .setNotification("${device.name}에 연결되었습니다.")
-                            .send()
+                    sendNotification(context, device.name)
                 }
             }
         }
-
+    }
+    private fun getDevice(intent: Intent): BluetoothDevice {
+        return intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE)!!
+    }
+    private fun findDeviceInDB(address: String): BluetoothEntry? {
+        return db.bluetoothDao().findByAddress(address)
+    }
+    private fun isNewDevice(device :BluetoothEntry?): Boolean {
+        return device == null
+    }
+    private fun registerDeviceInDB(device: BluetoothDevice) {
+        db.bluetoothDao().insertAll(BluetoothEntry(0, device.name, device.address, false))
+    }
+    private fun askUserForNewDeviceIsNotification(context:Context) {
+        NewDeviceNotify(context)
+                .setNotification("등록하시겠습니까?")
+                // .addRegisterDeviceAction(device.address)
+                .send()
+    }
+    private fun updateDeviceName(device: BluetoothDevice, queryDevice: BluetoothEntry) {
+        if(isNameChanged(device, queryDevice)) {
+            db.bluetoothDao().changeNameByAddress(device.address, device.name)
+        }
+    }
+    private fun isNameChanged(device: BluetoothDevice, queryDevice: BluetoothEntry): Boolean {
+        return device.name != queryDevice.name
+    }
+    private fun sendNotification(context: Context, name: String) {
+        BluetoothNotify(context)
+                .setNotification("${name}에 연결되었습니다.")
+                .send()
     }
 }

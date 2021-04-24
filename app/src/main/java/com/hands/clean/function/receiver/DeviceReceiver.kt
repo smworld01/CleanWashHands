@@ -25,7 +25,7 @@ val deviceReceiver = object : BroadcastReceiver() {
 
     fun registerNotificationDevice(context: Context, intent: Intent) {
         val address = intent.getStringExtra("address")!!
-        db.bluetoothDao().changeNotification(address, true)
+        db.bluetoothDao().changeNotificationByAddress(address, true)
 
         db.close()
     }
