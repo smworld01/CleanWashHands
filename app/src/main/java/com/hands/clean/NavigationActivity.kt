@@ -66,5 +66,12 @@ class NavigationActivity : AppCompatActivity() {
         deviceFilter.addAction(ACTION_REGISTER_NOTIFICATION_DEVICE)
 
         registerReceiver(deviceReceiver, deviceFilter)
+//
+//        val intent: Intent = Intent(this, NetworkService::class.java)
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//            startForegroundService(intent);
+//        } else {
+//            startService(intent)
+//        }
     }
 }

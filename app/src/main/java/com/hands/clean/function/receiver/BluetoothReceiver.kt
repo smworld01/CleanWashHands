@@ -40,6 +40,7 @@ val bluetoothReceiver = object : BroadcastReceiver() {
                     sendNotification(context, device.name)
                 }
             }
+            db.close()
         }
     }
     private fun getDevice(intent: Intent): BluetoothDevice {

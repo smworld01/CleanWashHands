@@ -4,11 +4,13 @@
 
     <uses-permission android:name="android.permission.BLUETOOTH" />
 
-    <!-- If your app targets Android 9 or lower, you can declare ACCESS_COARSE_LOCATION instead. -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
 
     <application
         android:allowBackup="true"
@@ -17,7 +19,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CleanWashHands">
-        <activity android:name=".setting.TestActivity"></activity>
+        <service
+            android:name=".function.service.NetworkService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity android:name=".setting.TestActivity" />
         <activity
             android:name=".NavigationActivity"
             android:theme="@style/Theme.CleanWashHands.NoActionBar">
