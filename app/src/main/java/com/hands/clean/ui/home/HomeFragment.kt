@@ -14,10 +14,8 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.hands.clean.R
-import com.hands.clean.function.room.AppDatabase
-import com.hands.clean.function.room.DateCount
-import com.hands.clean.function.room.db
-import com.hands.clean.function.room.useDatabase
+import com.hands.clean.function.room.DB
+import com.hands.clean.function.room.entrys.DateCount
 import com.hands.clean.ui.home.adapter.RecyclerWashAdapter
 import kotlin.concurrent.thread
 
@@ -71,7 +69,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun getCountByDate(): List<DateCount> {
-        return db.washDao().countByDate()
+        return DB.getInstance().washDao().countByDate()
     }
 
     private fun initTextView(root: View, todayCount: Int) {
@@ -82,6 +80,6 @@ class HomeFragment : Fragment() {
     }
 
     private fun getTodayNotification(): Int {
-        return db.washDao().countToday()
+        return DB.getInstance().washDao().countToday()
     }
 }

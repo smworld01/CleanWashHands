@@ -1,7 +1,9 @@
 package com.hands.clean
 
 import android.bluetooth.BluetoothDevice
+import android.content.Intent
 import android.content.IntentFilter
+import android.os.Build
 import android.os.Bundle
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
@@ -12,12 +14,12 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import com.hands.clean.function.notification.*
+import com.hands.clean.function.notification.init.NotificationChannelManager
 import com.hands.clean.function.receiver.ACTION_REGISTER_NOTIFICATION_DEVICE
 import com.hands.clean.function.receiver.bluetoothReceiver
 import com.hands.clean.function.receiver.deviceReceiver
-import com.hands.clean.function.room.db
-import com.hands.clean.function.room.useDatabase
+import com.hands.clean.function.room.DB
+import com.hands.clean.function.service.NetworkService
 
 class NavigationActivity : AppCompatActivity() {
 
@@ -42,7 +44,8 @@ class NavigationActivity : AppCompatActivity() {
 
         initNotification()
         initReceiver()
-        db = useDatabase(applicationContext)
+
+        DB.getInstance(this)
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -51,9 +54,7 @@ class NavigationActivity : AppCompatActivity() {
     }
 
     private fun initNotification() {
-        BluetoothNotify(this).initChannel()
-        WifiNotify(this).initChannel()
-        GPSNotify(this).initChannel()
+        NotificationChannelManager(this).initChannel()
     }
 
     private  fun initReceiver() {
@@ -66,12 +67,12 @@ class NavigationActivity : AppCompatActivity() {
         deviceFilter.addAction(ACTION_REGISTER_NOTIFICATION_DEVICE)
 
         registerReceiver(deviceReceiver, deviceFilter)
-//
-//        val intent: Intent = Intent(this, NetworkService::class.java)
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//            startForegroundService(intent);
-//        } else {
-//            startService(intent)
-//        }
+
+        val intent: Intent = Intent(this, NetworkService::class.java)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            startForegroundService(intent);
+        } else {
+            startService(intent)
+        }
     }
 }

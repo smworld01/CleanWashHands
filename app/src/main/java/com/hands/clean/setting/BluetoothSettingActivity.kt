@@ -11,11 +11,7 @@ import android.widget.CompoundButton
 import android.widget.TextView
 import androidx.appcompat.widget.SwitchCompat
 import androidx.recyclerview.widget.RecyclerView
-import androidx.room.Room
 import com.hands.clean.R
-import com.hands.clean.function.room.AppDatabase
-import com.hands.clean.function.room.BluetoothEntry
-import com.hands.clean.function.room.db
 import com.hands.clean.setting.adapter.RecyclerDeviceData
 import com.hands.clean.setting.adapter.adaptRecyclerDevice
 

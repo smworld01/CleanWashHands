@@ -4,13 +4,14 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import com.hands.clean.R
+import com.hands.clean.function.notification.type.NotifyInfo
+import com.hands.clean.function.notification.type.NotifyType
 import com.hands.clean.function.receiver.ACTION_REGISTER_NOTIFICATION_DEVICE
 
-class NewDeviceNotify(private val context: Context) : ActionNotify(context) {
-    override val channelId: String = "Bluetooth"
+class NewDeviceNotify(private val context: Context, private val notifyInfo: NotifyInfo) : Notify(context, notifyInfo) {
     override val contentTitle: String = "새로운 기기에 연결되었습니다."
+    override lateinit var contentText: String
 
-    override val channelName: String = context.getString(R.string.channel_bluetooth_name)
 
     fun addRegisterDeviceAction(address: String): Notify {
         val intent: Intent = createDeviceIntent(address)
@@ -23,6 +24,18 @@ class NewDeviceNotify(private val context: Context) : ActionNotify(context) {
     private fun createDeviceIntent(address: String): Intent {
         val intent: Intent = Intent(ACTION_REGISTER_NOTIFICATION_DEVICE)
         intent.putExtra("address", address)
+        intent.putExtra("type", channelId)
         return intent
+    }
+    override fun send() {
+        sendNotification()
+    }
+
+    fun send(device: String) {
+        this.contentText = "새로운 ${notifyInfo.channelId} 기기 ${device}를 등록하시겠습니까?"
+        super.setNotification()
+        addRegisterDeviceAction(device)
+
+        send()
     }
 }
