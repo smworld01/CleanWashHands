@@ -16,4 +16,10 @@
         android:name="com.hands.clean.ui.settings.SettingsFragment"
         android:label="설정"
         tools:layout="@layout/fragment_settings" />
+
+    <fragment
+        android:id="@+id/nav_logs"
+        android:name="com.hands.clean.ui.logs.LogsFragment"
+        android:label="로그"
+        tools:layout="@layout/fragment_logs" />
 </navigation>
