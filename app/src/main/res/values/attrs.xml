@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="SettingsButton">
+        <attr name="contentImage" format="reference" />
+        <attr name="contentTitle" format="reference|string" />
+        <attr name="contentContext" format="reference|string" />
+    </declare-styleable>
+</resources>
