@@ -1,6 +1,7 @@
 package com.hands.clean.setting.adapter
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,18 +13,27 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.hands.clean.R
+import com.hands.clean.function.room.DB
+import com.hands.clean.function.room.entrys.BluetoothEntry
+import com.hands.clean.function.room.entrys.DeviceEntry
+import com.hands.clean.function.room.entrys.WifiEntry
+import kotlin.concurrent.thread
 
-class RecyclerDeviceAdapter (private val RecyclerDeviceData :ArrayList<RecyclerDeviceData>)
+class RecyclerDeviceAdapter (private val RecyclerDeviceData :ArrayList<DeviceEntry>)
     : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 
     inner class RecyclerDeviceItem(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var switchDevice: SwitchCompat = itemView.findViewById(R.id.switchDevice)
 
-        fun bind (data: RecyclerDeviceData) {
+        fun bind (data: DeviceEntry) {
             switchDevice.text = data.name
-            switchDevice.setOnCheckedChangeListener { compoundButton, isChecked ->
-                // Todo update SQLite table
+            switchDevice.isChecked = data.isNotification
+
+            switchDevice.setOnCheckedChangeListener { _, isChecked ->
+                thread {
+                    DB.getInstance(itemView.context).matchDaoByEntry(data).changeNotificationByAddress(data.address, isChecked)
+                }
             }
         }
     }
@@ -41,7 +51,7 @@ class RecyclerDeviceAdapter (private val RecyclerDeviceData :ArrayList<RecyclerD
     override fun getItemCount(): Int = RecyclerDeviceData.size
 }
 
-fun adaptRecyclerDevice(context: Context, recyclerView: RecyclerView, arrayList :ArrayList<RecyclerDeviceData>): RecyclerView {
+fun adaptRecyclerDevice(context: Context, recyclerView: RecyclerView, arrayList :ArrayList<DeviceEntry>): RecyclerView {
     val mAdapter = RecyclerDeviceAdapter(arrayList)
     val lm = LinearLayoutManager(context)
 

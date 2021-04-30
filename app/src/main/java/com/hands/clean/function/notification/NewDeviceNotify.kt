@@ -7,6 +7,8 @@ import com.hands.clean.R
 import com.hands.clean.function.notification.type.NotifyInfo
 import com.hands.clean.function.notification.type.NotifyType
 import com.hands.clean.function.receiver.ACTION_REGISTER_NOTIFICATION_DEVICE
+import com.hands.clean.function.room.DB
+import kotlin.concurrent.thread
 
 class NewDeviceNotify(private val context: Context, private val notifyInfo: NotifyInfo) : Notify(context, notifyInfo) {
     override val contentTitle: String = "새로운 기기에 연결되었습니다."
@@ -31,10 +33,11 @@ class NewDeviceNotify(private val context: Context, private val notifyInfo: Noti
         sendNotification()
     }
 
-    fun send(device: String) {
-        this.contentText = "새로운 ${notifyInfo.channelId} 기기 ${device}를 등록하시겠습니까?"
+    fun send(deviceAddress: String) {
+        val deviceName = DB.getInstance(context).matchDaoByNotifyType(notifyInfo).findByAddress(deviceAddress)?.name
+        this.contentText = "새로운 ${notifyInfo.channelId} 기기 ${deviceName}를 등록하시겠습니까?"
         super.setNotification()
-        addRegisterDeviceAction(device)
+        addRegisterDeviceAction(deviceAddress)
 
         send()
     }

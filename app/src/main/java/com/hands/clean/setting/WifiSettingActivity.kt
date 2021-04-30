@@ -9,13 +9,13 @@ import android.widget.TextView
 import androidx.appcompat.widget.SwitchCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.hands.clean.R
+import com.hands.clean.function.room.DB
+import com.hands.clean.function.room.entrys.DeviceEntry
 import com.hands.clean.setting.adapter.RecyclerDeviceData
 import com.hands.clean.setting.adapter.adaptRecyclerDevice
+import kotlin.concurrent.thread
 
 class WifiSettingActivity : AppCompatActivity() {
-    private var deviceList= arrayListOf<RecyclerDeviceData>(
-            RecyclerDeviceData("KT", ""), RecyclerDeviceData("SKT", "")
-    )
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_wifi_setting)
@@ -24,23 +24,30 @@ class WifiSettingActivity : AppCompatActivity() {
     }
 
     private fun initLayout() {
-        initActionBar()
-        val switchWifi: SwitchCompat = findViewById(R.id.switchWifi)
+        thread {
+            initActionBar()
+            val switchWifi: SwitchCompat = findViewById(R.id.switchWifi)
 
-        val recyclerViewWifi: RecyclerView = findViewById(R.id.recyclerViewWifi)
-        val deviceList = deviceList
-        adaptRecyclerDevice(this, recyclerViewWifi, deviceList)
+            val recyclerViewWifi: RecyclerView = findViewById(R.id.recyclerViewWifi)
+
+            val registeredWifiList: List<DeviceEntry> = DB.getInstance().wifiDao().getAll()
+
+            val deviceList: ArrayList<DeviceEntry> = registeredWifiList as ArrayList<DeviceEntry>
+
+            adaptRecyclerDevice(this, recyclerViewWifi, deviceList)
 
 
-        val textViewEmptyRecycler: TextView = findViewById(R.id.textViewEmptyRecycler)
-        if(deviceList.isEmpty()) {
-            textViewEmptyRecycler.visibility = View.VISIBLE
-        } else {
-            textViewEmptyRecycler.visibility = View.GONE
-        }
+            val textViewEmptyRecycler: TextView = findViewById(R.id.textViewEmptyRecycler)
+            if(deviceList.isEmpty()) {
+                textViewEmptyRecycler.visibility = View.VISIBLE
+            } else {
+                textViewEmptyRecycler.visibility = View.GONE
+            }
 
-        switchWifi.setOnCheckedChangeListener{ compoundButton: CompoundButton, isChecked: Boolean ->
-            // Todo control recycler
+            switchWifi.setOnCheckedChangeListener{ compoundButton: CompoundButton, isChecked: Boolean ->
+                // Todo control recycler
+            }
+
         }
     }
 

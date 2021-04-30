@@ -43,6 +43,8 @@ class NetworkConnectionCheck(val context: Context, val intent: Intent): Connecti
             }
 
             val currentBSSID = info.bssid
+            var currentSSID = info.ssid
+            currentSSID = currentSSID.replace("\"", "")
 
             val currentWifi = wifiList.filter {
                 it.BSSID == currentBSSID
@@ -59,14 +61,17 @@ class NetworkConnectionCheck(val context: Context, val intent: Intent): Connecti
             val queryWifi = DB.getInstance(context).wifiDao().findByAddress(currentBSSID)
             if(queryWifi == null) {
 
-                val currentWifiEntry = WifiEntry(0, info.ssid, info.bssid, false)
+                val currentWifiEntry = WifiEntry(0, currentSSID, info.bssid, false)
                 DB.getInstance().wifiDao().insertAll(currentWifiEntry)
 
                 NewDeviceNotify(context, NotifyType.Wifi).send(currentBSSID)
             } else {
                 if (queryWifi.isNotification) {
-                    WashNotify(context, NotifyType.Wifi).send("와이파이 기기 ${info.ssid}에 연결되었습니다.")
+                    WashNotify(context, NotifyType.Wifi).send("와이파이 기기 ${currentSSID}에 연결되었습니다.")
                 }
+
+
+
             }
         }
     }

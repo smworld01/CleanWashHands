@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import com.hands.clean.function.notification.type.NotifyType
 import com.hands.clean.function.room.DB
+import kotlin.concurrent.thread
 
 const val ACTION_REGISTER_NOTIFICATION_DEVICE: String = "com.hands.clean.ACTION_REGISTER_DEVICE"
 
@@ -19,11 +20,13 @@ val deviceReceiver = object : BroadcastReceiver() {
     }
 
     fun registerNotificationDevice(context: Context, intent: Intent) {
-        val address = intent.getStringExtra("address")!!
-        val type = intent.getStringExtra("type")!!
-        if(type == NotifyType.Bluetooth.channelId)
-            DB.getInstance(context).bluetoothDao().changeNotificationByAddress(address, true)
-        else if(type == NotifyType.Wifi.channelId)
-            DB.getInstance(context).wifiDao().changeNotificationByAddress(address, true)
+        thread {
+            val address = intent.getStringExtra("address")!!
+            val type = intent.getStringExtra("type")!!
+            if(type == NotifyType.Bluetooth.channelId)
+                DB.getInstance(context).bluetoothDao().changeNotificationByAddress(address, true)
+            else if(type == NotifyType.Wifi.channelId)
+                DB.getInstance(context).wifiDao().changeNotificationByAddress(address, true)
+        }
     }
 }

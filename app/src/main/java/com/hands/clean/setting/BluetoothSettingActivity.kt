@@ -12,6 +12,8 @@ import android.widget.TextView
 import androidx.appcompat.widget.SwitchCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.hands.clean.R
+import com.hands.clean.function.room.entrys.BluetoothEntry
+import com.hands.clean.function.room.entrys.DeviceEntry
 import com.hands.clean.setting.adapter.RecyclerDeviceData
 import com.hands.clean.setting.adapter.adaptRecyclerDevice
 
@@ -57,12 +59,12 @@ class BluetoothSettingActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun getBluetoothRecyclerDataArrayList(): ArrayList<RecyclerDeviceData> {
+    private fun getBluetoothRecyclerDataArrayList(): ArrayList<DeviceEntry> {
         val mBluetoothAdapter: BluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         val pairedDevices: Set<BluetoothDevice> = mBluetoothAdapter.bondedDevices;
 
 
-        return ArrayList<RecyclerDeviceData>(pairedDevices.map { RecyclerDeviceData(it.name, it.address) })
+        return ArrayList<DeviceEntry>(pairedDevices.map { BluetoothEntry(0, it.name, it.address, false) })
     }
 
 }

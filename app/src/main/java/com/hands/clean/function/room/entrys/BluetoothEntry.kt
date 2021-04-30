@@ -6,8 +6,8 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class BluetoothEntry(
-    @PrimaryKey(autoGenerate = true) val uid: Int,
-    @ColumnInfo(name = "name") val name: String,
-    @ColumnInfo(name = "address") val address: String,
-    @ColumnInfo(name = "notification") val isNotification: Boolean,
-)
+        @PrimaryKey(autoGenerate = true) override val uid: Int,
+        @ColumnInfo(name = "name") override val name: String,
+        @ColumnInfo(name = "address") override val address: String,
+        @ColumnInfo(name = "notification") override val isNotification: Boolean,
+): DeviceEntry
