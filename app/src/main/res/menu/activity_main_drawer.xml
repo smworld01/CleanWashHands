@@ -12,5 +12,9 @@
             android:id="@+id/nav_settings"
             android:icon="@drawable/ic_baseline_settings_24"
             android:title="설정" />
+        <item
+            android:id="@+id/nav_logs"
+            android:icon="@drawable/ic_baseline_access_time_24"
+            android:title="로그" />
     </group>
 </menu>
