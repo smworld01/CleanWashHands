@@ -9,40 +9,54 @@
     android:divider="?attr/dividerHorizontal"
     android:showDividers="middle|end">
 
-    <Button
-        android:id="@+id/buttonBlueTooth"
-        android:background="?attr/selectableItemBackground"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="블루투스 설정"/>
 
-    <Button
+
+    <com.hands.clean.view.CustomSettingsButton
         android:id="@+id/buttonWifi"
         android:background="?attr/selectableItemBackground"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="WiFi 설정" />
+        app:contentImage="@drawable/ic_baseline_wifi_24"
+        app:contentTitle="와이파이 설정"
+        app:contentContext="와이파이를 통해 설정합니다."
+        />
 
-    <Button
+    <com.hands.clean.view.CustomSettingsButton
+        android:id="@+id/buttonBluetooth"
+        android:layout_width="match_parent"
+        android:background="?attr/selectableItemBackground"
+        android:layout_height="wrap_content"
+        app:contentImage="@drawable/ic_baseline_bluetooth_24"
+        app:contentTitle="블루투스 설정"
+        app:contentContext="블루투스를 통해 설정합니다."
+        />
+    <com.hands.clean.view.CustomSettingsButton
         android:id="@+id/buttonGPS"
         android:background="?attr/selectableItemBackground"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="GPS 설정" />
-
-    <Button
+        app:contentImage="@drawable/ic_baseline_gps_fixed_24"
+        app:contentTitle="GPS 설정"
+        app:contentContext="GPS를 통해 설정합니다."
+        />
+    <com.hands.clean.view.CustomSettingsButton
         android:id="@+id/buttonSwitch"
         android:background="?attr/selectableItemBackground"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="손 씻기 인식 설정" />
-
-    <Button
+        app:contentImage="@drawable/ic_baseline_gps_fixed_24"
+        app:contentTitle="손 씻기 인식 설정"
+        app:contentContext="음성인식과 화면인식을 통해 인식종류를 설정합니다."
+        />
+    <com.hands.clean.view.CustomSettingsButton
         android:id="@+id/buttonTutorial"
         android:background="?attr/selectableItemBackground"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="튜토리얼 다시보기" />
+        app:contentImage="@drawable/ic_baseline_gps_fixed_24"
+        app:contentTitle="튜토리얼 다시보기"
+        app:contentContext="튜토리얼을 다시봅니다."
+        />
 
     <Button
         android:id="@+id/buttonTest"
