@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.hands.clean.R
 import com.hands.clean.TutorialActivity
-import com.hands.clean.function.room.DateCount
+import com.hands.clean.function.room.entrys.DateCount
 import com.hands.clean.setting.BluetoothSettingActivity
 import com.hands.clean.setting.GpsSettingActivity
 import com.hands.clean.setting.TestActivity
