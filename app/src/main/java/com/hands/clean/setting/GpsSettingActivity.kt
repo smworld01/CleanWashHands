@@ -18,15 +18,22 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import com.hands.clean.R
 import com.hands.clean.function.gps.GpsTracker
 import java.io.IOException
 import java.util.*
 
 
-class GpsSettingActivity : AppCompatActivity() {
+class GpsSettingActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private var gpsTracker: GpsTracker? = null
+    private var mMap: GoogleMap? = null
 
     private val GPS_ENABLE_REQUEST_CODE = 2001
     private val PERMISSIONS_REQUEST_CODE = 100
@@ -39,8 +46,10 @@ class GpsSettingActivity : AppCompatActivity() {
         setContentView(R.layout.activity_gps_setting)
 
         initActionBar()
-        setContentView(R.layout.activity_gps_setting)
 
+        val mapFragment = supportFragmentManager
+            .findFragmentById(R.id.map) as SupportMapFragment?
+        mapFragment!!.getMapAsync(this)
 
         if (!checkLocationServicesStatus()) {
             showDialogForLocationServiceSetting()
@@ -238,7 +247,8 @@ class GpsSettingActivity : AppCompatActivity() {
         )
         builder.setCancelable(true)
         builder.setPositiveButton("설정", DialogInterface.OnClickListener { dialog, id ->
-            val callGPSSettingIntent = Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+            val callGPSSettingIntent =
+                Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS)
             startActivityForResult(callGPSSettingIntent, GPS_ENABLE_REQUEST_CODE)
         })
         builder.setNegativeButton("취소",
@@ -266,5 +276,21 @@ class GpsSettingActivity : AppCompatActivity() {
         val locationManager = getSystemService(LOCATION_SERVICE) as LocationManager
         return (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
                 || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER))
+    }
+    override fun onMapReady(googleMap: GoogleMap) {
+        val SEOUL = LatLng(37.56, 126.97)
+        val markerOptions = MarkerOptions()
+        markerOptions.position(SEOUL)
+        markerOptions.title("서울")
+        markerOptions.snippet("한국의 수도")
+        googleMap.addMarker(markerOptions)
+
+
+        // 기존에 사용하던 다음 2줄은 문제가 있습니다.
+
+        // CameraUpdateFactory.zoomTo가 오동작하네요.
+        //mMap.moveCamera(CameraUpdateFactory.newLatLng(SEOUL));
+        //mMap.animateCamera(CameraUpdateFactory.zoomTo(10));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(SEOUL, 10f))
     }
 }

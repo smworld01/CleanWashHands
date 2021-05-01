@@ -19,6 +19,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CleanWashHands">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyD_0ExQzqqU-6c-9h9NVBYUpStjC9Tld9c"
+            />
         <service
             android:name=".function.service.NetworkService"
             android:enabled="true"
