@@ -20,6 +20,7 @@ import com.hands.clean.function.receiver.bluetoothReceiver
 import com.hands.clean.function.receiver.deviceReceiver
 import com.hands.clean.function.room.DB
 import com.hands.clean.function.service.NetworkService
+import com.hands.clean.function.settings.WashSettingsManager
 
 class NavigationActivity : AppCompatActivity() {
 
@@ -46,6 +47,12 @@ class NavigationActivity : AppCompatActivity() {
         initReceiver()
 
         DB.getInstance(this)
+
+        val settings = WashSettingsManager(applicationContext)
+        if (settings.tutorial==false) {
+            startActivity(Intent(this, TutorialActivity::class.java))
+            settings.tutorial=true
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {
