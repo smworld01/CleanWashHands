@@ -11,6 +11,8 @@ import android.os.IBinder
 import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
+import com.hands.clean.R
+import com.hands.clean.function.notification.type.NotifyType
 
 class NetworkService: Service() {
     private var networkConnectionCheck: NetworkConnectionCheck? = null
@@ -28,16 +30,7 @@ class NetworkService: Service() {
                 networkConnectionCheck?.register();
             }
         }
-        val channel: NotificationChannel = NotificationChannel("my_channel_01",
-                "Channel human readable title",
-                NotificationManager.IMPORTANCE_DEFAULT);
-
-        (getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager).createNotificationChannel(channel)
-
-        val notification: Notification = NotificationCompat.Builder(this, "my_channel_01")
-                .setContentTitle("")
-                .setContentText("").build();
-        startForeground(1, notification);
+        registerNotification()
         return START_STICKY
     }
 
@@ -48,5 +41,16 @@ class NetworkService: Service() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {     //  LOLLIPOP Version 이상..
             if(networkConnectionCheck!=null) networkConnectionCheck?.unregister();
         }
+    }
+
+    private fun registerNotification() {
+        val notification: Notification = NotificationCompat.Builder(applicationContext, NotifyType.NoticeService.channelId)
+                .setSmallIcon(R.drawable.ic_baseline_home_24)
+                .setContentTitle("WiFi와 GPS를 확인하고 있습니다.")
+                .setContentText("테스트 중..")
+                .setDefaults(Notification.FLAG_NO_CLEAR)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .build();
+        startForeground(1, notification);
     }
 }

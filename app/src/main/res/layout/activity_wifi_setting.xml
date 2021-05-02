@@ -1,42 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="10dp"
-    tools:context="com.hands.clean.setting.WifiSettingActivity">
+    tools:context="com.hands.clean.setting.WifiSettingActivity"
+    android:orientation="vertical"
+    android:divider="?attr/dividerHorizontal"
+    android:showDividers="middle"
+    >
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/switchWifi"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="와이파이 알림"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:padding="15dp"
         />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewWifi"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="@drawable/recycler_border"
-        android:layout_marginTop="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/switchWifi" />
 
-    <TextView
-        android:id="@+id/textViewEmptyRecycler"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:gravity="center"
-        android:visibility="gone"
-        android:text="와이파이 기기가 없습니다."
-        app:layout_constraintBottom_toBottomOf="@+id/recyclerViewWifi"
-        app:layout_constraintEnd_toEndOf="@+id/recyclerViewWifi"
-        app:layout_constraintStart_toStartOf="@+id/recyclerViewWifi"
-        app:layout_constraintTop_toTopOf="@+id/recyclerViewWifi" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switchNewDeviceWifi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="새로운 기기 연결시 등록 알림"
+        android:padding="15dp"
+        />
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switchEncryptionWifi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="비밀번호가 있는 와이파이 연결시 알림"
+        android:padding="15dp"
+        />
+
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+            android:layout_margin="10dp"
+        >
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewWifi"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@drawable/recycler_border"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textViewEmptyRecycler"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:visibility="gone"
+            android:text="와이파이 기기가 없습니다."
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

@@ -9,6 +9,7 @@ import com.hands.clean.function.notification.WashNotify
 import com.hands.clean.function.notification.type.NotifyType
 import com.hands.clean.function.room.entrys.BluetoothEntry
 import com.hands.clean.function.room.DB
+import com.hands.clean.function.settings.WashSettingsManager
 import kotlin.concurrent.thread
 
 val bluetoothReceiver = object : BroadcastReceiver() {
@@ -23,6 +24,8 @@ val bluetoothReceiver = object : BroadcastReceiver() {
     }
 
     private fun connectBluetooth(context: Context, intent: Intent) {
+        val settings = WashSettingsManager(context)
+        if (!settings.bluetoothNotify) return
         DB.getInstance(context)
         val device: BluetoothDevice = getDevice(intent)
 
@@ -30,6 +33,7 @@ val bluetoothReceiver = object : BroadcastReceiver() {
             val queryDevice: BluetoothEntry? = findDeviceInDB(device.address)
 
             if (isNewDevice(queryDevice)) {
+                if (!settings.bluetoothNewDeviceNotify) return@thread
                 registerDeviceInDB(device)
                 askUserForNewDeviceIsNotification(context, device)
             } else {

@@ -11,11 +11,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.hands.clean.R
 import com.hands.clean.function.room.DB
 import com.hands.clean.function.room.entrys.DeviceEntry
+import com.hands.clean.function.settings.WashSettingsManager
 import com.hands.clean.setting.adapter.RecyclerDeviceData
 import com.hands.clean.setting.adapter.adaptRecyclerDevice
 import kotlin.concurrent.thread
 
 class WifiSettingActivity : AppCompatActivity() {
+    val settings = WashSettingsManager(this)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_wifi_setting)
@@ -26,28 +28,10 @@ class WifiSettingActivity : AppCompatActivity() {
     private fun initLayout() {
         thread {
             initActionBar()
-            val switchWifi: SwitchCompat = findViewById(R.id.switchWifi)
 
-            val recyclerViewWifi: RecyclerView = findViewById(R.id.recyclerViewWifi)
+            initSwitchViews()
 
-            val registeredWifiList: List<DeviceEntry> = DB.getInstance().wifiDao().getAll()
-
-            val deviceList: ArrayList<DeviceEntry> = registeredWifiList as ArrayList<DeviceEntry>
-
-            adaptRecyclerDevice(this, recyclerViewWifi, deviceList)
-
-
-            val textViewEmptyRecycler: TextView = findViewById(R.id.textViewEmptyRecycler)
-            if(deviceList.isEmpty()) {
-                textViewEmptyRecycler.visibility = View.VISIBLE
-            } else {
-                textViewEmptyRecycler.visibility = View.GONE
-            }
-
-            switchWifi.setOnCheckedChangeListener{ compoundButton: CompoundButton, isChecked: Boolean ->
-                // Todo control recycler
-            }
-
+            initRecyclerView()
         }
     }
 
@@ -64,5 +48,44 @@ class WifiSettingActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun initSwitchViews() {
+        val switchWifi: SwitchCompat = findViewById(R.id.switchWifi)
+        val switchNewDeviceWifi: SwitchCompat = findViewById(R.id.switchNewDeviceWifi)
+        val switchEncryptionWifi: SwitchCompat = findViewById(R.id.switchEncryptionWifi)
+
+        switchWifi.isChecked = settings.wifiNotify
+        switchNewDeviceWifi.isChecked = settings.wifiNewDeviceNotify
+        switchEncryptionWifi.isChecked = settings.wifiEncryptionNotify
+
+
+        switchWifi.setOnCheckedChangeListener{ _, isChecked ->
+            settings.wifiNotify = isChecked
+        }
+        switchNewDeviceWifi.setOnCheckedChangeListener { _, isChecked ->
+            settings.wifiNewDeviceNotify = isChecked
+        }
+        switchEncryptionWifi.setOnCheckedChangeListener { _, isChecked ->
+            settings.wifiEncryptionNotify = isChecked
+        }
+    }
+
+    private fun initRecyclerView() {
+            val recyclerViewWifi: RecyclerView = findViewById(R.id.recyclerViewWifi)
+
+            val registeredWifiList: List<DeviceEntry> = DB.getInstance().wifiDao().getAll()
+
+            val deviceList: ArrayList<DeviceEntry> = registeredWifiList as ArrayList<DeviceEntry>
+
+            adaptRecyclerDevice(this, recyclerViewWifi, deviceList)
+
+
+            val textViewEmptyRecycler: TextView = findViewById(R.id.textViewEmptyRecycler)
+            if(deviceList.isEmpty()) {
+                textViewEmptyRecycler.visibility = View.VISIBLE
+            } else {
+                textViewEmptyRecycler.visibility = View.GONE
+            }
     }
 }

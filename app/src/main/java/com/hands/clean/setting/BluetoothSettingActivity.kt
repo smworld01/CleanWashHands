@@ -4,7 +4,6 @@ import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.CompoundButton
@@ -14,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.hands.clean.R
 import com.hands.clean.function.room.entrys.BluetoothEntry
 import com.hands.clean.function.room.entrys.DeviceEntry
-import com.hands.clean.setting.adapter.RecyclerDeviceData
+import com.hands.clean.function.settings.WashSettingsManager
 import com.hands.clean.setting.adapter.adaptRecyclerDevice
 
 class BluetoothSettingActivity : AppCompatActivity() {
@@ -27,7 +26,11 @@ class BluetoothSettingActivity : AppCompatActivity() {
 
     private fun initLayout() {
         initActionBar()
+
+        val settings = WashSettingsManager(applicationContext)
+
         val switchBluetooth: SwitchCompat = findViewById(R.id.switchBluetooth)
+        switchBluetooth.isChecked = settings.bluetoothNotify
 
         val recyclerViewBluetooth: RecyclerView = findViewById(R.id.recyclerViewBluetooth)
         val deviceList = getBluetoothRecyclerDataArrayList()
@@ -40,7 +43,7 @@ class BluetoothSettingActivity : AppCompatActivity() {
         }
 
         switchBluetooth.setOnCheckedChangeListener{ compoundButton: CompoundButton, isChecked: Boolean ->
-            // Todo control recycler
+            settings.bluetoothNotify = isChecked
         }
     }
 
