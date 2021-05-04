@@ -12,7 +12,7 @@ import com.hands.clean.function.receiver.ACTION_REGISTER_NOTIFICATION_DEVICE
 import com.hands.clean.function.room.entrys.*
 import java.lang.Exception
 
-class NewDeviceNotification(override val context: Context, private val locationInfo: DeviceEntry) : NotificationFactory(locationInfo) {
+class NewDeviceNotification(override val context: Context, private val locationInfo: DeviceEntry) : EntryNotificationFactory(locationInfo) {
 
     override fun setIcon(builder: NotificationCompat.Builder) {
         builder.setSmallIcon(R.drawable.ic_baseline_home_24)
@@ -20,8 +20,8 @@ class NewDeviceNotification(override val context: Context, private val locationI
 
     override fun setContentText(builder: NotificationCompat.Builder) {
         val contentText: String = when (locationInfo) {
-            is BluetoothEntry -> "$channelId 기기 ${locationInfo.name} 에 연결되었습니다."
-            is WifiEntry -> "$channelId 기기 ${locationInfo.name} 에 연결되었습니다."
+            is BluetoothEntry -> "${notifyInfo.channelId} 기기 ${locationInfo.name} 에 연결되었습니다."
+            is WifiEntry -> "${notifyInfo.channelId} 기기 ${locationInfo.name} 에 연결되었습니다."
             else -> throw Exception()
         }
         builder
@@ -46,7 +46,7 @@ class NewDeviceNotification(override val context: Context, private val locationI
     private fun createDeviceIntent(): Intent {
         val intent: Intent = Intent(ACTION_REGISTER_NOTIFICATION_DEVICE)
         intent.putExtra("address", locationInfo.address)
-        intent.putExtra("type", channelId)
+        intent.putExtra("type", notifyInfo.channelId)
         return intent
     }
 

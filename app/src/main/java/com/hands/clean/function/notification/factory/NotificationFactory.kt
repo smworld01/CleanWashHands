@@ -3,29 +3,26 @@ package com.hands.clean.function.notification.factory
 import android.app.Notification
 import android.content.Context
 import androidx.core.app.NotificationCompat
-import com.hands.clean.function.notification.notify.Notify
-import com.hands.clean.function.notification.type.convertDeviceEntryToNotifyInfo
-import com.hands.clean.function.room.entrys.DeviceEntry
+import com.hands.clean.function.notification.type.NotifyInfo
 
-abstract class NotificationFactory(locationInfo: DeviceEntry) {
-    val notifyInfo = convertDeviceEntryToNotifyInfo(locationInfo)
-    val channelId: String = notifyInfo.channelId
-
+abstract class NotificationFactory {
     abstract val context: Context
 
-    fun create(): Notify {
+    abstract val notifyInfo: NotifyInfo
+
+
+    fun build(): Notification {
         val builder: NotificationCompat.Builder = initBuilder()
         setIcon(builder)
         setContentText(builder)
         setOther(builder)
         setButton(builder)
-
-        return setNotify(builder.build())
+        return builder.build()
     }
 
 
     private fun initBuilder(): NotificationCompat.Builder {
-        return NotificationCompat.Builder(context, channelId)
+        return NotificationCompat.Builder(context, notifyInfo.channelId)
     }
 
     abstract fun setIcon(builder: NotificationCompat.Builder)
@@ -33,6 +30,4 @@ abstract class NotificationFactory(locationInfo: DeviceEntry) {
     abstract fun setOther(builder: NotificationCompat.Builder)
     abstract fun setButton(builder: NotificationCompat.Builder)
 
-
-    abstract fun setNotify(notification: Notification) : Notify
 }
