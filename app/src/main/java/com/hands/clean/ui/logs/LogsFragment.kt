@@ -1,11 +1,9 @@
 package com.hands.clean.ui.logs
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -13,13 +11,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.hands.clean.R
-import com.hands.clean.TutorialActivity
 import com.hands.clean.function.room.entrys.DateCount
-import com.hands.clean.setting.BluetoothSettingActivity
-import com.hands.clean.setting.GpsSettingActivity
-import com.hands.clean.setting.TestActivity
-import com.hands.clean.setting.WifiSettingActivity
-import com.hands.clean.ui.home.adapter.RecyclerWashAdapter
 import com.hands.clean.ui.logs.adapter.RecyclerLogsAdapter
 
 class LogsFragment : Fragment() {

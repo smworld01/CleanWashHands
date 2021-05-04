@@ -4,6 +4,7 @@ import android.content.Context
 import android.net.wifi.ScanResult
 import android.net.wifi.WifiInfo
 import android.net.wifi.WifiManager
+import android.util.Log
 import com.hands.clean.function.notification.factory.EncryptionWifiNotification
 import com.hands.clean.function.notification.factory.WashNotification
 import com.hands.clean.function.room.entrys.DeviceEntry
@@ -25,7 +26,9 @@ class WifiNotify(override val context: Context) : DeviceNotify() {
             it.BSSID == wifiInfo.bssid
         }
 
-        return currentWifi[0]!!
+        if (currentWifi.isNullOrEmpty()) throw Exception()
+
+        return currentWifi[0]
     }
 
     override fun isNotify(): Boolean {

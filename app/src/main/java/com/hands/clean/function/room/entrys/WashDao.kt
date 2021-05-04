@@ -1,5 +1,6 @@
 package com.hands.clean.function.room.entrys
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -21,10 +22,13 @@ interface WashDao {
     fun countDate(date: Date): Int
 
     @Query("SELECT COUNT(*) FROM WashEntry WHERE DATE(date) = DATE('now')")
-    fun countToday(): Int
+    fun countToday(): LiveData<Int>
+
+    @Query("SELECT DATE('now')")
+    fun now(): String
 
     @Query("SELECT DATE(date), COUNT(*) FROM WashEntry GROUP BY DATE(date) ORDER BY date DESC")
-    fun countByDate(): List<DateCount>
+    fun countByDate(): LiveData<MutableList<DateCount>>
 
     @Insert
     fun insertAll(vararg users: WashEntry)

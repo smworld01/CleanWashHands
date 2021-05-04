@@ -7,6 +7,7 @@ import android.net.Network
 import android.net.NetworkCapabilities
 import android.net.NetworkRequest
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
 import com.hands.clean.function.notification.notify.WifiNotify
 import com.hands.clean.function.settings.WashSettingsManager
@@ -28,7 +29,11 @@ class NetworkConnectionCheck(val context: Context, val intent: Intent): Connecti
     override fun onAvailable(network: Network) {
         super.onAvailable(network)
         thread {
-            WifiNotify(context).onNotify()
+            try {
+                WifiNotify(context).onNotify()
+            } catch(e: Exception) {
+                Log.e("test", "가져오기 실패")
+            }
         }
     }
 }

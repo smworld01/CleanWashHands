@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -16,8 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.hands.clean.R
 import com.hands.clean.function.room.DB
 import com.hands.clean.function.room.entrys.DateCount
-import com.hands.clean.ui.home.adapter.RecyclerWashAdapter
-import kotlin.concurrent.thread
+import com.hands.clean.ui.home.adapter.WashListAdapterWithHeader
 
 class HomeFragment : Fragment() {
 
@@ -43,18 +43,15 @@ class HomeFragment : Fragment() {
     }
 
     private fun initLayout(root: View) {
-        thread {
-            val dateCount: List<DateCount> = getCountByDate()
-            initRecycler(root, dateCount)
-            val todayCount = getTodayNotification()
-            initTextView(root, todayCount)
-        }
+        initRecycler(root)
+        initTextView(root)
 
     }
 
-    private fun initRecycler(root: View, dateCount: List<DateCount>) {
+    private fun initRecycler(root: View) {
         val recyclerViewWash: RecyclerView = root.findViewById(R.id.recyclerViewWash)
-        val mAdapter = RecyclerWashAdapter(dateCount)
+
+        val mAdapter = WashListAdapterWithHeader()
 
         val lm = LinearLayoutManager(root.context)
 
@@ -66,20 +63,30 @@ class HomeFragment : Fragment() {
             itemDecoration.setDrawable(ResourcesCompat.getDrawable(resources, R.color.black, null)!!)
             addItemDecoration(itemDecoration)
         }
+
+        getCountByDate().observe(this.viewLifecycleOwner, {
+            mAdapter.submitList(it)
+        })
     }
 
-    private fun getCountByDate(): List<DateCount> {
+    private fun getCountByDate(): LiveData<MutableList<DateCount>> {
         return DB.getInstance().washDao().countByDate()
     }
 
-    private fun initTextView(root: View, todayCount: Int) {
+    private fun initTextView(root: View) {
         val textView: TextView = root.findViewById(R.id.textView)
 
-        textView.text = "오늘은 ${todayCount}번 알림을 받으셨어요"
+        textView.text = "오늘은 0번 알림을 받으셨어요"
 
+        val todayCount = getTodayNotification()
+
+        // todo UTC 관련 오류가 있음 ex) 서울은 +9인데 sql now()는 +0
+        todayCount.observe(this.viewLifecycleOwner, {
+            textView.text = "오늘은 ${it}번 알림을 받으셨어요"
+        })
     }
 
-    private fun getTodayNotification(): Int {
+    private fun getTodayNotification(): LiveData<Int> {
         return DB.getInstance().washDao().countToday()
     }
 }
