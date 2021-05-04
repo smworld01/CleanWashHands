@@ -6,16 +6,16 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class PagerRecyclerAdapter(private val string: List<String>) : RecyclerView.Adapter<PagerViewHolder>() {
+class PagerRecyclerAdapter(private val pageList: ArrayList<String>) : RecyclerView.Adapter<PagerViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PagerViewHolder =
-            PagerViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.fragment_tutorial, parent, false))
+        PagerViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.fragment_tutorial, parent, false))
 
     override fun onBindViewHolder(holder: PagerViewHolder, position: Int) {
-        holder.bind(string[position], position)
+        holder.bind(pageList[position], position)
     }
 
-    override fun getItemCount(): Int = string.size
+    override fun getItemCount(): Int = pageList.size
 }
 
 class PagerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
