@@ -45,7 +45,7 @@ class NavigationActivity : AppCompatActivity() {
         initNotification()
         initReceiver()
 
-        DB.getInstance(this)
+        DB.init(this)
     }
 
     override fun onSupportNavigateUp(): Boolean {

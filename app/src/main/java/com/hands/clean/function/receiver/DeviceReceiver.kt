@@ -24,9 +24,9 @@ val deviceReceiver = object : BroadcastReceiver() {
             val address = intent.getStringExtra("address")!!
             val type = intent.getStringExtra("type")!!
             if(type == NotifyType.Bluetooth.channelId)
-                DB.getInstance(context).bluetoothDao().changeNotificationByAddress(address, true)
+                DB.getInstance().bluetoothDao().changeNotificationByAddress(address, true)
             else if(type == NotifyType.Wifi.channelId)
-                DB.getInstance(context).wifiDao().changeNotificationByAddress(address, true)
+                DB.getInstance().wifiDao().changeNotificationByAddress(address, true)
         }
     }
 }

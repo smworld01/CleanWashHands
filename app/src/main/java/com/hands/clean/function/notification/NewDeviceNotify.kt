@@ -34,7 +34,7 @@ class NewDeviceNotify(private val context: Context, private val notifyInfo: Noti
     }
 
     fun send(deviceAddress: String) {
-        val deviceName = DB.getInstance(context).matchDaoByNotifyType(notifyInfo).findByAddress(deviceAddress)?.name
+        val deviceName = DB.getInstance().matchDaoByNotifyType(notifyInfo).findByAddress(deviceAddress)?.name
         this.contentText = "새로운 ${notifyInfo.channelId} 기기 ${deviceName}를 등록하시겠습니까?"
         super.setNotification()
         addRegisterDeviceAction(deviceAddress)

@@ -56,7 +56,7 @@ class NetworkConnectionCheck(val context: Context, val intent: Intent): Connecti
 
             notifyEncryption(currentWifi)
 
-            val queryWifi = DB.getInstance(context).wifiDao().findByAddress(wifiInfo.bssid)
+            val queryWifi = DB.getInstance().wifiDao().findByAddress(wifiInfo.bssid)
             if(queryWifi == null) {
                 notifyNewWifiDevice(wifiInfo)
             } else {

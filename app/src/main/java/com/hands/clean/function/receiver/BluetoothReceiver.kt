@@ -26,7 +26,7 @@ val bluetoothReceiver = object : BroadcastReceiver() {
     private fun connectBluetooth(context: Context, intent: Intent) {
         val settings = WashSettingsManager(context)
         if (!settings.bluetoothNotify) return
-        DB.getInstance(context)
+        DB.getInstance()
         val device: BluetoothDevice = getDevice(intent)
 
         thread {

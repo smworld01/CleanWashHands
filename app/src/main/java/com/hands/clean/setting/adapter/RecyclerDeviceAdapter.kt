@@ -32,7 +32,7 @@ class RecyclerDeviceAdapter (private val RecyclerDeviceData :ArrayList<DeviceEnt
 
             switchDevice.setOnCheckedChangeListener { _, isChecked ->
                 thread {
-                    DB.getInstance(itemView.context).matchDaoByEntry(data).changeNotificationByAddress(data.address, isChecked)
+                    DB.getInstance().matchDaoByEntry(data).changeNotificationByAddress(data.address, isChecked)
                 }
             }
         }
