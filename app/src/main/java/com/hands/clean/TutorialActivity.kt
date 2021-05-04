@@ -5,10 +5,10 @@ import android.os.Bundle
 import android.content.Intent
 import android.util.Log
 import android.view.View
+import android.widget.Button
 import androidx.core.view.size
 import androidx.viewpager2.widget.ViewPager2
 import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
-import kotlinx.android.synthetic.main.activity_tutorial.*
 
 class TutorialActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,7 +17,10 @@ class TutorialActivity : AppCompatActivity() {
         setContentView(R.layout.activity_tutorial)
         initActionBar()
 
-        var pager:ViewPager2 = findViewById(R.id.pager1)
+        val buttonNext:Button = findViewById(R.id.buttonNext)
+        val buttonSkip:Button = findViewById(R.id.buttonSkip)
+
+        val pager:ViewPager2 = findViewById(R.id.pager1)
         val dotsIndicator = findViewById<WormDotsIndicator>(R.id.dots_indicator)
         val stringList: List<String> = arrayListOf("안녕하세요\n" + "튜토리얼 입니다.", "튜토리얼입니다.", "끝입니다.")
         pager.adapter = PagerRecyclerAdapter(stringList as ArrayList<String>)
