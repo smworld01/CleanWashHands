@@ -1,12 +1,9 @@
 package com.hands.clean.setting.adapter
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Switch
-import android.widget.TextView
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -14,9 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.hands.clean.R
 import com.hands.clean.function.room.DB
-import com.hands.clean.function.room.entrys.BluetoothEntry
 import com.hands.clean.function.room.entrys.DeviceEntry
-import com.hands.clean.function.room.entrys.WifiEntry
 import kotlin.concurrent.thread
 
 class RecyclerDeviceAdapter (private val RecyclerDeviceData :ArrayList<DeviceEntry>)

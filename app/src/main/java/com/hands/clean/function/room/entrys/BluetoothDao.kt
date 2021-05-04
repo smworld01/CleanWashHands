@@ -51,7 +51,6 @@ interface BluetoothDao:DeviceDao {
         changeNameByAddressBluetooth(address, name)
     }
     override fun insertAll(vararg users: DeviceEntry) {
-        val t =
         insertAllBluetooth(*(users.map { it as BluetoothEntry }.toTypedArray()))
     }
     override fun delete(user: DeviceEntry) {

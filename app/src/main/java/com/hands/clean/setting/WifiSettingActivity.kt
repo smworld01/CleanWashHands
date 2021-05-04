@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
-import android.widget.CompoundButton
 import android.widget.TextView
 import androidx.appcompat.widget.SwitchCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -12,7 +11,6 @@ import com.hands.clean.R
 import com.hands.clean.function.room.DB
 import com.hands.clean.function.room.entrys.DeviceEntry
 import com.hands.clean.function.settings.WashSettingsManager
-import com.hands.clean.setting.adapter.RecyclerDeviceData
 import com.hands.clean.setting.adapter.adaptRecyclerDevice
 import kotlin.concurrent.thread
 
