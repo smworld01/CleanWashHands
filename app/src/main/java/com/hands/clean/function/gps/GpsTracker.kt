@@ -39,7 +39,10 @@ class GpsTracker(private val mContext: Context) : Service(),
                 if (hasFineLocationPermission == PackageManager.PERMISSION_GRANTED &&
                     hasCoarseLocationPermission == PackageManager.PERMISSION_GRANTED
                 ) {
-                } else return null
+                } else {
+                    Log.e("test", "${hasFineLocationPermission}, ${hasCoarseLocationPermission},")
+                    return null
+                }
                 if (isNetworkEnabled) {
                     locationManager!!.requestLocationUpdates(
                         LocationManager.NETWORK_PROVIDER,

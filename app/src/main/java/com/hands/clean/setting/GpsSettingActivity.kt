@@ -4,6 +4,7 @@ import android.Manifest
 import android.location.Address
 import android.location.Geocoder
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Button
@@ -28,7 +29,7 @@ import java.util.*
 
 class GpsSettingActivity : AppCompatActivity(), OnMapReadyCallback {
 
-    private var gpsTracker: GpsTracker? = null
+    private var gpsTracker: GpsTracker = GpsTracker(this)
     private val gpsSetting: GpsSetting = GpsSetting(this)
     private val gpsPermission: GpsPermission = GpsPermission(this)
     private var mMap: GoogleMap? = null
@@ -50,21 +51,19 @@ class GpsSettingActivity : AppCompatActivity(), OnMapReadyCallback {
         if (gpsSetting.isDisabled()) {
             gpsSetting.request()
         }
+        gpsPermission.registerGrantedCallBack { onCallBack() }
+        gpsSetting.registerEnableCallBack { onCallBack() }
+    }
 
-        val textview_address = findViewById<View>(R.id.textview) as TextView
-
-
-        val ShowLocationButton: Button = findViewById<View>(R.id.button) as Button
-        ShowLocationButton.setOnClickListener {
-            gpsTracker = GpsTracker(this@GpsSettingActivity)
-            val latitude: Double = gpsTracker!!.getLatitude()
-            val longitude: Double = gpsTracker!!.getLongitude()
-            Toast.makeText(
-                this@GpsSettingActivity,
-                "현재위치 \n위도 $latitude\n경도 $longitude",
-                Toast.LENGTH_LONG
-            ).show()
-
+    private fun onCallBack() {
+        Log.e("test", gpsPermission.isGranted().toString())
+        if (gpsSetting.isEnabled() && gpsPermission.isGranted()) {
+            gpsTracker.getLocation()
+            val latitude: Double = gpsTracker.getLatitude()
+            val longitude: Double = gpsTracker.getLongitude()
+            Log.e("test", gpsPermission.isGranted().toString())
+            val currentLocation = LatLng(latitude, longitude)
+            mMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 10f))
         }
     }
 
@@ -83,13 +82,16 @@ class GpsSettingActivity : AppCompatActivity(), OnMapReadyCallback {
         return super.onOptionsItemSelected(item)
     }
     override fun onMapReady(googleMap: GoogleMap) {
-        val SEOUL = LatLng(37.56, 126.97)
-        val markerOptions = MarkerOptions()
-        markerOptions.position(SEOUL)
-        markerOptions.title("서울")
-        markerOptions.snippet("한국의 수도")
-        googleMap.addMarker(markerOptions)
+        mMap = googleMap
+        onCallBack()
 
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(SEOUL, 10f))
+//        val SEOUL = LatLng(37.56, 126.97)
+//        val markerOptions = MarkerOptions()
+//        markerOptions.position(SEOUL)
+//        markerOptions.title("서울")
+//        markerOptions.snippet("한국의 수도")
+//        googleMap.addMarker(markerOptions)
+//
+//        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(SEOUL, 10f))
     }
 }

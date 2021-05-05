@@ -17,7 +17,9 @@ class GpsPermission(
 ): Permission {
     private val requestPermissionLauncher = activity.registerForActivityResult(ActivityResultContracts.RequestPermission()) { isSuccess ->
         if(isSuccess) {
+            grantedCallBack()
         } else {
+            deniedCallBack()
             Toast.makeText(
                 activity,
                 "퍼미션이 거부되었습니다. 해당 기능을 사용하려면 허용해야 합니다.",
@@ -25,6 +27,17 @@ class GpsPermission(
             ).show()
             activity.finish()
         }
+    }
+
+    private var grantedCallBack: () -> Unit = {}
+    private var deniedCallBack: () -> Unit = {}
+
+    fun registerGrantedCallBack(callback: () -> Unit) {
+        grantedCallBack = callback
+    }
+
+    fun registerDeniedCallBack(callback: () -> Unit) {
+        deniedCallBack = callback
     }
 
     override fun request() {

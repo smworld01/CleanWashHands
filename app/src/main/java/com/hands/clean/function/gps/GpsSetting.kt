@@ -18,9 +18,22 @@ class GpsSetting(
     private val activity: AppCompatActivity,
 ) {
     private val startForResult = activity.registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-        if (isDisabled()) {
-
+        if (isEnabled()) {
+            enableCallBack()
+        } else {
+            disableCallBack()
         }
+    }
+
+    private var enableCallBack: () -> Unit = {}
+    private var disableCallBack: () -> Unit = {}
+
+    fun registerEnableCallBack(callback: () -> Unit) {
+        enableCallBack = callback
+    }
+
+    fun registerDisableCallBack(callback: () -> Unit) {
+        disableCallBack = callback
     }
 
     fun request() {
