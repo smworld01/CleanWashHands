@@ -27,6 +27,7 @@ class NavigationActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        DB.init(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_navigation)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
@@ -45,8 +46,6 @@ class NavigationActivity : AppCompatActivity() {
 
         initNotification()
         initReceiver()
-
-        DB.init(this)
 
         val settings = WashSettingsManager(applicationContext)
         if (!settings.tutorial) {
