@@ -24,14 +24,13 @@ class NetworkService: Service() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
-        Log.e("test", "start")
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {    //  LOLLIPOP Version 이상..
             if(networkConnectionCheck==null){
                 networkConnectionCheck=NetworkConnectionCheck(applicationContext, intent);
                 networkConnectionCheck?.register();
+                registerNotification()
             }
         }
-        registerNotification()
         return START_STICKY
     }
 

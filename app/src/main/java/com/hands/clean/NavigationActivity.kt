@@ -23,7 +23,7 @@ import com.hands.clean.function.service.NetworkService
 import com.hands.clean.function.settings.WashSettingsManager
 
 class NavigationActivity : AppCompatActivity() {
-
+    private val washSettings = WashSettingsManager(this)
     private lateinit var appBarConfiguration: AppBarConfiguration
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,6 +46,7 @@ class NavigationActivity : AppCompatActivity() {
 
         initNotification()
         initReceiver()
+        initService()
 
         val settings = WashSettingsManager(applicationContext)
         if (!settings.tutorial) {
@@ -74,11 +75,14 @@ class NavigationActivity : AppCompatActivity() {
 
         registerReceiver(deviceReceiver, deviceFilter)
 
-        val intent: Intent = Intent(this, NetworkService::class.java)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            startForegroundService(intent);
-        } else {
-            startService(intent)
+    }
+    private fun initService() {
+        if (washSettings.wifiNotify || washSettings.gpsNotify) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                startForegroundService(Intent(this, NetworkService::class.java))
+            } else {
+                startService(intent)
+            }
         }
     }
 }

@@ -1,5 +1,7 @@
 package com.hands.clean.setting
 
+import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
@@ -11,6 +13,7 @@ import com.hands.clean.R
 import com.hands.clean.function.permission.GpsPermissionRequesterWithBackground
 import com.hands.clean.function.room.DB
 import com.hands.clean.function.room.entrys.DeviceEntry
+import com.hands.clean.function.service.NetworkService
 import com.hands.clean.function.settings.WashSettingsManager
 import com.hands.clean.setting.adapter.adaptRecyclerDevice
 import kotlin.concurrent.thread
@@ -64,6 +67,16 @@ class WifiSettingActivity : AppCompatActivity() {
 
         switchWifi.setOnCheckedChangeListener{ _, isChecked ->
             settings.wifiNotify = isChecked
+            val intent = Intent(this, NetworkService::class.java)
+            // Todo waiting
+            if (isChecked)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    startForegroundService(intent)
+                } else {
+                    startService(intent)
+                }
+            else
+                stopService(intent)
         }
         switchNewDeviceWifi.setOnCheckedChangeListener { _, isChecked ->
             settings.wifiNewDeviceNotify = isChecked
