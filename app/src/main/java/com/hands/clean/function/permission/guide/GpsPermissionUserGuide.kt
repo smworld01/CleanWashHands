@@ -16,6 +16,8 @@ class GpsPermissionUserGuide(
         )
         builder.setPositiveButton("권한 요청") { dialog, id ->
             dialog.cancel()
+        }
+        builder.setOnDismissListener{
             callback()
         }
         builder.create().show()
@@ -31,6 +33,8 @@ class GpsPermissionUserGuide(
         )
         builder.setPositiveButton("닫기") { dialog, id ->
             dialog.cancel()
+        }
+        builder.setOnDismissListener{
             callback()
         }
         builder.create().show()
@@ -46,8 +50,10 @@ class GpsPermissionUserGuide(
                 설정에서 GPS 권한을 수락해주세요.
             """.trimIndent()
         )
-        builder.setPositiveButton("확인") { dialog, id ->
+        builder.setPositiveButton("닫기") { dialog, id ->
             dialog.cancel()
+        }
+        builder.setOnDismissListener{
             callback()
         }
         builder.create().show()

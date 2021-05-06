@@ -20,6 +20,8 @@ class BackgroundGpsPermissionUserGuide(
         )
         builder.setPositiveButton("확인") { dialog, id ->
             dialog.cancel()
+        }
+        builder.setOnDismissListener{
             callback()
         }
         builder.create().show()
@@ -37,6 +39,8 @@ class BackgroundGpsPermissionUserGuide(
         )
         builder.setPositiveButton("닫기") { dialog, id ->
             dialog.cancel()
+        }
+        builder.setOnDismissListener{
             callback()
         }
         builder.create().show()
