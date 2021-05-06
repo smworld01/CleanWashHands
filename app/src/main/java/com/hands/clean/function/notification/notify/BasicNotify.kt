@@ -5,7 +5,11 @@ import android.content.Context
 import androidx.core.app.NotificationManagerCompat
 import com.hands.clean.function.notification.NotificationIdCounter
 
-class BasicNotify(private val context: Context, private val notification: Notification): Notify {
+open class BasicNotify(
+    private val context: Context,
+    private val notification: Notification,
+    private val notificationId: Int
+): Notify {
     override fun onNotify() {
         send()
     }
@@ -13,7 +17,7 @@ class BasicNotify(private val context: Context, private val notification: Notifi
     private fun send() {
         with(NotificationManagerCompat.from(context)) {
             // notificationId is a unique int for each notification that you must define
-            notify(NotificationIdCounter.getNotificationId(), notification)
+            notify(notificationId, notification)
         }
     }
 }

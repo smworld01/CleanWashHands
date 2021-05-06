@@ -4,12 +4,16 @@ import android.app.Notification
 import android.content.Context
 import androidx.core.app.NotificationCompat
 import com.hands.clean.R
+import com.hands.clean.function.notification.NotificationIdCounter
 import com.hands.clean.function.notification.notify.Notify
 import com.hands.clean.function.notification.notify.RecordNotify
 import com.hands.clean.function.room.entrys.*
 import java.lang.Exception
 
-open class WashNotification(override val context: Context, private val locationInfo: DeviceEntry) : EntryNotificationFactory(locationInfo) {
+open class WashNotification(
+    override val context: Context,
+    private val locationInfo: DeviceEntry
+) : EntryNotificationFactory(locationInfo) {
 
     override fun setIcon(builder: NotificationCompat.Builder) {
         builder.setSmallIcon(R.drawable.ic_baseline_home_24)

@@ -12,12 +12,16 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.concurrent.thread
 
-class RecordNotify(private val context: Context, private val notification: Notification, private val notifyInfo: NotifyInfo): Notify {
-
+class RecordNotify(
+    private val context: Context,
+    private val notification: Notification,
+    private val notifyInfo: NotifyInfo,
+    notificationId: Int = NotificationIdCounter.getNotificationId()
+): BasicNotify(context, notification, notificationId) {
 
     override fun onNotify() {
+        super.onNotify()
         record()
-        send()
     }
 
     private fun record() {
@@ -26,13 +30,6 @@ class RecordNotify(private val context: Context, private val notification: Notif
             val format = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
             val we = WashEntry(0, format.format(now), notifyInfo.channelId, "", false)
             DB.getInstance().washDao().insertAll(we)
-        }
-    }
-
-    private fun send() {
-        with(NotificationManagerCompat.from(context)) {
-            // notificationId is a unique int for each notification that you must define
-            notify(NotificationIdCounter.getNotificationId(), notification)
         }
     }
 }

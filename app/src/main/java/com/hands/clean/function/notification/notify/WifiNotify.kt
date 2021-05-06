@@ -25,6 +25,8 @@ class WifiNotify(override val context: Context) : DeviceNotify() {
         val currentWifi = wifiList.filter {
             it.BSSID == wifiInfo.bssid
         }
+        Log.e("test", wifiList.toString())
+        Log.e("test",currentWifi.toString())
 
         if (currentWifi.isNullOrEmpty()) throw Exception()
 
