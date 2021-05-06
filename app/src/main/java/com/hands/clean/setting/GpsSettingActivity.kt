@@ -32,13 +32,9 @@ class GpsSettingActivity : AppCompatActivity(), OnMapReadyCallback {
             .findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment!!.getMapAsync(this)
 
+        permissionRequester.registerGranted { gpsSetting.onRequest() }
         permissionRequester.registerDenied { finish() }
         permissionRequester.onRequest()
-
-        if (gpsSetting.isDisabled()) {
-            gpsSetting.request()
-        }
-        permissionRequester.registerGranted { onCallBack() }
         gpsSetting.registerEnableCallBack { onCallBack() }
     }
 

@@ -36,7 +36,14 @@ class SystemSettingsGpsManager(
         disableCallBack = callback
     }
 
-    fun request() {
+    fun onRequest() {
+        when {
+            isEnabled() -> enableCallBack()
+            isDisabled() -> request()
+        }
+    }
+
+    private fun request() {
         val builder: AlertDialog.Builder = AlertDialog.Builder(activity)
         builder.setTitle("위치 서비스 비활성화")
         builder.setMessage(
@@ -46,13 +53,13 @@ class SystemSettingsGpsManager(
             """.trimIndent()
         )
         builder.setCancelable(true)
-        builder.setPositiveButton("설정", DialogInterface.OnClickListener { dialog, id ->
+        builder.setPositiveButton("설정") { dialog, id ->
             val callGPSSettingIntent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
             startForResult.launch(callGPSSettingIntent)
-
-        })
-        builder.setNegativeButton("취소",
-            DialogInterface.OnClickListener { dialog, id -> dialog.cancel() })
+        }
+        builder.setNegativeButton("취소") { dialog, id ->
+            dialog.cancel()
+        }
         builder.create().show()
 
     }
