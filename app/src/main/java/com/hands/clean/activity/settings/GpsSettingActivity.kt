@@ -43,7 +43,7 @@ class GpsSettingActivity : AppCompatActivity(), OnMapReadyCallback {
             val latitude: Double = gpsTracker.getLatitude()
             val longitude: Double = gpsTracker.getLongitude()
             val currentLocation = LatLng(latitude, longitude)
-            mMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 10f))
+            mMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 18f))
         }
     }
 
