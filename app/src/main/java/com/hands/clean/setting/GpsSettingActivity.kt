@@ -1,37 +1,25 @@
 package com.hands.clean.setting
 
-import android.Manifest
-import android.location.Address
-import android.location.Geocoder
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
-import android.view.View
-import android.widget.Button
-import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
 import com.hands.clean.R
-import com.hands.clean.function.gps.GpsSetting
+import com.hands.clean.function.gps.SystemSettingsGpsManager
 import com.hands.clean.function.gps.GpsTracker
-import com.hands.clean.function.permission.GpsPermission
-import java.io.IOException
-import java.util.*
+import com.hands.clean.function.permission.GpsPermissionRequesterWithBackground
+import com.hands.clean.function.permission.PermissionRequester
 
 
 class GpsSettingActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private var gpsTracker: GpsTracker = GpsTracker(this)
-    private val gpsSetting: GpsSetting = GpsSetting(this)
-    private val gpsPermission: GpsPermission = GpsPermission(this)
+    private val gpsSetting: SystemSettingsGpsManager = SystemSettingsGpsManager(this)
+    private val permissionRequester = GpsPermissionRequesterWithBackground(this)
     private var mMap: GoogleMap? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,24 +32,21 @@ class GpsSettingActivity : AppCompatActivity(), OnMapReadyCallback {
             .findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment!!.getMapAsync(this)
 
-        if (gpsPermission.isDenied()) {
-            gpsPermission.request()
-        }
+        permissionRequester.registerDenied { finish() }
+        permissionRequester.onRequest()
 
         if (gpsSetting.isDisabled()) {
             gpsSetting.request()
         }
-        gpsPermission.registerGrantedCallBack { onCallBack() }
+        permissionRequester.registerGranted { onCallBack() }
         gpsSetting.registerEnableCallBack { onCallBack() }
     }
 
     private fun onCallBack() {
-        Log.e("test", gpsPermission.isGranted().toString())
-        if (gpsSetting.isEnabled() && gpsPermission.isGranted()) {
+        if (gpsSetting.isEnabled() && permissionRequester.isGranted()) {
             gpsTracker.getLocation()
             val latitude: Double = gpsTracker.getLatitude()
             val longitude: Double = gpsTracker.getLongitude()
-            Log.e("test", gpsPermission.isGranted().toString())
             val currentLocation = LatLng(latitude, longitude)
             mMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 10f))
         }

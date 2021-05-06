@@ -14,7 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat.startActivityForResult
 import androidx.core.content.ContextCompat.getSystemService
 
-class GpsSetting(
+class SystemSettingsGpsManager(
     private val activity: AppCompatActivity,
 ) {
     private val startForResult = activity.registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
