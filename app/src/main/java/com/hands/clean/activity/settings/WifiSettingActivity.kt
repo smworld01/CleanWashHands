@@ -1,4 +1,4 @@
-package com.hands.clean.setting
+package com.hands.clean.activity.settings
 
 import android.content.Intent
 import android.os.Build
@@ -15,7 +15,7 @@ import com.hands.clean.function.room.DB
 import com.hands.clean.function.room.entrys.DeviceEntry
 import com.hands.clean.function.service.NetworkService
 import com.hands.clean.function.settings.WashSettingsManager
-import com.hands.clean.setting.adapter.adaptRecyclerDevice
+import com.hands.clean.activity.settings.adapter.adaptRecyclerDevice
 import kotlin.concurrent.thread
 
 class WifiSettingActivity : AppCompatActivity() {

@@ -1,4 +1,4 @@
-package com.hands.clean.setting
+package com.hands.clean.activity.settings
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

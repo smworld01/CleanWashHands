@@ -1,4 +1,4 @@
-package com.hands.clean.setting.adapter
+package com.hands.clean.activity.settings.adapter
 
 import android.content.Context
 import android.view.LayoutInflater

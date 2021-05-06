@@ -1,4 +1,4 @@
-package com.hands.clean.setting
+package com.hands.clean.activity.settings
 
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
@@ -14,7 +14,7 @@ import com.hands.clean.R
 import com.hands.clean.function.room.entrys.BluetoothEntry
 import com.hands.clean.function.room.entrys.DeviceEntry
 import com.hands.clean.function.settings.WashSettingsManager
-import com.hands.clean.setting.adapter.adaptRecyclerDevice
+import com.hands.clean.activity.settings.adapter.adaptRecyclerDevice
 
 class BluetoothSettingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

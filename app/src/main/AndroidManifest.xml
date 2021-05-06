@@ -29,7 +29,7 @@
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".setting.TestActivity" />
+        <activity android:name=".activity.settings.TestActivity" />
         <activity
             android:name=".NavigationActivity"
             android:theme="@style/Theme.CleanWashHands.NoActionBar">
@@ -39,10 +39,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".TutorialActivity" />
-        <activity android:name=".setting.GpsSettingActivity" />
-        <activity android:name=".setting.WifiSettingActivity" />
-        <activity android:name=".setting.BluetoothSettingActivity" />
+        <activity android:name=".activity.TutorialActivity" />
+        <activity android:name=".activity.settings.GpsSettingActivity" />
+        <activity android:name=".activity.settings.WifiSettingActivity" />
+        <activity android:name=".activity.settings.BluetoothSettingActivity" />
     </application>
 
 </manifest>

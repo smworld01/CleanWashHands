@@ -10,11 +10,11 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.hands.clean.R
-import com.hands.clean.TutorialActivity
-import com.hands.clean.setting.BluetoothSettingActivity
-import com.hands.clean.setting.GpsSettingActivity
-import com.hands.clean.setting.TestActivity
-import com.hands.clean.setting.WifiSettingActivity
+import com.hands.clean.activity.TutorialActivity
+import com.hands.clean.activity.settings.BluetoothSettingActivity
+import com.hands.clean.activity.settings.GpsSettingActivity
+import com.hands.clean.activity.settings.TestActivity
+import com.hands.clean.activity.settings.WifiSettingActivity
 
 class SettingsFragment : Fragment() {
 

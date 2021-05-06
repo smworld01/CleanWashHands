@@ -1,4 +1,4 @@
-package com.hands.clean.setting
+package com.hands.clean.activity.settings
 
 import android.os.Bundle
 import android.view.MenuItem
@@ -12,7 +12,6 @@ import com.hands.clean.R
 import com.hands.clean.function.gps.SystemSettingsGpsManager
 import com.hands.clean.function.gps.GpsTracker
 import com.hands.clean.function.permission.GpsPermissionRequesterWithBackground
-import com.hands.clean.function.permission.PermissionRequester
 
 
 class GpsSettingActivity : AppCompatActivity(), OnMapReadyCallback {
