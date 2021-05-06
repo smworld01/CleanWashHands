@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.appcompat.widget.SwitchCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.hands.clean.R
+import com.hands.clean.function.permission.GpsPermissionRequesterWithBackground
 import com.hands.clean.function.room.DB
 import com.hands.clean.function.room.entrys.DeviceEntry
 import com.hands.clean.function.settings.WashSettingsManager
@@ -15,11 +16,14 @@ import com.hands.clean.setting.adapter.adaptRecyclerDevice
 import kotlin.concurrent.thread
 
 class WifiSettingActivity : AppCompatActivity() {
+    private val permissionRequester = GpsPermissionRequesterWithBackground(this)
     val settings = WashSettingsManager(this)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_wifi_setting)
 
+        permissionRequester.onRequest()
+        permissionRequester.registerDenied { finish() }
         initLayout()
     }
 
