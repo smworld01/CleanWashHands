@@ -17,6 +17,7 @@ import com.hands.clean.function.settings.WashSettingsManager
 import com.hands.clean.activity.settings.adapter.adaptRecyclerDevice
 
 class BluetoothSettingActivity : AppCompatActivity() {
+    private val settings = WashSettingsManager(this)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bluetooth_setting)
@@ -27,24 +28,9 @@ class BluetoothSettingActivity : AppCompatActivity() {
     private fun initLayout() {
         initActionBar()
 
-        val settings = WashSettingsManager(applicationContext)
+        initSwitchViews()
 
-        val switchBluetooth: SwitchCompat = findViewById(R.id.switchBluetooth)
-        switchBluetooth.isChecked = settings.bluetoothNotify
-
-        val recyclerViewBluetooth: RecyclerView = findViewById(R.id.recyclerViewBluetooth)
-        val deviceList = getBluetoothRecyclerDataArrayList()
-        adaptRecyclerDevice(this, recyclerViewBluetooth, deviceList)
-        val textViewEmptyRecycler: TextView = findViewById(R.id.textViewEmptyRecycler)
-        if(deviceList.isEmpty()) {
-            textViewEmptyRecycler.visibility = View.VISIBLE
-        } else {
-            textViewEmptyRecycler.visibility = View.GONE
-        }
-
-        switchBluetooth.setOnCheckedChangeListener{ compoundButton: CompoundButton, isChecked: Boolean ->
-            settings.bluetoothNotify = isChecked
-        }
+        initRecyclerView()
     }
 
     private fun initActionBar() {
@@ -60,6 +46,34 @@ class BluetoothSettingActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun initSwitchViews() {
+        val switchBluetooth: SwitchCompat = findViewById(R.id.switchBluetooth)
+        switchBluetooth.isChecked = settings.bluetoothNotify
+
+        switchBluetooth.setOnCheckedChangeListener{ _, isChecked: Boolean ->
+            settings.bluetoothNotify = isChecked
+        }
+
+        val switchNewDeviceBluetooth: SwitchCompat = findViewById(R.id.switchNewDeviceBluetooth)
+        switchNewDeviceBluetooth.isChecked = settings.bluetoothNewDeviceNotify
+
+        switchNewDeviceBluetooth.setOnCheckedChangeListener{ _, isChecked: Boolean ->
+            settings.bluetoothNewDeviceNotify = isChecked
+        }
+    }
+
+    private fun initRecyclerView() {
+        val recyclerViewBluetooth: RecyclerView = findViewById(R.id.recyclerViewBluetooth)
+        val deviceList = getBluetoothRecyclerDataArrayList()
+        adaptRecyclerDevice(this, recyclerViewBluetooth, deviceList)
+        val textViewEmptyRecycler: TextView = findViewById(R.id.textViewEmptyRecycler)
+        if(deviceList.isEmpty()) {
+            textViewEmptyRecycler.visibility = View.VISIBLE
+        } else {
+            textViewEmptyRecycler.visibility = View.GONE
+        }
     }
 
     private fun getBluetoothRecyclerDataArrayList(): ArrayList<DeviceEntry> {
