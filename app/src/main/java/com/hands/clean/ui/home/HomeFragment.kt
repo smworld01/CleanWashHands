@@ -80,7 +80,6 @@ class HomeFragment : Fragment() {
 
         val todayCount = getTodayNotification()
 
-        // todo UTC 관련 오류가 있음 ex) 서울은 +9인데 sql now()는 +0
         todayCount.observe(this.viewLifecycleOwner, {
             textView.text = "오늘은 ${it}번 알림을 받으셨어요"
         })

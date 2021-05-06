@@ -21,7 +21,7 @@ interface WashDao {
     @Query("SELECT COUNT(*) FROM WashEntry WHERE DATE(date) = DATE(:date)")
     fun countDate(date: Date): Int
 
-    @Query("SELECT COUNT(*) FROM WashEntry WHERE DATE(date) = DATE('now')")
+    @Query("SELECT COUNT(*) FROM WashEntry WHERE DATE(date) = DATE('now','localtime')")
     fun countToday(): LiveData<Int>
 
     @Query("SELECT DATE('now')")
