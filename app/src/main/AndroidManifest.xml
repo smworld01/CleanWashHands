@@ -40,6 +40,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.TutorialActivity" />
+        <activity android:name=".activity.settings.MapsActivity" />
         <activity android:name=".activity.settings.GpsSettingActivity" />
         <activity android:name=".activity.settings.WifiSettingActivity" />
         <activity android:name=".activity.settings.BluetoothSettingActivity" />
