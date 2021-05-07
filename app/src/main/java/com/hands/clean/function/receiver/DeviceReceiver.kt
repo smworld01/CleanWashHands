@@ -34,11 +34,8 @@ val deviceReceiver = object : BroadcastReceiver() {
             val address = intent.getStringExtra("address")!!
             val type = intent.getStringExtra("type")!!
             val notificationId = intent.getIntExtra("notificationId", 0)
-            when (type) {
-                NotifyType.Wifi.channelId -> DB.getInstance().wifiDao().changeNotificationByAddress(address, true)
-                NotifyType.Bluetooth.channelId -> DB.getInstance().bluetoothDao().changeNotificationByAddress(address, true)
-                else -> throw Exception()
-            }
+            DB.getInstance().matchDaoByChannelId(type).changeNotificationByAddress(address, true)
+            DB.getInstance().matchDaoByChannelId(type).changeNameByAddress(address, deviceName.toString())
 
             val notificationManager: NotificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             notificationManager.cancel(notificationId)
