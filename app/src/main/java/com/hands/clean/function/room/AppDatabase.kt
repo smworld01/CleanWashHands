@@ -23,9 +23,17 @@ abstract class AppDatabase : RoomDatabase() {
         }
     }
     fun matchDaoByNotifyType(type: NotifyInfo): DeviceDao {
-        if (type == NotifyType.Wifi)
-            return wifiDao()
-        else (type == NotifyType.Bluetooth)
-            return bluetoothDao()
+        return when (type) {
+            NotifyType.Wifi -> wifiDao()
+            NotifyType.Bluetooth -> bluetoothDao()
+            else -> throw Exception()
+        }
+    }
+    fun matchDaoByChannelId(type: String): DeviceDao {
+        return when (type) {
+            NotifyType.Wifi.channelId -> wifiDao()
+            NotifyType.Bluetooth.channelId -> bluetoothDao()
+            else -> throw Exception()
+        }
     }
 }
