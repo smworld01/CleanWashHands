@@ -6,15 +6,15 @@ import androidx.appcompat.app.AppCompatActivity
 import com.hands.clean.function.permission.guide.BackgroundGpsPermissionUserGuide
 import com.hands.clean.function.permission.guide.GpsPermissionUserGuide
 
-class GpsPermissionRequesterWithBackground(activity: AppCompatActivity): PermissionRequester(
+class GpsPermissionRequesterWithBackground(activity: AppCompatActivity): PermissionManager(
     activity,
     arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION),
     GpsPermissionUserGuide(activity)
 ) {
-    lateinit var backgroundRequester: PermissionRequester
+    lateinit var backgroundRequester: PermissionManager
     init {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            backgroundRequester = object: PermissionRequester(
+            backgroundRequester = object: PermissionManager(
                 activity,
                 arrayOf(Manifest.permission.ACCESS_BACKGROUND_LOCATION),
                 BackgroundGpsPermissionUserGuide(activity)

@@ -15,7 +15,7 @@ import androidx.core.content.ContextCompat
 
 
 class GpsTracker(private val mContext: Context) : Service(),
-    LocationListener {
+    LocationListener, LocationGetter {
     private var location: Location? = null
     private var latitude = 0.0
     private var longitude = 0.0
@@ -84,14 +84,14 @@ class GpsTracker(private val mContext: Context) : Service(),
         return location
     }
 
-    fun getLatitude(): Double {
+    override fun getLatitude(): Double {
         if (location != null) {
             latitude = location!!.latitude
         }
         return latitude
     }
 
-    fun getLongitude(): Double {
+    override fun getLongitude(): Double {
         if (location != null) {
             longitude = location!!.longitude
         }

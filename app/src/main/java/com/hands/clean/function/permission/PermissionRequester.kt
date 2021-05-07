@@ -1,42 +1,37 @@
 package com.hands.clean.function.permission
 
+import android.content.pm.PackageManager
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import com.hands.clean.function.permission.guide.PermissionUserGuide
+import androidx.core.app.ActivityCompat.shouldShowRequestPermissionRationale
+import androidx.core.content.ContextCompat
 
-open class PermissionRequester(
-    activity: AppCompatActivity,
-    permissions: Array<String>,
-    private val userGuide: PermissionUserGuide,
+class PermissionRequester(
+    private val activity: AppCompatActivity,
+    private val permissionCallback: PermissionCallback,
+    private val permissions: Array<String>
 ) {
-    private val callback: PermissionCallback = PermissionCallback()
-    private val permissionManager = PermissionManager(activity, callback, permissions)
 
-    init {
-        callback.registerRequestFailed {
-            userGuide.showRequestFail { callback.callbackDenied() }
+    private val requestMultiplePermissionLauncher = activity.registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissionMap ->
+         val isSuccess = permissionMap.all {
+            it.value == true
+        }
+        if(isSuccess) {
+            permissionCallback.callbackGranted()
+        } else {
+            permissionCallback.callbackRequestFailed()
         }
     }
 
-    fun onRequest() {
-        when {
-            isGranted() -> callback.callbackGranted()
-            isDenied() -> userGuide.showExcuse { callback.callbackDenied() }
-            else -> userGuide.showRequest { permissionManager.request() }
+    fun request() {
+        requestMultiplePermissionLauncher.launch(permissions)
+    }
+
+    fun isDenied(): Boolean {
+        val isShowPermissions = permissions.map { permission ->
+            !shouldShowRequestPermissionRationale(activity, permission)
         }
-    }
 
-
-    open fun registerGranted(callback :() -> Unit) {
-        this.callback.registerGranted(callback)
-    }
-    open fun registerDenied(callback :() -> Unit) {
-        this.callback.registerDenied(callback)
-    }
-
-    open fun isGranted(): Boolean {
-        return permissionManager.isGranted()
-    }
-    open fun isDenied(): Boolean {
-        return permissionManager.isDenied()
+        return !isShowPermissions.all { isShow -> isShow }
     }
 }

@@ -17,6 +17,7 @@ import androidx.core.content.ContextCompat.getSystemService
 class SystemSettingsGpsManager(
     private val activity: AppCompatActivity,
 ) {
+    private val checker = SystemSettingsGpsChecker(activity)
     private val startForResult = activity.registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
         if (isEnabled()) {
             enableCallBack()
@@ -65,9 +66,7 @@ class SystemSettingsGpsManager(
     }
 
     fun isEnabled(): Boolean {
-        val locationManager = activity.applicationContext.getSystemService(LOCATION_SERVICE) as LocationManager
-        return (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
-                || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER))
+        return checker.isEnabled()
     }
 
     fun isDisabled(): Boolean {

@@ -1,46 +1,43 @@
 package com.hands.clean.function.permission
 
-import android.content.pm.PackageManager
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat.shouldShowRequestPermissionRationale
-import androidx.core.content.ContextCompat
+import com.hands.clean.function.permission.guide.PermissionUserGuide
 
-class PermissionManager(
-        private val activity: AppCompatActivity,
-        private val permissionCallback: PermissionCallback,
-        private val permissions: Array<String>
+open class PermissionManager(
+    activity: AppCompatActivity,
+    permissions: Array<String>,
+    private val userGuide: PermissionUserGuide,
 ) {
+    private val callback: PermissionCallback = PermissionCallback()
+    private val permissionManager = PermissionRequester(activity, callback, permissions)
+    private val checker = PermissionChecker(activity.applicationContext, permissions)
 
-    private val requestMultiplePermissionLauncher = activity.registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissionMap ->
-         val isSuccess = permissionMap.all {
-            it.value == true
-        }
-        if(isSuccess) {
-            permissionCallback.callbackGranted()
-        } else {
-            permissionCallback.callbackRequestFailed()
+    init {
+        callback.registerRequestFailed {
+            userGuide.showRequestFail { callback.callbackDenied() }
         }
     }
 
-    fun request() {
-        requestMultiplePermissionLauncher.launch(permissions)
+    fun onRequest() {
+        when {
+            isGranted() -> callback.callbackGranted()
+            isDenied() -> userGuide.showExcuse { callback.callbackDenied() }
+            else -> userGuide.showRequest { permissionManager.request() }
+        }
     }
 
-    fun isGranted(): Boolean {
-        val resultsPermission = permissions.map { permission ->
-            ContextCompat.checkSelfPermission(
-                activity, permission
-            )
-        }
-        return resultsPermission.all { it == PackageManager.PERMISSION_GRANTED }
+
+    open fun registerGranted(callback :() -> Unit) {
+        this.callback.registerGranted(callback)
+    }
+    open fun registerDenied(callback :() -> Unit) {
+        this.callback.registerDenied(callback)
     }
 
-    fun isDenied(): Boolean {
-        val isShowPermissions = permissions.map { permission ->
-            !shouldShowRequestPermissionRationale(activity, permission)
-        }
-
-        return !isShowPermissions.all { isShow -> isShow }
+    open fun isGranted(): Boolean {
+        return checker.isGranted()
+    }
+    open fun isDenied(): Boolean {
+        return permissionManager.isDenied()
     }
 }
