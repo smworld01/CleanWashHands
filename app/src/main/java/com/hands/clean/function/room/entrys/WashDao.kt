@@ -12,7 +12,7 @@ interface WashDao {
     @Query("SELECT * FROM WashEntry")
     fun getAll(): List<WashEntry>
 
-    @Query("SELECT * FROM WashEntry LIMIT 1")
+    @Query("SELECT * FROM WashEntry ORDER BY uid DESC LIMIT 1")
     fun getLatest(): WashEntry?
 
     @Query("SELECT * FROM WashEntry WHERE uid IN (:userIds)")

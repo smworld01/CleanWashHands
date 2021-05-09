@@ -8,7 +8,7 @@ import com.hands.clean.function.notification.type.NotifyType
 import com.hands.clean.function.room.entrys.*
 import java.lang.Exception
 
-@Database(entities = [WifiEntry::class, BluetoothEntry::class, WashEntry::class], version = 1)
+@Database(entities = [WifiEntry::class, BluetoothEntry::class, WashEntry::class], version = 2)
 @TypeConverters(DateConverters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun wifiDao(): WifiDao
