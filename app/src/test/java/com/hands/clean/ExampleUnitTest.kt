@@ -1,5 +1,6 @@
 package com.hands.clean
 
+import com.hands.clean.function.compareStringTimeByAbsoluteMinute
 import org.junit.Test
 
 import org.junit.Assert.*

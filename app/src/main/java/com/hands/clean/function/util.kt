@@ -10,7 +10,7 @@ fun compareStringTimeByAbsoluteMinute(stringTime1: String, stringTime2: String):
     val msTime1 = convertStringToMsTime(stringTime1)
     val msTime2 = convertStringToMsTime(stringTime2)
 
-    return abs(msTime1 - msTime2) / (100*60)
+    return abs(msTime1 - msTime2) / (1000*60)
 }
 
 

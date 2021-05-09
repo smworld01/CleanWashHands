@@ -10,7 +10,7 @@ open class PermissionManager(
 ) {
     private val callback: PermissionCallback = PermissionCallback()
     private val permissionManager = PermissionRequester(activity, callback, permissions)
-    private val checker = PermissionChecker(activity.applicationContext, permissions)
+    private val checker = PermissionChecker(activity, permissions)
 
     init {
         callback.registerRequestFailed {
