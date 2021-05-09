@@ -28,6 +28,7 @@
             android:name=".function.service.LocationService"
             android:enabled="true"
             android:exported="true" />
+        <receiver android:name=".function.receiver.GeofenceBroadcastReceiver" />
 
         <activity android:name=".activity.settings.TestActivity" />
         <activity
