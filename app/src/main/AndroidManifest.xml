@@ -25,7 +25,7 @@
             android:value="AIzaSyD_0ExQzqqU-6c-9h9NVBYUpStjC9Tld9c"
             />
         <service
-            android:name=".function.service.NetworkService"
+            android:name=".function.service.LocationService"
             android:enabled="true"
             android:exported="true" />
 

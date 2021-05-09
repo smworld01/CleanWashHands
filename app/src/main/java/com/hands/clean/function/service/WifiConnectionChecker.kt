@@ -13,7 +13,7 @@ import com.hands.clean.function.notification.notify.WifiNotify
 import kotlin.concurrent.thread
 
 @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-class NetworkConnectionCheck(val context: Context, val intent: Intent): ConnectivityManager.NetworkCallback() {
+class WifiConnectionChecker(val context: Context, val intent: Intent): ConnectivityManager.NetworkCallback() {
     private var networkRequest: NetworkRequest = NetworkRequest.Builder()
             .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
             .build()

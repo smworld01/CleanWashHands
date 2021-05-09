@@ -20,7 +20,7 @@ import com.hands.clean.function.receiver.ACTION_REGISTER_NOTIFICATION_DEVICE
 import com.hands.clean.function.receiver.bluetoothReceiver
 import com.hands.clean.function.receiver.deviceReceiver
 import com.hands.clean.function.room.DB
-import com.hands.clean.function.service.NetworkService
+import com.hands.clean.function.service.LocationService
 import com.hands.clean.function.settings.WashSettingsManager
 
 class NavigationActivity : AppCompatActivity() {
@@ -80,7 +80,7 @@ class NavigationActivity : AppCompatActivity() {
     private fun initService() {
         if (washSettings.wifiNotify || washSettings.gpsNotify) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                startForegroundService(Intent(this, NetworkService::class.java))
+                startForegroundService(Intent(this, LocationService::class.java))
             } else {
                 startService(intent)
             }
