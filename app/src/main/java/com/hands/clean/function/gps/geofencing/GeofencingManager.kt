@@ -10,7 +10,7 @@ import com.google.android.gms.location.Geofence
 import com.google.android.gms.location.GeofencingClient
 import com.google.android.gms.location.GeofencingRequest
 import com.google.android.gms.location.LocationServices
-import com.hands.clean.function.permission.PermissionChecker
+import com.hands.clean.function.permission.checker.PermissionChecker
 import com.hands.clean.function.receiver.GeofenceBroadcastReceiver
 import com.hands.clean.function.room.DB
 import kotlin.concurrent.thread

@@ -1,44 +1,23 @@
 package com.hands.clean.function.notification.notify
 
-import android.Manifest
-import android.annotation.SuppressLint
 import android.content.Context
 import android.location.Location
-import android.os.Build
 import android.util.Log
 import com.google.android.gms.location.LocationServices
 import com.hands.clean.function.compareStringTimeByAbsoluteMinute
 import com.hands.clean.function.gps.LocationInfo
 import com.hands.clean.function.gps.SystemSettingsGpsChecker
-import com.hands.clean.function.permission.PermissionChecker
+import com.hands.clean.function.permission.checker.GpsPermissionChecker
 import com.hands.clean.function.room.DB
 import com.hands.clean.function.room.entrys.WashEntry
 import java.text.SimpleDateFormat
 import java.util.*
 
 class NotifyLimiter(context: Context) {
-    private var fusedLocationClient = LocationServices.getFusedLocationProviderClient(context)
     private val gpsChecker: SystemSettingsGpsChecker = SystemSettingsGpsChecker(context)
-    private val gpsPermissionChecker: PermissionChecker
+    private val gpsPermissionChecker = GpsPermissionChecker(context)
 
     private var lastRecord: WashEntry? = null
-
-    init {
-        val permissions = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            arrayOf(
-                Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.ACCESS_COARSE_LOCATION,
-                Manifest.permission.ACCESS_BACKGROUND_LOCATION
-            )
-        } else {
-            arrayOf(
-                Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.ACCESS_COARSE_LOCATION,
-            )
-        }
-
-        gpsPermissionChecker = PermissionChecker(context, permissions)
-    }
 
     fun isLimit(): Boolean {
         loadLastRecord()

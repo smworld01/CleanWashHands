@@ -1,7 +1,6 @@
 package com.hands.clean.function.service
 
 import android.app.ActivityManager
-import android.app.Service
 import android.content.Context
 import android.content.Intent
 import android.os.Build
@@ -11,7 +10,7 @@ open class MyServiceManager<T>(
     private val context: Context,
     private val serviceClass: Class<T>
 ) {
-    fun onStartService() {
+    open fun onStartService() {
         if (isNotServiceRunning()) {
             val intent = Intent(context, serviceClass)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

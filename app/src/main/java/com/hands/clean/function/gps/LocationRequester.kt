@@ -1,13 +1,12 @@
 package com.hands.clean.function.gps
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Looper
 import android.util.Log
 import com.google.android.gms.location.*
 import com.google.android.gms.tasks.Task
-import com.hands.clean.function.permission.PermissionChecker
+import com.hands.clean.function.permission.checker.GpsPermissionChecker
 
 @SuppressLint("MissingPermission")
 class LocationRequester(
@@ -20,10 +19,7 @@ class LocationRequester(
         priority = LocationRequest.PRIORITY_HIGH_ACCURACY
     }
     private val locationCallback = LocationRequestCallback()
-    private val gpsPermissionChecker = PermissionChecker(
-        context,
-        arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)
-    )
+    private val gpsPermissionChecker = GpsPermissionChecker(context)
 
     init {
         val builder = LocationSettingsRequest.Builder()

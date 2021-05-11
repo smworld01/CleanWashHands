@@ -1,6 +1,7 @@
 package com.hands.clean.function.permission
 
 import androidx.appcompat.app.AppCompatActivity
+import com.hands.clean.function.permission.checker.PermissionChecker
 import com.hands.clean.function.permission.guide.PermissionUserGuide
 
 open class PermissionManager(
