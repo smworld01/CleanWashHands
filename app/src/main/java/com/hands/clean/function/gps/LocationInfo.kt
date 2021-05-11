@@ -8,4 +8,12 @@ object LocationInfo {
         latitude = null
         longitude = null
     }
+
+    fun isEnable(): Boolean {
+        return latitude != null && longitude != null
+    }
+
+    fun isDisable(): Boolean {
+        return !isEnable()
+    }
 }

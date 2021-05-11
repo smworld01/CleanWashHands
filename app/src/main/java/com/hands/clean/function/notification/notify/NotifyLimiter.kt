@@ -78,7 +78,7 @@ class NotifyLimiter(context: Context) {
     }
 
     private fun isNotGetGpsInfo(): Boolean {
-        if (gpsChecker.isEnabled() && gpsPermissionChecker.isGranted()) {
+        if (gpsChecker.isEnabled() && gpsPermissionChecker.isGranted() && LocationInfo.isEnable()) {
             return lastRecord?.latitude == null && lastRecord?.longitude == null
         }
         return true
@@ -89,8 +89,8 @@ class NotifyLimiter(context: Context) {
         Location.distanceBetween(
             lastRecord!!.latitude!!, // startLatitude
             lastRecord!!.longitude!!, // startLongitude
-            LocationInfo.latitude!!, // endLatitude
-            LocationInfo.longitude!!, // endLongitude
+            LocationInfo.longitude!!, // endLatitude
+            LocationInfo.latitude!!, // endLongitude
             metersDistance // results
         )
 
