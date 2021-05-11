@@ -11,10 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.hands.clean.R
 import com.hands.clean.activity.TutorialActivity
-import com.hands.clean.activity.settings.BluetoothSettingActivity
-import com.hands.clean.activity.settings.GpsSettingActivity
-import com.hands.clean.activity.settings.TestActivity
-import com.hands.clean.activity.settings.WifiSettingActivity
+import com.hands.clean.activity.settings.*
 
 class SettingsFragment : Fragment() {
 
