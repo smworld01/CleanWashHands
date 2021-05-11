@@ -2,8 +2,7 @@ package com.hands.clean.function.notification.notify
 
 import android.app.Notification
 import android.content.Context
-import com.hands.clean.function.gps.GpsTracker
-import com.hands.clean.function.gps.LocationGetter
+import com.hands.clean.function.gps.LocationInfo
 import com.hands.clean.function.notification.NotificationIdCounter
 import com.hands.clean.function.notification.type.NotifyInfo
 import com.hands.clean.function.room.DB
@@ -18,8 +17,6 @@ class RecordNotify(
     private val notifyInfo: NotifyInfo,
     notificationId: Int = NotificationIdCounter.getNotificationId()
 ): BasicNotify(context, notification, notificationId) {
-
-    private val locationGetter: LocationGetter = GpsTracker(context)
     private val notifyLimiter = NotifyLimiter(context)
 
     override fun onNotify() {
@@ -36,8 +33,8 @@ class RecordNotify(
         var latitude: Double? = null
         var longitude: Double? = null
 
-        latitude = locationGetter.getLatitude()
-        longitude = locationGetter.getLongitude()
+        latitude = LocationInfo.latitude
+        longitude = LocationInfo.longitude
 
         val we = WashEntry(
             date = mFormat.format(Date()),

@@ -15,6 +15,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.hands.clean.activity.TutorialActivity
+import com.hands.clean.function.gps.geofencing.WashGeofencing
 import com.hands.clean.function.notification.init.NotificationChannelManager
 import com.hands.clean.function.receiver.ACTION_REGISTER_NOTIFICATION_DEVICE
 import com.hands.clean.function.receiver.bluetoothReceiver
@@ -29,6 +30,7 @@ class NavigationActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         DB.init(this)
+        WashGeofencing.init(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_navigation)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
@@ -79,8 +81,9 @@ class NavigationActivity : AppCompatActivity() {
     }
     private fun initService() {
         if (washSettings.wifiNotify || washSettings.gpsNotify) {
+            val intent = Intent(this, LocationService::class.java)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                startForegroundService(Intent(this, LocationService::class.java))
+                startForegroundService(intent)
             } else {
                 startService(intent)
             }

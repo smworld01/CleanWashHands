@@ -1,24 +1,31 @@
 package com.hands.clean.activity.settings
 
+import android.graphics.Color
+import android.location.Location
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.CircleOptions
 import com.google.android.gms.maps.model.LatLng
 import com.hands.clean.R
 import com.hands.clean.function.gps.SystemSettingsGpsManager
-import com.hands.clean.function.gps.GpsTracker
 import com.hands.clean.function.permission.GpsPermissionRequesterWithBackground
+import com.hands.clean.function.room.DB
+import com.hands.clean.function.room.entrys.GpsEntry
+import kotlin.concurrent.thread
 
 
 class GpsSettingActivity : AppCompatActivity(), OnMapReadyCallback {
-
-    private var gpsTracker: GpsTracker = GpsTracker(this)
-    private val gpsSetting: SystemSettingsGpsManager = SystemSettingsGpsManager(this)
-    private val permissionRequester = GpsPermissionRequesterWithBackground(this)
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private lateinit var gpsSetting: SystemSettingsGpsManager
+    private lateinit var permissionRequester: GpsPermissionRequesterWithBackground
     private var mMap: GoogleMap? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,20 +38,28 @@ class GpsSettingActivity : AppCompatActivity(), OnMapReadyCallback {
             .findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment!!.getMapAsync(this)
 
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+
+        gpsSetting = SystemSettingsGpsManager(this)
+        gpsSetting.registerEnableCallBack {
+            fusedLocationClient.lastLocation
+            .addOnSuccessListener { location : Location ->
+                onCallBack(location)
+            }
+        }
+        gpsSetting.registerDisableCallBack { finish() }
+
+        permissionRequester = GpsPermissionRequesterWithBackground(this)
         permissionRequester.registerGranted { gpsSetting.onRequest() }
         permissionRequester.registerDenied { finish() }
         permissionRequester.onRequest()
-        gpsSetting.registerEnableCallBack { onCallBack() }
+
     }
 
-    private fun onCallBack() {
-        if (gpsSetting.isEnabled() && permissionRequester.isGranted()) {
-            gpsTracker.getLocation()
-            val latitude: Double = gpsTracker.getLatitude()
-            val longitude: Double = gpsTracker.getLongitude()
-            val currentLocation = LatLng(latitude, longitude)
-            mMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 18f))
-        }
+    private fun onCallBack(location: Location) {
+        Log.e("current location", location.toString())
+        val currentLocation = LatLng(location.latitude, location.longitude)
+        mMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 18f))
     }
 
     private fun initActionBar() {
@@ -63,15 +78,34 @@ class GpsSettingActivity : AppCompatActivity(), OnMapReadyCallback {
     }
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
-        onCallBack()
+        drawCircle()
+    }
 
-//        val SEOUL = LatLng(37.56, 126.97)
-//        val markerOptions = MarkerOptions()
-//        markerOptions.position(SEOUL)
-//        markerOptions.title("서울")
-//        markerOptions.snippet("한국의 수도")
-//        googleMap.addMarker(markerOptions)
-//
-//        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(SEOUL, 10f))
+    private fun drawCircle() {
+        lateinit var locationList: List<GpsEntry>
+        thread {
+
+            locationList = getLocation()
+
+        }.join()
+
+        locationList.map {
+            mMap?.addCircle(convertLocationToCircle(it))
+        }
+    }
+
+    private fun getLocation(): List<GpsEntry> {
+        return DB.getInstance().gpsDao().getAll()
+    }
+
+    private fun convertLocationToCircle(gpsEntry: GpsEntry): CircleOptions {
+        val circleOption = CircleOptions()
+
+        circleOption.radius(gpsEntry.radius.toDouble())
+        circleOption.center(LatLng(gpsEntry.latitude, gpsEntry.longitude))
+        circleOption.strokeColor(Color.BLACK)
+        circleOption.fillColor(0x30ff0000)
+        circleOption.strokeWidth(2f)
+        return circleOption
     }
 }

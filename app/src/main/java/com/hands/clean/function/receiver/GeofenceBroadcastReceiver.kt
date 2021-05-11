@@ -11,7 +11,8 @@ import com.google.android.gms.location.GeofenceStatusCodes
 import com.google.android.gms.location.GeofencingEvent
 
 class GeofenceBroadcastReceiver : BroadcastReceiver() {
-    override fun onReceive(context: Context?, intent: Intent?) {
+    override fun onReceive(context: Context, intent: Intent) {
+        Log.e("geofence", "event start")
         val geofencingEvent = GeofencingEvent.fromIntent(intent)
         if (geofencingEvent.hasError()) {
             val errorMessage = GeofenceStatusCodes
@@ -22,12 +23,15 @@ class GeofenceBroadcastReceiver : BroadcastReceiver() {
 
         // Get the transition type.
         val geofenceTransition = geofencingEvent.geofenceTransition
+        geofencingEvent.triggeringGeofences
 
         // Test that the reported transition was of interest.
-        if (geofenceTransition == Geofence.GEOFENCE_TRANSITION_ENTER ||
-                geofenceTransition == Geofence.GEOFENCE_TRANSITION_EXIT) {
-
+        if (geofenceTransition == Geofence.GEOFENCE_TRANSITION_ENTER) {
+            Log.e("test", "event GEOFENCE_TRANSITION_ENTER")
+        } else if (geofenceTransition == Geofence.GEOFENCE_TRANSITION_EXIT){
+            Log.e("test", "event GEOFENCE_TRANSITION_EXIT")
         } else {
+            Log.e("test", "event other")
 
         }
     }

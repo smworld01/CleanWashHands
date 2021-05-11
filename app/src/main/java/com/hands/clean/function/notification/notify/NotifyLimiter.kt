@@ -1,13 +1,14 @@
 package com.hands.clean.function.notification.notify
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Context
 import android.location.Location
 import android.os.Build
 import android.util.Log
+import com.google.android.gms.location.LocationServices
 import com.hands.clean.function.compareStringTimeByAbsoluteMinute
-import com.hands.clean.function.gps.GpsTracker
-import com.hands.clean.function.gps.LocationGetter
+import com.hands.clean.function.gps.LocationInfo
 import com.hands.clean.function.gps.SystemSettingsGpsChecker
 import com.hands.clean.function.permission.PermissionChecker
 import com.hands.clean.function.room.DB
@@ -16,9 +17,9 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class NotifyLimiter(context: Context) {
+    private var fusedLocationClient = LocationServices.getFusedLocationProviderClient(context)
     private val gpsChecker: SystemSettingsGpsChecker = SystemSettingsGpsChecker(context)
     private val gpsPermissionChecker: PermissionChecker
-    private val locationGetter: LocationGetter = GpsTracker(context)
 
     private var lastRecord: WashEntry? = null
 
@@ -58,7 +59,7 @@ class NotifyLimiter(context: Context) {
     }
 
     private fun limit(): Boolean {
-        if (isRecentlySendNotify()) return false
+//        if (isRecentlySendNotify()) return false
 
         return when {
             isNotGetGpsInfo() -> true
@@ -88,10 +89,12 @@ class NotifyLimiter(context: Context) {
         Location.distanceBetween(
             lastRecord!!.latitude!!, // startLatitude
             lastRecord!!.longitude!!, // startLongitude
-            locationGetter.getLatitude(), // endLatitude
-            locationGetter.getLongitude(), // endLongitude
+            LocationInfo.latitude!!, // endLatitude
+            LocationInfo.longitude!!, // endLongitude
             metersDistance // results
         )
+
+        Log.e("notify", "${LocationInfo.latitude} ${LocationInfo.longitude} / ${lastRecord!!.latitude} ${lastRecord!!.longitude}")
 
         Log.e("notify", "location diff ${metersDistance[0]}")
         return metersDistance[0] > 100
