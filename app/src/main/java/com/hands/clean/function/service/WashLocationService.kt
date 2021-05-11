@@ -22,7 +22,7 @@ class WashLocationService: Service() {
     }
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             initWifi(intent)
         }
         initGps()
@@ -35,7 +35,7 @@ class WashLocationService: Service() {
         return START_STICKY
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     private fun initWifi(intent: Intent) {
         if(!::wifiConnectionChecker.isInitialized) {
             wifiConnectionChecker = WifiConnectionChecker(applicationContext, intent);
