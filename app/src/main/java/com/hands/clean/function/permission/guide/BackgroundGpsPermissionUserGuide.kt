@@ -2,7 +2,10 @@ package com.hands.clean.function.permission.guide
 
 import android.app.Activity
 import android.app.AlertDialog
+import android.content.Intent
+import android.net.Uri
 import android.os.Build
+import android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS
 import androidx.annotation.RequiresApi
 
 @RequiresApi(Build.VERSION_CODES.R)
@@ -37,6 +40,13 @@ class BackgroundGpsPermissionUserGuide(
                 만약 자동으로 설정 화면으로 넘어가지 않는다면 설정에서 직접 설정하셔야 합니다.
             """.trimIndent()
         )
+        builder.setNegativeButton("설정") { dialog, id ->
+            val intent = Intent().also { intent ->
+                intent.action = ACTION_APPLICATION_DETAILS_SETTINGS
+                intent.data = Uri.fromParts("package", activity.packageName, null)
+            }
+            activity.startActivity(intent)
+        }
         builder.setPositiveButton("닫기") { dialog, id ->
             dialog.cancel()
         }
