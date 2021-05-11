@@ -28,7 +28,7 @@ class NotifyLimiter(context: Context) {
             arrayOf(
                 Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.ACCESS_COARSE_LOCATION,
-                Manifest.permission.ACCESS_BACKGROUND_LOCATION // todo R 버전 분기
+                Manifest.permission.ACCESS_BACKGROUND_LOCATION
             )
         } else {
             arrayOf(
