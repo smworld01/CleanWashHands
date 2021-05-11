@@ -12,11 +12,11 @@ import com.hands.clean.function.receiver.ACTION_REGISTER_NOTIFICATION_DEVICE
 import com.hands.clean.function.room.entrys.*
 import java.lang.Exception
 
-class NewDeviceNotificationFactory(
+class NewDeviceDetectionNotificationFactory(
     private val context: Context,
-    private val locationInfo: DeviceEntry
+    private val locationInfo: DeviceEntry,
+    private val notificationId: Int = NotificationIdCounter.getNotificationId()
 ) : EntryNotificationFactory(locationInfo) {
-    private val notificationId = NotificationIdCounter.getNotificationId()
 
     override fun onBuild(): Notification {
         val builder: NotificationCompat.Builder =

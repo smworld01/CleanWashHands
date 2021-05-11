@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import androidx.core.app.RemoteInput
+import com.hands.clean.function.notification.factory.notify.NewDeviceRegisterNotifyFactory
 import com.hands.clean.function.notification.type.NotifyType
 import com.hands.clean.function.room.DB
 import com.hands.clean.function.room.entrys.BluetoothEntry
@@ -29,16 +30,15 @@ val deviceRegisterReceiver = object : BroadcastReceiver() {
         thread {
             val remoteReply = RemoteInput.getResultsFromIntent(intent)
             val deviceName = remoteReply.getCharSequence("deviceName")
-            Log.e("test", deviceName.toString())
 
             val address = intent.getStringExtra("address")!!
             val type = intent.getStringExtra("type")!!
             val notificationId = intent.getIntExtra("notificationId", 0)
+
             DB.getInstance().matchDaoByChannelId(type).changeNotificationByAddress(address, true)
             DB.getInstance().matchDaoByChannelId(type).changeNameByAddress(address, deviceName.toString())
 
-            val notificationManager: NotificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.cancel(notificationId)
+            NewDeviceRegisterNotifyFactory(context, deviceName.toString(), type, notificationId).onBuild().onNotify()
         }
     }
 }
