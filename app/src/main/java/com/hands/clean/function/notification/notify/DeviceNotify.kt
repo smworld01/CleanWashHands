@@ -1,7 +1,7 @@
 package com.hands.clean.function.notification.notify
 
 import android.content.Context
-import com.hands.clean.function.notification.factory.NewDeviceNotification
+import com.hands.clean.function.notification.factory.notify.NewDeviceNotifyFactory
 import com.hands.clean.function.room.DB
 import com.hands.clean.function.room.entrys.DeviceEntry
 
@@ -49,7 +49,7 @@ abstract class DeviceNotify: Notify {
     }
 
     private fun askUserForNewDeviceIsNotification() {
-        NewDeviceNotification(context, deviceEntry).create()
+        NewDeviceNotifyFactory(context, deviceEntry).onBuild()
             .onNotify()
     }
 

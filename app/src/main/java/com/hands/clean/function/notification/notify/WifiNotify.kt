@@ -5,8 +5,8 @@ import android.net.wifi.ScanResult
 import android.net.wifi.WifiInfo
 import android.net.wifi.WifiManager
 import android.util.Log
-import com.hands.clean.function.notification.factory.EncryptionWifiNotification
-import com.hands.clean.function.notification.factory.WashNotification
+import com.hands.clean.function.notification.factory.notify.EncryptionWifiNotifyFactory
+import com.hands.clean.function.notification.factory.notify.WashNotifyFactory
 import com.hands.clean.function.room.entrys.DeviceEntry
 import com.hands.clean.function.room.entrys.WifiEntry
 import com.hands.clean.function.settings.WashSettingsManager
@@ -43,10 +43,10 @@ class WifiNotify(override val context: Context) : DeviceNotify() {
 
     override fun sendNotify(foundDevice: DeviceEntry) {
         if (foundDevice.isNotification) {
-            WashNotification(context, deviceEntry).create()
+            WashNotifyFactory(context, deviceEntry).onBuild()
                 .onNotify()
         } else if (isEncryptionNotify()) {
-            EncryptionWifiNotification(context, deviceEntry).create()
+            EncryptionWifiNotifyFactory(context, deviceEntry).onBuild()
                 .onNotify()
         }
     }

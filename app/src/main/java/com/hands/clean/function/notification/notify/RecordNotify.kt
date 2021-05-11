@@ -30,18 +30,13 @@ class RecordNotify(
 
     private fun record() {
         val mFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.UK)
-        var latitude: Double? = null
-        var longitude: Double? = null
-
-        latitude = LocationInfo.latitude
-        longitude = LocationInfo.longitude
 
         val we = WashEntry(
             date = mFormat.format(Date()),
             type = notifyInfo.channelId,
             detail = "",
-            longitude = longitude,
-            latitude = latitude
+            longitude = LocationInfo.latitude,
+            latitude = LocationInfo.longitude
         )
         DB.getInstance().washDao().insertAll(we)
     }

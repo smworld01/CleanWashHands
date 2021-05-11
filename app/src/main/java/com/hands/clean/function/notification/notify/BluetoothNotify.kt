@@ -3,7 +3,7 @@ package com.hands.clean.function.notification.notify
 import android.bluetooth.BluetoothDevice
 import android.content.Context
 import android.content.Intent
-import com.hands.clean.function.notification.factory.WashNotification
+import com.hands.clean.function.notification.factory.notify.WashNotifyFactory
 import com.hands.clean.function.room.entrys.BluetoothEntry
 import com.hands.clean.function.room.entrys.DeviceEntry
 import com.hands.clean.function.settings.WashSettingsManager
@@ -29,7 +29,7 @@ class BluetoothNotify(override val context: Context, intent: Intent) : DeviceNot
 
     override fun sendNotify(foundDevice: DeviceEntry) {
         if (foundDevice.isNotification) {
-            WashNotification(context, deviceEntry).create()
+            WashNotifyFactory(context, deviceEntry).onBuild()
                 .onNotify()
         }
     }

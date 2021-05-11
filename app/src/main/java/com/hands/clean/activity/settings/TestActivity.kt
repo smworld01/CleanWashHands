@@ -8,7 +8,7 @@ import android.widget.Button
 import com.google.android.gms.location.*
 import com.hands.clean.R
 import com.hands.clean.function.gps.geofencing.WashGeofencing
-import com.hands.clean.function.notification.factory.WashNotification
+import com.hands.clean.function.notification.factory.notify.WashNotifyFactory
 import com.hands.clean.function.room.DB
 import com.hands.clean.function.room.entrys.GpsEntry
 import com.hands.clean.function.room.entrys.WifiEntry
@@ -47,7 +47,7 @@ class TestActivity : AppCompatActivity() {
         }
 
         buttonChangeNotificationChannel.setOnClickListener {
-            WashNotification(applicationContext, WifiEntry(0, "1", "2", false)).create().onNotify()
+            WashNotifyFactory(applicationContext, WifiEntry(0, "1", "2", false)).onBuild().onNotify()
         }
     }
 }
