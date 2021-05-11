@@ -19,7 +19,7 @@ import com.hands.clean.function.gps.geofencing.WashGeofencing
 import com.hands.clean.function.notification.init.NotificationChannelManager
 import com.hands.clean.function.receiver.ACTION_REGISTER_NOTIFICATION_DEVICE
 import com.hands.clean.function.receiver.bluetoothReceiver
-import com.hands.clean.function.receiver.deviceReceiver
+import com.hands.clean.function.receiver.deviceRegisterReceiver
 import com.hands.clean.function.room.DB
 import com.hands.clean.function.service.WashLocationService
 import com.hands.clean.function.service.WashLocationServiceManager
@@ -77,7 +77,7 @@ class NavigationActivity : AppCompatActivity() {
         val deviceFilter = IntentFilter()
         deviceFilter.addAction(ACTION_REGISTER_NOTIFICATION_DEVICE)
 
-        registerReceiver(deviceReceiver, deviceFilter)
+        registerReceiver(deviceRegisterReceiver, deviceFilter)
 
     }
     private fun initService() {

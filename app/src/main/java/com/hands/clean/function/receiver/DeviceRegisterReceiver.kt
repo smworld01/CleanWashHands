@@ -15,8 +15,8 @@ import kotlin.concurrent.thread
 
 const val ACTION_REGISTER_NOTIFICATION_DEVICE: String = "com.hands.clean.ACTION_REGISTER_DEVICE"
 
-val deviceReceiver = object : BroadcastReceiver() {
-    override fun onReceive(context: Context, intent: Intent) {
+val deviceRegisterReceiver = object : BroadcastReceiver() {
+    override fun onReceive(context:  Context, intent: Intent) {
         val action: String = intent.action!!
         when(action) {
             ACTION_REGISTER_NOTIFICATION_DEVICE  -> {
@@ -25,7 +25,7 @@ val deviceReceiver = object : BroadcastReceiver() {
         }
     }
 
-    fun registerNotificationDevice(context: Context, intent: Intent) {
+    private fun registerNotificationDevice(context: Context, intent: Intent) {
         thread {
             val remoteReply = RemoteInput.getResultsFromIntent(intent)
             val deviceName = remoteReply.getCharSequence("deviceName")

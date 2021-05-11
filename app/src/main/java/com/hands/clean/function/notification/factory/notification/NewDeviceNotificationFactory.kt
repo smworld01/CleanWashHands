@@ -54,10 +54,11 @@ class NewDeviceNotificationFactory(
     }
 
     private fun createDeviceIntent(): Intent {
-        val intent: Intent = Intent(ACTION_REGISTER_NOTIFICATION_DEVICE)
-        intent.putExtra("address", locationInfo.address)
-        intent.putExtra("type", notifyInfo.channelId)
-        intent.putExtra("notificationId", notificationId)
-        return intent
+        return Intent().also { intent ->
+            intent.action = ACTION_REGISTER_NOTIFICATION_DEVICE
+            intent.putExtra("address", locationInfo.address)
+            intent.putExtra("type", notifyInfo.channelId)
+            intent.putExtra("notificationId", notificationId)
+        }
     }
 }
