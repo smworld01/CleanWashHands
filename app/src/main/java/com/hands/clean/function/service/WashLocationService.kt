@@ -13,7 +13,7 @@ import com.hands.clean.function.gps.geofencing.WashGeofencing
 import com.hands.clean.function.notification.factory.ForegroundNotification
 import com.hands.clean.function.notification.type.NotifyType
 
-class LocationService: Service() {
+class WashLocationService: Service() {
     private lateinit var wifiConnectionChecker: WifiConnectionChecker
     private lateinit var locationRequester: LocationRequester
 

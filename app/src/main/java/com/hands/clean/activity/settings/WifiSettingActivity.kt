@@ -13,9 +13,10 @@ import com.hands.clean.R
 import com.hands.clean.function.permission.GpsPermissionRequesterWithBackground
 import com.hands.clean.function.room.DB
 import com.hands.clean.function.room.entrys.DeviceEntry
-import com.hands.clean.function.service.LocationService
+import com.hands.clean.function.service.WashLocationService
 import com.hands.clean.function.settings.WashSettingsManager
 import com.hands.clean.activity.settings.adapter.adaptRecyclerDevice
+import com.hands.clean.function.service.WashLocationServiceManager
 import kotlin.concurrent.thread
 
 class WifiSettingActivity : AppCompatActivity() {
@@ -67,16 +68,12 @@ class WifiSettingActivity : AppCompatActivity() {
 
         switchWifi.setOnCheckedChangeListener{ _, isChecked ->
             settings.wifiNotify = isChecked
-            val intent = Intent(this, LocationService::class.java)
+            val wsm = WashLocationServiceManager(this)
             // Todo waiting
             if (isChecked)
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    startForegroundService(intent)
-                } else {
-                    startService(intent)
-                }
+                wsm.onStartService()
             else
-                stopService(intent)
+                wsm.onStopService()
         }
         switchNewDeviceWifi.setOnCheckedChangeListener { _, isChecked ->
             settings.wifiNewDeviceNotify = isChecked
