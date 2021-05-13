@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.hands.clean.R
 import com.hands.clean.TutorialActivity
+import com.hands.clean.function.room.DB
 import com.hands.clean.function.room.entrys.DateCount
 import com.hands.clean.setting.BluetoothSettingActivity
 import com.hands.clean.setting.GpsSettingActivity
@@ -21,6 +22,7 @@ import com.hands.clean.setting.TestActivity
 import com.hands.clean.setting.WifiSettingActivity
 import com.hands.clean.ui.home.adapter.RecyclerWashAdapter
 import com.hands.clean.ui.logs.adapter.RecyclerLogsAdapter
+import kotlin.concurrent.thread
 
 class LogsFragment : Fragment() {
 
@@ -37,21 +39,24 @@ class LogsFragment : Fragment() {
         return root
     }
     private fun initLayout(root: View) {
-        initRecycler(root, arrayListOf(DateCount("test","0")))
+        initRecycler(root)
     }
-    private fun initRecycler(root: View, dateCount: List<DateCount>) {
-        val recyclerViewLogs: RecyclerView = root.findViewById(R.id.recyclerViewLogs)
-        val mAdapter = RecyclerLogsAdapter(dateCount)
+    private fun initRecycler(root: View) {
+        thread {
+            val recyclerViewLogs: RecyclerView = root.findViewById(R.id.recyclerViewLogs)
+            val washLogs = DB.getInstance().washDao().getAll()
+            val mAdapter = RecyclerLogsAdapter(washLogs)
 
-        val lm = LinearLayoutManager(root.context)
+            val lm = LinearLayoutManager(root.context)
 
-        recyclerViewLogs.apply {
-            setHasFixedSize(true)
-            adapter = mAdapter
-            layoutManager = lm
-            val itemDecoration = DividerItemDecoration(root.context, LinearLayoutManager.VERTICAL)
-            itemDecoration.setDrawable(ResourcesCompat.getDrawable(resources, R.color.black, null)!!)
-            addItemDecoration(itemDecoration)
+            recyclerViewLogs.apply {
+                setHasFixedSize(true)
+                adapter = mAdapter
+                layoutManager = lm
+                val itemDecoration = DividerItemDecoration(root.context, LinearLayoutManager.VERTICAL)
+                itemDecoration.setDrawable(ResourcesCompat.getDrawable(resources, R.color.black, null)!!)
+                addItemDecoration(itemDecoration)
+            }
         }
     }
 }
