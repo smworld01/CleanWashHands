@@ -8,7 +8,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.RemoteInput
 import com.hands.clean.R
 import com.hands.clean.function.notification.NotificationIdCounter
-import com.hands.clean.function.receiver.ACTION_REGISTER_NOTIFICATION_DEVICE
+import com.hands.clean.function.receiver.DeviceRegisterReceiver
 import com.hands.clean.function.room.entrys.*
 import java.lang.Exception
 
@@ -54,8 +54,7 @@ class NewDeviceDetectionNotificationFactory(
     }
 
     private fun createDeviceIntent(): Intent {
-        return Intent().also { intent ->
-            intent.action = ACTION_REGISTER_NOTIFICATION_DEVICE
+        return Intent(context, DeviceRegisterReceiver::class.java).also { intent ->
             intent.putExtra("address", locationInfo.address)
             intent.putExtra("type", notifyInfo.channelId)
             intent.putExtra("notificationId", notificationId)
