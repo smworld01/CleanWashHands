@@ -2,9 +2,8 @@ package com.hands.clean.function.notification.notify.location
 
 import android.content.Context
 import com.hands.clean.function.notification.factory.notify.NewDeviceDetectionNotifyFactory
-import com.hands.clean.function.notification.notify.Notify
 import com.hands.clean.function.room.DB
-import com.hands.clean.function.room.entrys.DeviceEntry
+import com.hands.clean.function.room.entry.DeviceEntry
 
 abstract class DeviceNotify: LocationNotify() {
     protected abstract val deviceEntry: DeviceEntry

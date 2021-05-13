@@ -1,12 +1,14 @@
-package com.hands.clean.function.room.entrys
+package com.hands.clean.function.room.dao
 
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
+import com.hands.clean.function.room.entry.BluetoothEntry
+import com.hands.clean.function.room.entry.DeviceEntry
 
 @Dao
-interface BluetoothDao:DeviceDao {
+interface BluetoothDao: DeviceDao {
     @Query("SELECT * FROM BluetoothEntry")
     fun getAllBluetooth(): List<BluetoothEntry>
 

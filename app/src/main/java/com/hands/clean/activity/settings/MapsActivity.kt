@@ -16,7 +16,7 @@ import com.google.android.gms.maps.model.CircleOptions
 import com.google.android.gms.maps.model.LatLng
 import com.hands.clean.R
 import com.hands.clean.function.room.DB
-import com.hands.clean.function.room.entrys.GpsEntry
+import com.hands.clean.function.room.entry.GpsEntry
 import kotlin.concurrent.thread
 
 

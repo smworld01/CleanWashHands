@@ -1,4 +1,4 @@
-package com.hands.clean.function.room.entrys
+package com.hands.clean.function.room.entry
 
 interface LocationEntry {
     val uid: Int

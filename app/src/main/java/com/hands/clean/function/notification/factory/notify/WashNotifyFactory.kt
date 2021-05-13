@@ -5,7 +5,7 @@ import com.hands.clean.function.convertDeviceEntryToNotifyInfo
 import com.hands.clean.function.notification.factory.notification.WashNotificationFactory
 import com.hands.clean.function.notification.notify.Notify
 import com.hands.clean.function.notification.notify.RecordNotify
-import com.hands.clean.function.room.entrys.*
+import com.hands.clean.function.room.entry.*
 
 open class WashNotifyFactory(
     private val context: Context,

@@ -10,8 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.hands.clean.R
 import com.hands.clean.function.permission.GpsPermissionRequesterWithBackground
 import com.hands.clean.function.room.DB
-import com.hands.clean.function.room.entrys.DeviceEntry
-import com.hands.clean.function.service.WashLocationService
+import com.hands.clean.function.room.entry.DeviceEntry
 import com.hands.clean.function.settings.WashSettingsManager
 import com.hands.clean.activity.settings.adapter.adaptRecyclerDevice
 import com.hands.clean.function.service.WashLocationServiceManager

@@ -5,8 +5,7 @@ import android.util.Log
 import com.google.android.gms.location.Geofence
 import com.hands.clean.function.notification.factory.notify.WashNotifyFactory
 import com.hands.clean.function.room.DB
-import com.hands.clean.function.room.entrys.GpsEntry
-import com.hands.clean.function.room.entrys.LocationEntry
+import com.hands.clean.function.room.entry.GpsEntry
 import com.hands.clean.function.settings.WashSettingsManager
 import kotlin.concurrent.thread
 

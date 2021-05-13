@@ -1,6 +1,5 @@
-package com.hands.clean.function.room.entrys
+package com.hands.clean.function.room.entry
 
-import android.util.Log
 import androidx.recyclerview.widget.DiffUtil
 import androidx.room.ColumnInfo
 import androidx.room.Entity

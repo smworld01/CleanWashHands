@@ -1,4 +1,6 @@
-package com.hands.clean.function.room.entrys
+package com.hands.clean.function.room.dao
+
+import com.hands.clean.function.room.entry.DeviceEntry
 
 
 interface DeviceDao {

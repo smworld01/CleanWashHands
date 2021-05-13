@@ -4,7 +4,7 @@ import android.app.Notification
 import android.content.Context
 import androidx.core.app.NotificationCompat
 import com.hands.clean.R
-import com.hands.clean.function.room.entrys.*
+import com.hands.clean.function.room.entry.*
 import java.lang.Exception
 
 open class WashNotificationFactory(

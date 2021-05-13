@@ -14,7 +14,7 @@ import com.hands.clean.activity.settings.adapter.adaptRecyclerDevice
 import com.hands.clean.function.gps.SystemSettingsGpsManager
 import com.hands.clean.function.permission.GpsPermissionRequesterWithBackground
 import com.hands.clean.function.room.DB
-import com.hands.clean.function.room.entrys.LocationEntry
+import com.hands.clean.function.room.entry.LocationEntry
 import com.hands.clean.function.service.WashLocationServiceManager
 import com.hands.clean.function.settings.WashSettingsManager
 import kotlin.concurrent.thread

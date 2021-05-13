@@ -6,7 +6,7 @@ import com.hands.clean.function.gps.LocationInfo
 import com.hands.clean.function.notification.NotificationIdCounter
 import com.hands.clean.function.notification.type.NotifyInfo
 import com.hands.clean.function.room.DB
-import com.hands.clean.function.room.entrys.WashEntry
+import com.hands.clean.function.room.entry.WashEntry
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.concurrent.thread

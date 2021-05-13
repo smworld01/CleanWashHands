@@ -3,13 +3,12 @@ package com.hands.clean.function.notification.notify
 import android.content.Context
 import android.location.Location
 import android.util.Log
-import com.google.android.gms.location.LocationServices
 import com.hands.clean.function.compareStringTimeByAbsoluteMinute
 import com.hands.clean.function.gps.LocationInfo
 import com.hands.clean.function.gps.SystemSettingsGpsChecker
 import com.hands.clean.function.permission.checker.GpsPermissionChecker
 import com.hands.clean.function.room.DB
-import com.hands.clean.function.room.entrys.WashEntry
+import com.hands.clean.function.room.entry.WashEntry
 import java.text.SimpleDateFormat
 import java.util.*
 

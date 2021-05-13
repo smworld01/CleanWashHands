@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.hands.clean.R
 import com.hands.clean.function.room.DB
-import com.hands.clean.function.room.entrys.*
+import com.hands.clean.function.room.entry.*
 import kotlin.concurrent.thread
 
 class RecyclerDeviceAdapter (private val RecyclerDeviceData :List<LocationEntry>)

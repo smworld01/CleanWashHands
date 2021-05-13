@@ -4,9 +4,8 @@ import android.bluetooth.BluetoothDevice
 import android.content.Context
 import android.content.Intent
 import com.hands.clean.function.notification.factory.notify.WashNotifyFactory
-import com.hands.clean.function.room.entrys.BluetoothEntry
-import com.hands.clean.function.room.entrys.DeviceEntry
-import com.hands.clean.function.room.entrys.LocationEntry
+import com.hands.clean.function.room.entry.BluetoothEntry
+import com.hands.clean.function.room.entry.DeviceEntry
 import com.hands.clean.function.settings.WashSettingsManager
 
 class BluetoothNotify(override val context: Context, intent: Intent) : DeviceNotify() {

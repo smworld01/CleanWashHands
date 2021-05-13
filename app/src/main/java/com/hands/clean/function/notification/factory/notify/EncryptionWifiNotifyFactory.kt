@@ -5,7 +5,7 @@ import com.hands.clean.function.convertDeviceEntryToNotifyInfo
 import com.hands.clean.function.notification.factory.notification.EncryptionWifiNotificationFactory
 import com.hands.clean.function.notification.notify.Notify
 import com.hands.clean.function.notification.notify.RecordNotify
-import com.hands.clean.function.room.entrys.*
+import com.hands.clean.function.room.entry.*
 
 class EncryptionWifiNotifyFactory(
     private val context: Context,

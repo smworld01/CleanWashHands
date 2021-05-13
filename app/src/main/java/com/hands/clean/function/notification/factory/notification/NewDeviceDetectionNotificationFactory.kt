@@ -9,7 +9,7 @@ import androidx.core.app.RemoteInput
 import com.hands.clean.R
 import com.hands.clean.function.notification.NotificationIdCounter
 import com.hands.clean.function.receiver.DeviceRegisterReceiver
-import com.hands.clean.function.room.entrys.*
+import com.hands.clean.function.room.entry.*
 import java.lang.Exception
 
 class NewDeviceDetectionNotificationFactory(

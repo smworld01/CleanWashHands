@@ -2,13 +2,12 @@ package com.hands.clean.function
 
 import com.hands.clean.function.notification.type.NotifyInfo
 import com.hands.clean.function.notification.type.NotifyType
-import com.hands.clean.function.room.entrys.BluetoothEntry
-import com.hands.clean.function.room.entrys.GpsEntry
-import com.hands.clean.function.room.entrys.LocationEntry
-import com.hands.clean.function.room.entrys.WifiEntry
+import com.hands.clean.function.room.entry.BluetoothEntry
+import com.hands.clean.function.room.entry.GpsEntry
+import com.hands.clean.function.room.entry.LocationEntry
+import com.hands.clean.function.room.entry.WifiEntry
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.math.PI
 import kotlin.math.abs
 
 

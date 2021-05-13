@@ -10,8 +10,8 @@ import com.hands.clean.R
 import com.hands.clean.function.gps.geofencing.WashGeofencing
 import com.hands.clean.function.notification.factory.notify.WashNotifyFactory
 import com.hands.clean.function.room.DB
-import com.hands.clean.function.room.entrys.GpsEntry
-import com.hands.clean.function.room.entrys.WifiEntry
+import com.hands.clean.function.room.entry.GpsEntry
+import com.hands.clean.function.room.entry.WifiEntry
 import kotlin.concurrent.thread
 
 class TestActivity : AppCompatActivity() {

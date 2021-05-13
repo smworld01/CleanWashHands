@@ -1,4 +1,4 @@
-package com.hands.clean.function.room.entrys
+package com.hands.clean.function.room.entry
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

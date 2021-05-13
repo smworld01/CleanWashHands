@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.hands.clean.R
 import com.hands.clean.function.room.DB
-import com.hands.clean.function.room.entrys.DateCount
+import com.hands.clean.function.room.entry.DateCount
 import com.hands.clean.ui.home.adapter.WashListAdapterWithHeader
 
 class HomeFragment : Fragment() {

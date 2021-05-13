@@ -5,7 +5,7 @@ import com.hands.clean.function.notification.NotificationIdCounter
 import com.hands.clean.function.notification.factory.notification.NewDeviceDetectionNotificationFactory
 import com.hands.clean.function.notification.notify.BasicNotify
 import com.hands.clean.function.notification.notify.Notify
-import com.hands.clean.function.room.entrys.*
+import com.hands.clean.function.room.entry.*
 
 class NewDeviceDetectionNotifyFactory(
     private val context: Context,

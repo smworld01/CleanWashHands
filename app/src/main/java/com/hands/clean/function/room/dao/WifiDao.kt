@@ -1,9 +1,11 @@
-package com.hands.clean.function.room.entrys
+package com.hands.clean.function.room.dao
 
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
+import com.hands.clean.function.room.entry.DeviceEntry
+import com.hands.clean.function.room.entry.WifiEntry
 
 @Dao
 interface WifiDao: DeviceDao {

@@ -5,7 +5,8 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.hands.clean.function.notification.type.NotifyInfo
 import com.hands.clean.function.notification.type.NotifyType
-import com.hands.clean.function.room.entrys.*
+import com.hands.clean.function.room.dao.*
+import com.hands.clean.function.room.entry.*
 import java.lang.Exception
 
 @Database(entities = [WifiEntry::class, BluetoothEntry::class, GpsEntry::class, WashEntry::class], version = 3)

@@ -1,15 +1,12 @@
 package com.hands.clean.ui.home.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.recyclerview.widget.AsyncListDiffer
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.hands.clean.R
-import com.hands.clean.function.room.entrys.DateCount
+import com.hands.clean.function.room.entry.DateCount
 
 class WashListAdapterWithHeader() : ListAdapterWithHeader<DateCount ,RecyclerView.ViewHolder>(DateCount.Companion.DateCountDiffCallback) {
     private val TYPE_HEADER = 0

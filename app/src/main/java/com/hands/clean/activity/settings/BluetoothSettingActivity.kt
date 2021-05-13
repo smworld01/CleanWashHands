@@ -6,16 +6,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
-import android.widget.CompoundButton
 import android.widget.TextView
 import androidx.appcompat.widget.SwitchCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.hands.clean.R
-import com.hands.clean.function.room.entrys.BluetoothEntry
-import com.hands.clean.function.room.entrys.DeviceEntry
+import com.hands.clean.function.room.entry.BluetoothEntry
 import com.hands.clean.function.settings.WashSettingsManager
 import com.hands.clean.activity.settings.adapter.adaptRecyclerDevice
-import com.hands.clean.function.room.entrys.LocationEntry
+import com.hands.clean.function.room.entry.LocationEntry
 
 class BluetoothSettingActivity : AppCompatActivity() {
     private val settings = WashSettingsManager(this)

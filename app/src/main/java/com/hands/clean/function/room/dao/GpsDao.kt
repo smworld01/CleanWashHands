@@ -1,6 +1,7 @@
-package com.hands.clean.function.room.entrys
+package com.hands.clean.function.room.dao
 
 import androidx.room.*
+import com.hands.clean.function.room.entry.GpsEntry
 
 @Dao
 interface GpsDao {
