@@ -10,6 +10,7 @@ import com.google.android.gms.location.Geofence
 import com.google.android.gms.location.GeofencingClient
 import com.google.android.gms.location.GeofencingRequest
 import com.google.android.gms.location.LocationServices
+import com.google.android.gms.maps.model.LatLng
 import com.hands.clean.function.permission.checker.PermissionChecker
 import com.hands.clean.function.receiver.GeofenceBroadcastReceiver
 import com.hands.clean.function.room.DB
@@ -61,7 +62,7 @@ class GeofencingManager(context: Context) {
         locationList = locationList.filter { it.isNotification }
 
         return locationList.map { entry ->
-            getGeofence(Pair(entry.latitude, entry.longitude), entry.radius)
+            getGeofence(entry.requestId, LatLng(entry.latitude, entry.longitude), entry.radius)
         }
     }
 
@@ -79,10 +80,10 @@ class GeofencingManager(context: Context) {
         }
     }
 
-    private fun getGeofence(geo: Pair<Double, Double>, radius: Float = 50f): Geofence {
+    private fun getGeofence(requestId: String, geo: LatLng, radius: Float = 50f): Geofence {
         return Geofence.Builder()
-            .setRequestId(geo.hashCode().toString())
-            .setCircularRegion(geo.first, geo.second, radius)
+            .setRequestId(requestId)
+            .setCircularRegion(geo.latitude, geo.longitude, radius)
             .setExpirationDuration(Geofence.NEVER_EXPIRE)
             .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER or Geofence.GEOFENCE_TRANSITION_EXIT)
             .build()

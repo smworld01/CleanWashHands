@@ -1,23 +1,18 @@
-package com.hands.clean.function.notification.notify
+package com.hands.clean.function.notification.notify.location
 
 import android.content.Context
 import com.hands.clean.function.notification.factory.notify.NewDeviceDetectionNotifyFactory
+import com.hands.clean.function.notification.notify.Notify
 import com.hands.clean.function.room.DB
 import com.hands.clean.function.room.entrys.DeviceEntry
 
-abstract class DeviceNotify: Notify {
+abstract class DeviceNotify: LocationNotify() {
     protected abstract val deviceEntry: DeviceEntry
     protected abstract val context: Context
 
-    override fun onNotify() {
-        if (isNotify()) {
-            doNotify()
-        }
-    }
+    abstract override fun isNotify(): Boolean
 
-    protected abstract fun isNotify(): Boolean
-
-    private fun doNotify() {
+    override fun doNotify() {
         val foundDeviceInfo: DeviceEntry? = findDeviceInDB()
 
         if (isNewDevice(foundDeviceInfo)) {
@@ -53,5 +48,5 @@ abstract class DeviceNotify: Notify {
             .onNotify()
     }
 
-    protected abstract fun sendNotify(foundDevice: DeviceEntry)
+    abstract fun sendNotify(foundDevice: DeviceEntry)
 }

@@ -13,6 +13,9 @@ interface GpsDao {
     @Query("SELECT * FROM GpsEntry WHERE requestId = :requestId")
     fun findByRequestId(requestId: String): GpsEntry?
 
+    @Query("SELECT * FROM GpsEntry WHERE requestId IN (:requestId)")
+    fun findByRequestIds(requestId: List<String>): List<GpsEntry>
+
     @Query("SELECT * FROM GpsEntry WHERE name = :name")
     fun findByName(name: String): GpsEntry?
 

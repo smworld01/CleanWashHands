@@ -4,7 +4,7 @@ import android.bluetooth.BluetoothDevice
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import com.hands.clean.function.notification.notify.BluetoothNotify
+import com.hands.clean.function.notification.notify.location.BluetoothNotify
 import kotlin.concurrent.thread
 
 val bluetoothReceiver = object : BroadcastReceiver() {

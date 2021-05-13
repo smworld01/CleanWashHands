@@ -9,7 +9,7 @@ import android.net.NetworkRequest
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
-import com.hands.clean.function.notification.notify.WifiNotify
+import com.hands.clean.function.notification.notify.location.WifiNotify
 import kotlin.concurrent.thread
 
 @RequiresApi(Build.VERSION_CODES.LOLLIPOP)

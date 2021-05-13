@@ -9,6 +9,8 @@ import android.util.Log
 import com.google.android.gms.location.Geofence
 import com.google.android.gms.location.GeofenceStatusCodes
 import com.google.android.gms.location.GeofencingEvent
+import com.hands.clean.function.notification.factory.notify.WashNotifyFactory
+import com.hands.clean.function.notification.notify.location.GpsNotify
 
 class GeofenceBroadcastReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
@@ -26,13 +28,18 @@ class GeofenceBroadcastReceiver : BroadcastReceiver() {
         geofencingEvent.triggeringGeofences
 
         // Test that the reported transition was of interest.
-        if (geofenceTransition == Geofence.GEOFENCE_TRANSITION_ENTER) {
-            Log.e("test", "event GEOFENCE_TRANSITION_ENTER")
-        } else if (geofenceTransition == Geofence.GEOFENCE_TRANSITION_EXIT){
-            Log.e("test", "event GEOFENCE_TRANSITION_EXIT")
-        } else {
-            Log.e("test", "event other")
+        when (geofenceTransition) {
+            Geofence.GEOFENCE_TRANSITION_ENTER -> {
+                Log.e("test", "event GEOFENCE_TRANSITION_ENTER")
+                GpsNotify(context, geofencingEvent.triggeringGeofences).onNotify()
+            }
+            Geofence.GEOFENCE_TRANSITION_EXIT -> {
+                Log.e("test", "event GEOFENCE_TRANSITION_EXIT")
+            }
+            else -> {
+                Log.e("test", "event other")
 
+            }
         }
     }
 

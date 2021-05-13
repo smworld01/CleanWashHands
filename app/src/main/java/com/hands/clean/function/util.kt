@@ -1,5 +1,11 @@
 package com.hands.clean.function
 
+import com.hands.clean.function.notification.type.NotifyInfo
+import com.hands.clean.function.notification.type.NotifyType
+import com.hands.clean.function.room.entrys.BluetoothEntry
+import com.hands.clean.function.room.entrys.GpsEntry
+import com.hands.clean.function.room.entrys.LocationEntry
+import com.hands.clean.function.room.entrys.WifiEntry
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.PI
@@ -21,5 +27,15 @@ fun convertStringToMsTime(stringTime: String): Long {
         date.time
     } else {
         0
+    }
+}
+
+
+fun convertDeviceEntryToNotifyInfo(locationInfoEntry: LocationEntry): NotifyInfo {
+    return when (locationInfoEntry) {
+        is BluetoothEntry -> NotifyType.Bluetooth
+        is WifiEntry -> NotifyType.Wifi
+        is GpsEntry -> NotifyType.GPS
+        else -> throw Exception()
     }
 }

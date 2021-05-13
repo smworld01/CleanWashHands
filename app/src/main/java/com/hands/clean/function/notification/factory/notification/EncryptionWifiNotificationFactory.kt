@@ -8,7 +8,7 @@ import com.hands.clean.function.room.entrys.*
 
 class EncryptionWifiNotificationFactory(
     private val context: Context,
-    locationInfo: DeviceEntry
+    locationInfo: LocationEntry
 ) : EntryNotificationFactory(locationInfo) {
 
     override fun onBuild(): Notification {

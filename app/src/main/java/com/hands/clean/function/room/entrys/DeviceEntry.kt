@@ -1,8 +1,5 @@
 package com.hands.clean.function.room.entrys
 
-interface DeviceEntry {
-    val uid: Int
-    val name: String
+interface DeviceEntry: LocationEntry {
     val address: String
-    val isNotification: Boolean
 }

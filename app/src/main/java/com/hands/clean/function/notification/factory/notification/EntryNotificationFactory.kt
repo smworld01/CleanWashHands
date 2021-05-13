@@ -1,8 +1,8 @@
 package com.hands.clean.function.notification.factory.notification
 
-import com.hands.clean.function.notification.type.convertDeviceEntryToNotifyInfo
-import com.hands.clean.function.room.entrys.DeviceEntry
+import com.hands.clean.function.convertDeviceEntryToNotifyInfo
+import com.hands.clean.function.room.entrys.LocationEntry
 
-abstract class EntryNotificationFactory(locationInfo: DeviceEntry) : NotificationFactory {
+abstract class EntryNotificationFactory(locationInfo: LocationEntry) : NotificationFactory {
     val notifyInfo = convertDeviceEntryToNotifyInfo(locationInfo)
 }
