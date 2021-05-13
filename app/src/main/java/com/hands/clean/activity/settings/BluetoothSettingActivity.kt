@@ -15,6 +15,7 @@ import com.hands.clean.function.room.entrys.BluetoothEntry
 import com.hands.clean.function.room.entrys.DeviceEntry
 import com.hands.clean.function.settings.WashSettingsManager
 import com.hands.clean.activity.settings.adapter.adaptRecyclerDevice
+import com.hands.clean.function.room.entrys.LocationEntry
 
 class BluetoothSettingActivity : AppCompatActivity() {
     private val settings = WashSettingsManager(this)
@@ -76,12 +77,12 @@ class BluetoothSettingActivity : AppCompatActivity() {
         }
     }
 
-    private fun getBluetoothRecyclerDataArrayList(): ArrayList<DeviceEntry> {
+    private fun getBluetoothRecyclerDataArrayList(): ArrayList<LocationEntry> {
         val mBluetoothAdapter: BluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         val pairedDevices: Set<BluetoothDevice> = mBluetoothAdapter.bondedDevices;
 
 
-        return ArrayList<DeviceEntry>(pairedDevices.map { BluetoothEntry(0, it.name, it.address, false) })
+        return ArrayList<LocationEntry>(pairedDevices.map { BluetoothEntry(0, it.name, it.address, false) })
     }
 
 }

@@ -1,7 +1,5 @@
 package com.hands.clean.activity.settings
 
-import android.content.Intent
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
@@ -72,7 +70,7 @@ class WifiSettingActivity : AppCompatActivity() {
             // Todo waiting
             if (isChecked)
                 wsm.onStartService()
-            else
+            else if (!settings.gpsNotify)
                 wsm.onStopService()
         }
         switchNewDeviceWifi.setOnCheckedChangeListener { _, isChecked ->

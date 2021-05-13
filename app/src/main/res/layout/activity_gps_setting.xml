@@ -20,7 +20,7 @@
         />
 
     <Button
-        android:id="@+id/buttonRegisterGPS"
+        android:id="@+id/buttonMap"
         android:background="?attr/selectableItemBackground"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -36,7 +36,7 @@
         >
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewBluetooth"
+            android:id="@+id/recyclerViewGps"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/recycler_border"
