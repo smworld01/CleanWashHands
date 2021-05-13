@@ -21,7 +21,7 @@ class RecordNotify(
 
     override fun onNotify() {
         thread {
-            if (notifyLimiter.isLimit()) {
+            if (notifyLimiter.isNotLimited()) {
                 super.onNotify()
                 record()
             }

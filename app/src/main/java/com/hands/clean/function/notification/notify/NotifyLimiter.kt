@@ -18,14 +18,17 @@ class NotifyLimiter(context: Context) {
 
     private var lastRecord: WashEntry? = null
 
-    fun isLimit(): Boolean {
+    fun isLimited(): Boolean {
         loadLastRecord()
 
         return if (isNotExistsLastRecord()) {
-            true
+            false
         } else {
             limit()
         }
+    }
+    fun isNotLimited(): Boolean {
+        return !isLimited()
     }
 
     private fun loadLastRecord() {
@@ -37,12 +40,12 @@ class NotifyLimiter(context: Context) {
     }
 
     private fun limit(): Boolean {
-//        if (isRecentlySendNotify()) return false
+        if (isRecentlySendNotify()) return true
 
         return when {
-            isNotGetGpsInfo() -> true
-            isNotSameLocation() -> true
-            else -> false
+            isNotGetGpsInfo() -> false
+            isNotSameLocation() -> false
+            else -> true
         }
     }
 
