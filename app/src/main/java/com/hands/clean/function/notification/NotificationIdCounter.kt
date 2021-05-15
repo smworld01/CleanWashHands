@@ -7,8 +7,7 @@ package com.hands.clean.function.notification
 object NotificationIdCounter {
     private var notificationId: Int = 5
 
-    // sync
-    fun getNotificationId(): Int  {
+    @Synchronized fun getNotificationId(): Int  {
         return notificationId++
     }
 }

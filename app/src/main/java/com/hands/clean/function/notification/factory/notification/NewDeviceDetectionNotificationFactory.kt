@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.core.app.NotificationCompat
 import androidx.core.app.RemoteInput
+import androidx.core.content.ContextCompat
 import com.hands.clean.R
 import com.hands.clean.function.notification.NotificationIdCounter
 import com.hands.clean.function.receiver.DeviceRegisterReceiver
@@ -25,6 +26,7 @@ class NewDeviceDetectionNotificationFactory(
                 .setContentTitle("새로운 장치가 연결되었습니다.")
                 .setContentText(getContentText())
                 .addAction(getButton())
+                .setColor(ContextCompat.getColor(context, R.color.blue_500))
                 .setDefaults(Notification.FLAG_NO_CLEAR)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
 

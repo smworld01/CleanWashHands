@@ -7,6 +7,7 @@ import android.content.Intent
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
+import androidx.core.content.ContextCompat
 import com.hands.clean.R
 import com.hands.clean.function.notification.type.NotifyInfo
 import com.hands.clean.function.receiver.ServiceStopReceiver
@@ -24,6 +25,7 @@ class ForegroundNotificationFactory(
                 .setContentTitle("WiFi와 GPS를 확인하고 있습니다.")
                 .setContentText("테스트 중..")
                 .addAction(getAction())
+                .setColor(ContextCompat.getColor(context, R.color.blue_500))
                 .setDefaults(Notification.FLAG_NO_CLEAR)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
         return builder.build()

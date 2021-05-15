@@ -14,8 +14,8 @@ import kotlin.concurrent.thread
 class RecordNotify(
     context: Context,
     notification: Notification,
-    private val notifyInfo: NotifyInfo,
-    notificationId: Int = NotificationIdCounter.getNotificationId()
+    private val washEntry: WashEntry,
+    notificationId: Int = NotificationIdCounter.getNotificationId(),
 ): BasicNotify(context, notification, notificationId) {
     private val notifyLimiter = NotifyLimiter(context)
 
@@ -29,15 +29,6 @@ class RecordNotify(
     }
 
     private fun record() {
-        val mFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.UK)
-
-        val we = WashEntry(
-            date = mFormat.format(Date()),
-            type = notifyInfo.channelId,
-            detail = "",
-            longitude = LocationInfo.latitude,
-            latitude = LocationInfo.longitude
-        )
-        DB.getInstance().washDao().insertAll(we)
+        DB.getInstance().washDao().insertAll(washEntry)
     }
 }

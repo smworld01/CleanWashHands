@@ -14,8 +14,11 @@ class EncryptionWifiNotifyFactory(
     val notifyInfo = convertDeviceEntryToNotifyInfo(wifiEntry)
 
     override fun onBuild(): Notify {
-        val notification = EncryptionWifiNotificationFactory(context, wifiEntry).onBuild()
+        val notificationFactory = EncryptionWifiNotificationFactory(context, wifiEntry)
+        val notification = notificationFactory.onBuild()
 
-        return RecordNotify(context, notification, notifyInfo)
+        val washEntry = notificationFactory.onBuildWashEntry()
+
+        return RecordNotify(context, notification, washEntry)
     }
 }

@@ -40,6 +40,7 @@ class NotifyLimiter(context: Context) {
     }
 
     private fun limit(): Boolean {
+        return false
         if (isRecentlySendNotify()) return true
 
         return when {

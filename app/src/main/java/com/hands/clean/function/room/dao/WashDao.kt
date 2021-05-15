@@ -1,10 +1,7 @@
 package com.hands.clean.function.room.dao
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import com.hands.clean.function.room.entry.DateCount
 import com.hands.clean.function.room.entry.WashEntry
 import java.util.*
@@ -20,6 +17,9 @@ interface WashDao {
     @Query("SELECT * FROM WashEntry WHERE uid IN (:userIds)")
     fun loadAllByIds(userIds: IntArray): List<WashEntry>
 
+    @Query("SELECT * FROM WashEntry WHERE uid = :uid")
+    fun findById(uid: Int): WashEntry
+
     @Query("SELECT * FROM WashEntry WHERE DATE(date) = DATE(:date)")
     fun findByDate(date: Date): List<WashEntry>
 
@@ -34,6 +34,9 @@ interface WashDao {
 
     @Query("SELECT DATE(date), COUNT(*) FROM WashEntry GROUP BY DATE(date) ORDER BY date DESC")
     fun countByDate(): LiveData<MutableList<DateCount>>
+
+    @Update
+    fun update(vararg washEntries: WashEntry)
 
     @Insert
     fun insertAll(vararg users: WashEntry)
