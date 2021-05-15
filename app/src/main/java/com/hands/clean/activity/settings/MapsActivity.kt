@@ -1,10 +1,12 @@
 package com.hands.clean.activity.settings
 
+import android.content.Intent
 import android.graphics.Color
 import android.location.Location
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -14,6 +16,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.CircleOptions
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import com.hands.clean.R
 import com.hands.clean.function.room.DB
 import com.hands.clean.function.room.entry.GpsEntry
@@ -30,6 +33,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         setContentView(R.layout.activity_maps)
 
         initActionBar()
+        initButton()
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         fusedLocationClient.lastLocation
@@ -64,18 +68,19 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     }
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
-        drawCircle()
+        initMap()
     }
 
-    private fun drawCircle() {
-        lateinit var locationList: List<GpsEntry>
+    private fun initMap() {
         thread {
+            val gpsEntryList = getLocation()
+            drawCircle(gpsEntryList)
+            drawMarkers(gpsEntryList)
+        }
+    }
 
-            locationList = getLocation()
-
-        }.join()
-
-        locationList.map {
+    private fun drawCircle(gpsEntryList :List<GpsEntry>) {
+        gpsEntryList.map {
             mMap?.addCircle(convertLocationToCircle(it))
         }
     }
@@ -93,5 +98,24 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         circleOption.fillColor(0x30ff0000)
         circleOption.strokeWidth(2f)
         return circleOption
+    }
+
+    private fun drawMarkers(gpsEntryList :List<GpsEntry>) {
+        gpsEntryList.map {
+            addLocation(LatLng(it.latitude, it.longitude), it.name)
+        }
+    }
+
+    private fun addLocation(position: LatLng, title:String){
+        mMap?.addMarker(
+            MarkerOptions()
+                .position(position)
+                .title(title)
+        )
+    }
+    private fun initButton() {
+        val buttonRegister = findViewById<Button>(R.id.buttonRegister)
+        buttonRegister.setOnClickListener {
+        }
     }
 }
