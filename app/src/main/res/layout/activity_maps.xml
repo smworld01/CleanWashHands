@@ -6,6 +6,17 @@
     android:layout_height="match_parent"
     tools:context="com.hands.clean.activity.settings.MapsActivity">
 
+    <Button
+        android:id="@+id/buttonRegister"
+        android:background="?attr/selectableItemBackground"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="start|center"
+        android:text="위치저장하기"
+        android:padding="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
     <fragment
         android:layout_width="match_parent"
         android:layout_height="match_parent"
