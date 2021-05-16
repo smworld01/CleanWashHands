@@ -14,6 +14,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.hands.clean.function.permission.checker.PermissionChecker
 import com.hands.clean.function.receiver.GeofenceBroadcastReceiver
 import com.hands.clean.function.room.DB
+import com.hands.clean.function.room.entry.GpsEntry
 import kotlin.concurrent.thread
 
 object WashGeofencing {
@@ -62,7 +63,7 @@ class GeofencingManager(context: Context) {
         locationList = locationList.filter { it.isNotification }
 
         return locationList.map { entry ->
-            getGeofence(entry.requestId, LatLng(entry.latitude, entry.longitude), entry.radius)
+            convertGpsEntryToGeofence(entry)
         }
     }
 
@@ -78,6 +79,14 @@ class GeofencingManager(context: Context) {
                 }
             }
         }
+    }
+
+    private fun convertGpsEntryToGeofence(gpsEntry: GpsEntry): Geofence {
+        return getGeofence(
+            gpsEntry.requestId,
+            LatLng(gpsEntry.latitude, gpsEntry.longitude),
+            gpsEntry.radius
+        )
     }
 
     private fun getGeofence(requestId: String, geo: LatLng, radius: Float = 50f): Geofence {

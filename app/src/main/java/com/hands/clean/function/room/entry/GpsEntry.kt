@@ -4,6 +4,8 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
+import com.google.android.gms.maps.model.Circle
+import com.google.android.gms.maps.model.Marker
 import com.hands.clean.function.notification.type.NotifyInfo
 import com.hands.clean.function.notification.type.NotifyType
 
@@ -18,4 +20,6 @@ data class GpsEntry(
         @ColumnInfo(name = "notification") override val isNotification: Boolean,
 ) : LocationEntry {
         @Ignore override val notifyInfo: NotifyInfo = NotifyType.GPS
+        @Ignore var marker: Marker? = null
+        @Ignore var circle: Circle? = null
 }

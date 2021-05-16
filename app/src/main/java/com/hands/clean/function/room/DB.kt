@@ -19,6 +19,7 @@ object DB {
         return Room.databaseBuilder(
                     context,
                     AppDatabase::class.java, "info"
-            ).build()
+            ).allowMainThreadQueries()
+            .build()
     }
 }
