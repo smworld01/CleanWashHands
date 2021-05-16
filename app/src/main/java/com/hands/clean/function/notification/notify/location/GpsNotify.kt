@@ -15,9 +15,8 @@ class GpsNotify(
 ): LocationNotify() {
     private val settings = WashSettingsManager(context)
 
-    override fun isNotify(): Boolean {
-//        return settings.gpsNotify
-        return true
+    override fun notifySettingsIsEnable(): Boolean {
+        return settings.gpsNotify
     }
 
     override fun doNotify() {

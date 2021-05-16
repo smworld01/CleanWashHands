@@ -4,10 +4,10 @@ import com.hands.clean.function.notification.notify.Notify
 
 abstract class LocationNotify: Notify {
     override fun onNotify() {
-        if (isNotify()) {
+        if (notifySettingsIsEnable()) {
             doNotify()
         }
     }
-    abstract fun isNotify(): Boolean
+    abstract fun notifySettingsIsEnable(): Boolean
     abstract fun doNotify()
 }

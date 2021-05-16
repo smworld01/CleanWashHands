@@ -6,18 +6,16 @@ import com.hands.clean.function.room.DB
 import com.hands.clean.function.room.entry.DeviceEntry
 
 abstract class DeviceNotify: LocationNotify() {
-    protected abstract val deviceEntry: DeviceEntry
-    protected abstract val context: Context
-
-    abstract override fun isNotify(): Boolean
+    abstract val deviceEntry: DeviceEntry
+    abstract val context: Context
 
     override fun doNotify() {
-        val foundDeviceInfo: DeviceEntry? = findDeviceInDB()
+        val deviceInfo: DeviceEntry? = findDeviceInDB()
 
-        if (isNewDevice(foundDeviceInfo)) {
+        if (deviceInfoIsNotExist(deviceInfo)) {
             sendNewDeviceNotify()
         } else {
-            sendNotify(foundDeviceInfo!!)
+            sendNotify(deviceInfo!!)
         }
     }
 
@@ -25,18 +23,19 @@ abstract class DeviceNotify: LocationNotify() {
         return DB.getInstance().matchDaoByEntry(deviceEntry).findByAddress(deviceEntry.address)
     }
 
-    private fun isNewDevice(device : DeviceEntry?): Boolean {
+    private fun deviceInfoIsNotExist(device : DeviceEntry?): Boolean {
         return device == null
     }
 
     private fun sendNewDeviceNotify() {
-        if (isNewDeviceNotify()) {
+        if (newDeviceNotifySettingsIsEnable()) {
             registerDeviceInDB()
 
             askUserForNewDeviceIsNotification()
         }
     }
-    protected abstract fun isNewDeviceNotify(): Boolean
+
+    abstract fun newDeviceNotifySettingsIsEnable(): Boolean
 
     private fun registerDeviceInDB() {
         DB.getInstance().matchDaoByEntry(deviceEntry).insertAll(deviceEntry)
