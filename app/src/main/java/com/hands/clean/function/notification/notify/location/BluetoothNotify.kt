@@ -37,7 +37,7 @@ class BluetoothNotify(context: Context, intent: Intent) : Notify {
 
         override fun sendNotify(foundDevice: DeviceEntry) {
             if (foundDevice.isNotification) {
-                WashNotifyFactory(context, deviceEntry).onBuild()
+                WashNotifyFactory(context, foundDevice).onBuild()
                     .onNotify()
             }
         }

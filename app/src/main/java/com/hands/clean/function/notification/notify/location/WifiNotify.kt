@@ -23,7 +23,23 @@ class WifiNotify(context: Context) : Notify {
         private val settings = WashSettingsManager(context)
         private val deviceInfo = getDeviceInContent()
 
-        override val deviceEntry = WifiEntry(0, deviceInfo.SSID, deviceInfo.BSSID, false)
+        override var deviceEntry: DeviceEntry = WifiEntry(0, deviceInfo.SSID, deviceInfo.BSSID, false)
+
+        override fun doNotify() {
+            super.doNotify()
+
+            if (isEncryptionNotify()) {
+                EncryptionWifiNotifyFactory(context, deviceEntry as WifiEntry).onBuild()
+                    .onNotify()
+            }
+        }
+
+        private fun isEncryptionNotify(): Boolean {
+            val capabilities = deviceInfo.capabilities
+
+            return settings.wifiEncryptionNotify &&
+                    (capabilities.contains("WPA") || capabilities.contains("WEP"))
+        }
 
         private fun getDeviceInContent(): ScanResult {
             val wifiManager: WifiManager =
@@ -52,20 +68,9 @@ class WifiNotify(context: Context) : Notify {
 
         override fun sendNotify(foundDevice: DeviceEntry) {
             if (foundDevice.isNotification) {
-                WashNotifyFactory(context, deviceEntry).onBuild()
-                    .onNotify()
-            } else if (isEncryptionNotify()) {
-                EncryptionWifiNotifyFactory(context, deviceEntry).onBuild()
+                WashNotifyFactory(context, foundDevice).onBuild()
                     .onNotify()
             }
-        }
-
-        private fun isEncryptionNotify(): Boolean {
-            val capabilities = deviceInfo.capabilities
-
-            return settings.wifiEncryptionNotify && (capabilities.contains("WPA") || capabilities.contains(
-                "WEP"
-            ))
         }
     }
 }

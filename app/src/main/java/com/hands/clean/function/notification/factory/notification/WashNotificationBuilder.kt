@@ -38,7 +38,7 @@ open class WashNotificationBuilder(
         )
     }
 
-    private fun getContentText(): String {
+    open fun getContentText(): String {
         return when (locationEntry) {
             is BluetoothEntry -> "$channelId 기기 ${locationEntry.name} 에 연결되었습니다."
             is WifiEntry -> "$channelId 기기 ${locationEntry.name} 에 연결되었습니다."
