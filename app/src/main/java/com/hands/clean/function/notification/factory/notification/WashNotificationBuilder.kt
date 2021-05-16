@@ -1,39 +1,29 @@
 package com.hands.clean.function.notification.factory.notification
 
-import android.app.Notification
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import androidx.core.app.NotificationCompat
-import androidx.core.content.ContextCompat
 import com.hands.clean.R
 import com.hands.clean.function.gps.LocationInfo
 import com.hands.clean.function.receiver.WashReceiver
 import com.hands.clean.function.room.DB
 import com.hands.clean.function.room.entry.*
-import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
 
-open class WashNotificationFactory(
+open class WashNotificationBuilder(
     private val context: Context,
-    private val locationInfo: LocationEntry,
+    private val locationEntry: LocationEntry,
     private val notificationId: Int,
-): EntryNotificationFactory(locationInfo) {
-    override fun onBuild(): Notification {
-        val builder: NotificationCompat.Builder =
-            NotificationCompat.Builder(context, notifyInfo.channelId)
+) : BaseNotificationBuilder(context, locationEntry.notifyInfo.channelId) {
+    private val channelId = locationEntry.notifyInfo.channelId
 
-        builder
-            .setSmallIcon(R.drawable.ic_baseline_home_24)
+    init {
+        this
             .setContentTitle("손을 씻어주세요.")
             .setContentText(getContentText())
-            .setColor(ContextCompat.getColor(context, R.color.blue_500))
             .addAction(getWashAction())
-            .setDefaults(Notification.FLAG_NO_CLEAR)
-            .priority = NotificationCompat.PRIORITY_DEFAULT
-
-        return builder.build()
     }
 
     fun onBuildWashEntry(): WashEntry {
@@ -41,7 +31,7 @@ open class WashNotificationFactory(
 
         return WashEntry(
             date = mFormat.format(Date()),
-            type = notifyInfo.channelId,
+            type = channelId,
             detail = getContentText(),
             longitude = LocationInfo.latitude,
             latitude = LocationInfo.longitude
@@ -49,10 +39,10 @@ open class WashNotificationFactory(
     }
 
     private fun getContentText(): String {
-        return when (locationInfo) {
-            is BluetoothEntry -> "${notifyInfo.channelId} 기기 ${locationInfo.name} 에 연결되었습니다."
-            is WifiEntry -> "${notifyInfo.channelId} 기기 ${locationInfo.name} 에 연결되었습니다."
-            is GpsEntry -> "${locationInfo.name}에 도착하였습니다."
+        return when (locationEntry) {
+            is BluetoothEntry -> "$channelId 기기 ${locationEntry.name} 에 연결되었습니다."
+            is WifiEntry -> "$channelId 기기 ${locationEntry.name} 에 연결되었습니다."
+            is GpsEntry -> "${locationEntry.name}에 도착하였습니다."
             else -> throw Exception()
         }
     }
@@ -76,5 +66,4 @@ open class WashNotificationFactory(
         return if (recordId == null)  1
         else recordId + 1
     }
-
 }

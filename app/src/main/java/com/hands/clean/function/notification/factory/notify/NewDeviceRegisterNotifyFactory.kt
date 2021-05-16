@@ -1,7 +1,7 @@
 package com.hands.clean.function.notification.factory.notify
 
 import android.content.Context
-import com.hands.clean.function.notification.factory.notification.NewDeviceRegisterNotificationFactory
+import com.hands.clean.function.notification.factory.notification.NewDeviceRegisterNotificationBuilder
 import com.hands.clean.function.notification.notify.BasicNotify
 import com.hands.clean.function.notification.notify.Notify
 
@@ -13,7 +13,7 @@ class NewDeviceRegisterNotifyFactory(
 ) : NotifyFactory {
 
     override fun onBuild(): Notify {
-        val notification = NewDeviceRegisterNotificationFactory(context, deviceName, type).onBuild()
+        val notification = NewDeviceRegisterNotificationBuilder(context, deviceName, type).build()
 
         return BasicNotify(context, notification, notificationId)
     }

@@ -9,7 +9,7 @@ import androidx.annotation.RequiresApi
 import com.hands.clean.function.gps.LocationInfo
 import com.hands.clean.function.gps.LocationRequester
 import com.hands.clean.function.gps.geofencing.WashGeofencing
-import com.hands.clean.function.notification.factory.notification.ForegroundNotificationFactory
+import com.hands.clean.function.notification.factory.notification.ForegroundNotificationBuilder
 import com.hands.clean.function.notification.type.NotifyType
 
 class WashLocationService: Service() {
@@ -70,7 +70,7 @@ class WashLocationService: Service() {
 
     private fun registerNotification() {
         val foregroundNotification =
-            ForegroundNotificationFactory(applicationContext, NotifyType.NoticeService).onBuild()
+            ForegroundNotificationBuilder(applicationContext, NotifyType.NoticeService).build()
         startForeground(1, foregroundNotification);
     }
 }
