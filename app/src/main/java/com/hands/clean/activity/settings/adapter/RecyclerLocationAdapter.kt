@@ -4,6 +4,8 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -19,13 +21,28 @@ class RecyclerDeviceAdapter (private val RecyclerDeviceData :List<LocationEntry>
 
 
     inner class RecyclerDeviceItem(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var switchDevice: SwitchCompat = itemView.findViewById(R.id.switchDevice)
+        val layoutItem: LinearLayout = itemView.findViewById(R.id.layoutItem)
+        val textViewDeviceName: TextView = itemView.findViewById(R.id.textViewDeviceName)
+        var switchNotification: SwitchCompat = itemView.findViewById(R.id.switchNotification)
 
         fun bind (data: LocationEntry) {
-            switchDevice.text = data.name
-            switchDevice.isChecked = data.isNotification
+            layoutItem.setOnLongClickListener {
+                when(data) {
+                    is BluetoothEntry -> DB.getInstance().bluetoothDao().delete(data)
+                    is WifiEntry -> DB.getInstance().wifiDao().delete(data)
+                    is GpsEntry -> DB.getInstance().gpsDao().delete(data)
+                }
 
-            switchDevice.setOnCheckedChangeListener { _, isChecked ->
+                return@setOnLongClickListener true
+            }
+            layoutItem.setOnClickListener {
+                switchNotification.isChecked = !switchNotification.isChecked
+            }
+
+            textViewDeviceName.text = data.name
+            switchNotification.isChecked = data.isNotification
+
+            switchNotification.setOnCheckedChangeListener { _, isChecked ->
                 thread {
                     when(data) {
                         is BluetoothEntry -> DB.getInstance().bluetoothDao().changeNotificationByAddress(data.address, isChecked)
