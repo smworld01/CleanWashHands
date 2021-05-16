@@ -13,6 +13,7 @@ import com.hands.clean.R
 import com.hands.clean.function.room.entry.BluetoothEntry
 import com.hands.clean.function.settings.WashSettingsManager
 import com.hands.clean.activity.settings.adapter.adaptRecyclerDevice
+import com.hands.clean.function.room.DB
 import com.hands.clean.function.room.entry.LocationEntry
 
 class BluetoothSettingActivity : AppCompatActivity() {
@@ -65,13 +66,17 @@ class BluetoothSettingActivity : AppCompatActivity() {
 
     private fun initRecyclerView() {
         val recyclerViewBluetooth: RecyclerView = findViewById(R.id.recyclerViewBluetooth)
-        val deviceList = getBluetoothRecyclerDataArrayList()
-        adaptRecyclerDevice(this, recyclerViewBluetooth, deviceList)
         val textViewEmptyRecycler: TextView = findViewById(R.id.textViewEmptyRecycler)
-        if(deviceList.isEmpty()) {
-            textViewEmptyRecycler.visibility = View.VISIBLE
-        } else {
-            textViewEmptyRecycler.visibility = View.GONE
+
+        val mAdapter = adaptRecyclerDevice(this, recyclerViewBluetooth)
+
+        DB.getInstance().bluetoothDao().getAllByLiveData().observe(this) {
+            mAdapter.submitList(it)
+            if (it.isEmpty()) {
+                textViewEmptyRecycler.visibility = View.VISIBLE
+            } else {
+                textViewEmptyRecycler.visibility = View.GONE
+            }
         }
     }
 

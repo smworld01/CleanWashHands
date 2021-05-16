@@ -1,5 +1,6 @@
 package com.hands.clean.function.room.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.hands.clean.function.room.entry.GpsEntry
 
@@ -7,6 +8,9 @@ import com.hands.clean.function.room.entry.GpsEntry
 interface GpsDao {
     @Query("SELECT * FROM GpsEntry")
     fun getAll(): List<GpsEntry>
+
+    @Query("SELECT * FROM GpsEntry")
+    fun getAllByLiveData(): LiveData<List<GpsEntry>>
 
     @Query("SELECT * FROM GpsEntry WHERE uid IN (:unitIds)")
     fun loadAllByIds(unitIds: IntArray): List<GpsEntry>

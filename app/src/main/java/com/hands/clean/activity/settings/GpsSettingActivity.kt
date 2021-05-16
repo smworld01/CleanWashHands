@@ -78,16 +78,15 @@ class GpsSettingActivity : AppCompatActivity(){
     }
 
     private fun initRecyclerView() {
-        thread {
-            val recyclerViewGps: RecyclerView = findViewById(R.id.recyclerViewGps)
+        val recyclerViewGps: RecyclerView = findViewById(R.id.recyclerViewGps)
+        val textViewEmptyRecycler: TextView = findViewById(R.id.textViewEmptyRecycler)
 
-            val locationList: List<LocationEntry> = DB.getInstance().gpsDao().getAll()
-
-            adaptRecyclerDevice(this, recyclerViewGps, locationList)
+        val mAdapter = adaptRecyclerDevice(this, recyclerViewGps)
 
 
-            val textViewEmptyRecycler: TextView = findViewById(R.id.textViewEmptyRecycler)
-            if (locationList.isEmpty()) {
+        DB.getInstance().gpsDao().getAllByLiveData().observe(this) {
+            mAdapter.submitList(it as List<LocationEntry>?)
+            if (it.isEmpty()) {
                 textViewEmptyRecycler.visibility = View.VISIBLE
             } else {
                 textViewEmptyRecycler.visibility = View.GONE

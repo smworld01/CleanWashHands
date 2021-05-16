@@ -1,5 +1,6 @@
 package com.hands.clean.function.room.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -11,6 +12,9 @@ import com.hands.clean.function.room.entry.WifiEntry
 interface WifiDao: DeviceDao {
     @Query("SELECT * FROM WifiEntry")
     fun getAllWifi(): List<WifiEntry>
+
+    @Query("SELECT * FROM WifiEntry")
+    fun getAllByLiveData(): LiveData<List<WifiEntry>>
 
     @Query("SELECT * FROM WifiEntry WHERE uid IN (:userIds)")
     fun loadAllByIdsWifi(userIds: IntArray): List<WifiEntry>

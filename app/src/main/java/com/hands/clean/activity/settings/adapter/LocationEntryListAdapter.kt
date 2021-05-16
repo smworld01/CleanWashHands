@@ -10,17 +10,16 @@ import androidx.appcompat.widget.SwitchCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.hands.clean.R
 import com.hands.clean.function.room.DB
 import com.hands.clean.function.room.entry.*
+import com.hands.clean.ui.home.adapter.ListAdapterWithHeader
 import kotlin.concurrent.thread
 
-class RecyclerDeviceAdapter (private val RecyclerDeviceData :List<LocationEntry>)
-    : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-
-
-    inner class RecyclerDeviceItem(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class LocationEntryListAdapter() : ListAdapter<LocationEntry, RecyclerView.ViewHolder>(LocationEntry.Companion.DateCountDiffCallback) {
+    inner class RecyclerWashItem(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val layoutItem: LinearLayout = itemView.findViewById(R.id.layoutItem)
         val textViewDeviceName: TextView = itemView.findViewById(R.id.textViewDeviceName)
         var switchNotification: SwitchCompat = itemView.findViewById(R.id.switchNotification)
@@ -49,27 +48,25 @@ class RecyclerDeviceAdapter (private val RecyclerDeviceData :List<LocationEntry>
                         is WifiEntry -> DB.getInstance().matchDaoByEntry(data).changeNotificationByAddress(data.address, isChecked)
                         is GpsEntry -> DB.getInstance().gpsDao().changeNotificationByRequestId(data.requestId, isChecked)
                     }
-
                 }
             }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val view : View = LayoutInflater.from(parent.context).inflate(R.layout.device_recycler_item, parent, false)
-        return RecyclerDeviceItem(view)
+        val view : View =
+            LayoutInflater.from(parent.context).inflate(R.layout.device_recycler_item, parent, false)
+        return RecyclerWashItem(view)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val recyclerDeviceItem: RecyclerDeviceItem = holder as RecyclerDeviceItem
-        recyclerDeviceItem.bind(RecyclerDeviceData[position])
+        val recyclerWashItem: RecyclerWashItem = holder as RecyclerWashItem
+        recyclerWashItem.bind(getItem(position))
     }
-
-    override fun getItemCount(): Int = RecyclerDeviceData.size
 }
 
-fun adaptRecyclerDevice(context: Context, recyclerView: RecyclerView, arrayList: List<LocationEntry>): RecyclerView {
-    val mAdapter = RecyclerDeviceAdapter(arrayList)
+fun adaptRecyclerDevice(context: Context, recyclerView: RecyclerView): LocationEntryListAdapter {
+    val mAdapter = LocationEntryListAdapter()
     val lm = LinearLayoutManager(context)
 
     recyclerView.apply {
@@ -80,5 +77,5 @@ fun adaptRecyclerDevice(context: Context, recyclerView: RecyclerView, arrayList:
         itemDecoration.setDrawable(ResourcesCompat.getDrawable(resources, R.color.black, null)!!)
         addItemDecoration(itemDecoration)
     }
-    return recyclerView
+    return mAdapter
 }

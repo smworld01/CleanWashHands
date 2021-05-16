@@ -2,6 +2,7 @@ package com.hands.clean.activity.settings
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
@@ -13,6 +14,7 @@ import com.hands.clean.function.room.DB
 import com.hands.clean.function.room.entry.DeviceEntry
 import com.hands.clean.function.settings.WashSettingsManager
 import com.hands.clean.activity.settings.adapter.adaptRecyclerDevice
+import com.hands.clean.function.room.entry.LocationEntry
 import com.hands.clean.function.service.WashLocationServiceManager
 import kotlin.concurrent.thread
 
@@ -29,13 +31,11 @@ class WifiSettingActivity : AppCompatActivity() {
     }
 
     private fun initLayout() {
-        thread {
-            initActionBar()
+        initActionBar()
 
-            initSwitchViews()
+        initSwitchViews()
 
-            initRecyclerView()
-        }
+        initRecyclerView()
     }
 
     private fun initActionBar() {
@@ -81,20 +81,18 @@ class WifiSettingActivity : AppCompatActivity() {
     }
 
     private fun initRecyclerView() {
-            val recyclerViewWifi: RecyclerView = findViewById(R.id.recyclerViewWifi)
+        val recyclerViewWifi: RecyclerView = findViewById(R.id.recyclerViewWifi)
+        val textViewEmptyRecycler: TextView = findViewById(R.id.textViewEmptyRecycler)
 
-            val registeredWifiList: List<DeviceEntry> = DB.getInstance().wifiDao().getAll()
+        val mAdapter = adaptRecyclerDevice(this, recyclerViewWifi)
 
-            val deviceList: ArrayList<DeviceEntry> = registeredWifiList as ArrayList<DeviceEntry>
-
-            adaptRecyclerDevice(this, recyclerViewWifi, deviceList)
-
-
-            val textViewEmptyRecycler: TextView = findViewById(R.id.textViewEmptyRecycler)
-            if(deviceList.isEmpty()) {
+        DB.getInstance().wifiDao().getAllByLiveData().observe(this) {
+            mAdapter.submitList(it as List<LocationEntry>?)
+            if (it.isEmpty()) {
                 textViewEmptyRecycler.visibility = View.VISIBLE
             } else {
                 textViewEmptyRecycler.visibility = View.GONE
             }
+        }
     }
 }

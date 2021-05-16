@@ -189,6 +189,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         fun insertGpsEntry(gpsEntry: GpsEntry) {
             DB.getInstance().gpsDao().insertAll(gpsEntry)
             WashGeofencing.getInstance().initGeofence()
+            addGpsEntry(gpsEntry)
         }
 
         fun removeGpsEntryByMarker(marker: Marker) {

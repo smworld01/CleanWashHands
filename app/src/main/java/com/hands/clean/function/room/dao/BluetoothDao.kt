@@ -1,5 +1,6 @@
 package com.hands.clean.function.room.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -11,6 +12,9 @@ import com.hands.clean.function.room.entry.DeviceEntry
 interface BluetoothDao: DeviceDao {
     @Query("SELECT * FROM BluetoothEntry")
     fun getAllBluetooth(): List<BluetoothEntry>
+
+    @Query("SELECT * FROM BluetoothEntry")
+    fun getAllByLiveData(): LiveData<List<BluetoothEntry>>
 
     @Query("SELECT * FROM BluetoothEntry WHERE uid IN (:userIds)")
     fun loadAllByIdsBluetooth(userIds: IntArray): List<BluetoothEntry>
