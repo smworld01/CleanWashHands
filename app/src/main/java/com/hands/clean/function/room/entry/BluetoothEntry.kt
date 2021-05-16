@@ -14,5 +14,5 @@ data class BluetoothEntry(
         @ColumnInfo(name = "address") override val address: String,
         @ColumnInfo(name = "notification") override val isNotification: Boolean,
 ): DeviceEntry {
-        override val notifyInfo: NotifyInfo = NotifyType.Bluetooth
+        @Ignore override val notifyInfo: NotifyInfo = NotifyType.Bluetooth
 }
