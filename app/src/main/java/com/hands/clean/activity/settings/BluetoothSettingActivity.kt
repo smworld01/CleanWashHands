@@ -35,6 +35,7 @@ class BluetoothSettingActivity : AppCompatActivity() {
         supportActionBar?.title = "블루투스 설정"
         supportActionBar?.setDisplayHomeAsUpEnabled(true);
     }
+
     // 상단바 뒤로가기 버튼 이벤트
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
@@ -70,13 +71,5 @@ class BluetoothSettingActivity : AppCompatActivity() {
             intent.putExtra("type", NotifyType.Bluetooth.channelId)
             startActivity(intent)
         }
-    }
-
-    private fun getBluetoothRecyclerDataArrayList(): ArrayList<TrackerEntry> {
-        val mBluetoothAdapter: BluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-        val pairedDevices: Set<BluetoothDevice> = mBluetoothAdapter.bondedDevices;
-
-
-        return ArrayList<TrackerEntry>(pairedDevices.map { BluetoothEntry(0, it.name, it.address, false) })
     }
 }

@@ -37,4 +37,14 @@
         android:text="등록된 블루투스 기기 관리"
         />
 
+    <Button
+        android:id="@+id/buttonSystemBluetoothList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:padding="15dp"
+        android:gravity="start|center"
+        android:text="시스템에 등록된 블루투스에서 등록하기"
+        />
+
 </LinearLayout>

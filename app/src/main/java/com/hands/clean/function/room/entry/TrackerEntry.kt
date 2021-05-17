@@ -8,6 +8,8 @@ interface TrackerEntry {
     val name: String
     val isNotification: Boolean
     val notifyInfo: NotifyInfo
+    var lastNotifyTime: String?
+    val registrationTime: String
 
     companion object {
         object DateCountDiffCallback : DiffUtil.ItemCallback<TrackerEntry>() {

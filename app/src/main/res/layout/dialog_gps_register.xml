@@ -1,35 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:paddingHorizontal="32dp"
+    android:paddingTop="24dp"
+    android:paddingBottom="40dp"
+    android:divider="?attr/dividerHorizontal"
+    >
+
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:paddingHorizontal="64dp"
-        android:background="#FFFFBB33"
-        android:textSize="18sp"
-        android:text="위치 등록하기"
-        android:gravity="center"
-        />
-    <EditText
-        android:id="@+id/name"
-        android:inputType="text"
-        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"
-        android:layout_marginBottom="4dp"
-        android:hint="등록할 이름" />
-    <EditText
-        android:id="@+id/radius"
-        android:inputType="numberDecimal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"
         android:layout_marginBottom="16dp"
-        android:fontFamily="sans-serif"
-        android:hint="등록할 범위"/>
+        android:text="정보를 입력해 주세요."
+        android:textColor="@android:color/black"
+        android:textSize="24sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp"
+        >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="장소 이름"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            />
+        <EditText
+            android:id="@+id/name"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:paddingHorizontal="10dp"
+            android:layout_height="wrap_content"
+            android:hint="집"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="6dp"
+        android:paddingBottom="12dp"
+        >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="인식 범위"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            />
+        <EditText
+            android:id="@+id/radius"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="10dp"
+            android:inputType="numberDecimal"
+            android:hint="20~100"
+            />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#1c9d9e"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:text="등록하기"
+        />
+
 </LinearLayout>

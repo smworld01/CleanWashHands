@@ -10,8 +10,10 @@ import android.util.Log
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.EditText
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -20,6 +22,8 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
 import com.hands.clean.R
+import com.hands.clean.dialog.GpsRegisterButtonDialog
+import com.hands.clean.dialog.GpsRegisterDialog
 import com.hands.clean.function.gps.geofencing.WashGeofencing
 import com.hands.clean.function.room.DB
 import com.hands.clean.function.room.entry.GpsEntry
@@ -31,10 +35,9 @@ import kotlin.concurrent.thread
 
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
+    private lateinit var mapsViewModel: MapsViewModel
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
-
-    private lateinit var registerButton: Button
 
     private lateinit var mMap: GoogleMap
     private lateinit var mMapController: MapController
@@ -45,7 +48,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         setContentView(R.layout.activity_maps)
 
         initActionBar()
-        initButton()
+
+        mapsViewModel = ViewModelProvider(this).get(MapsViewModel::class.java)
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         fusedLocationClient.lastLocation
@@ -73,15 +77,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun initButton() {
-        registerButton = findViewById<Button>(R.id.buttonRegister)
-        registerButton.setOnClickListener {
-            val builder = GpsEntryBuilder(this, mMapController)
-            builder.setPosition(mMapListener.position!!)
-            builder.build()
-        }
-    }
-
     private fun onCallBack(location: Location) {
         Log.e("current location", location.toString())
         val currentLocation = LatLng(location.latitude, location.longitude)
@@ -91,93 +86,72 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
         mMapController = MapController(googleMap)
-        mMapListener = MapListener(googleMap, mMapController, registerButton)
+        mMapListener = MapListener(this, mapsViewModel, googleMap, mMapController)
 
-    }
-
-    class GpsEntryBuilder(activity: AppCompatActivity, mapController: MapController) {
-        private val builder: AlertDialog.Builder = AlertDialog.Builder(activity)
-        private var latLng: LatLng = LatLng(0.0, 0.0)
-        init {
-            val inflater = activity.layoutInflater;
-            val view = inflater.inflate(R.layout.dialog_gps_register, null)
-            val nameEditText: EditText = view.findViewById(R.id.name)
-            val radiusEditText: EditText = view.findViewById(R.id.radius)
-
-            builder.setView(view)
-            builder.setPositiveButton("입력") { _, _ ->
-                val gpsEntry = GpsEntry(0,
-                    nameEditText.text.toString(),
-                    nameEditText.hashCode().toString(),
-                    latLng.latitude, latLng.longitude,
-                    radiusEditText.text.toString().toFloat(),
-                    true
-                )
-                mapController.insertGpsEntry(gpsEntry)
-            }
-            builder.setNegativeButton("취소") { _, _ ->
-
-            }
-        }
-
-        fun build() {
-            builder.create().show()
-        }
-
-        fun setPosition(position: LatLng) {
-            latLng = position
-        }
     }
 
     class MapListener(
+        private val activity: AppCompatActivity,
+        private val mapsViewModel: MapsViewModel,
         private val mMap: GoogleMap,
-        private val mMapController: MapController,
-        private val registerButton: Button
+        private val mMapController: MapController
         ) {
-        val position get() = selectPositionMarker?.position
-        private var isSelect: Boolean = false
-        private var selectPositionMarker : Marker? = mMap.addMarker(
+        private var selectPositionMarker: Marker? = mMap.addMarker(
                 MarkerOptions()
                     .position(LatLng(0.0,0.0))
             )
+        private var selectPositionCircle: Circle? =
+            mMapController.addCircle(LatLng(0.0,0.0), 0.0)
 
         init {
+            selectPositionCircle?.isVisible = false
             selectPositionMarker?.isVisible = false
+
+            valueChangedObserve()
+
             onClickMap()
         }
 
-        private fun onClickMap() {
+        private fun valueChangedObserve() {
+            mapsViewModel.selectPosition.observe(activity) { position ->
+                selectPositionMarker?.position = position
+                selectPositionCircle?.center = position
+            }
+            mapsViewModel.selectRadius.observe(activity) { radius ->
+                selectPositionCircle?.radius = radius
+            }
+            mapsViewModel.createGpsEntry.observe(activity) { entry ->
+                if (entry != null) {
+                    mMapController.insertGpsEntry(entry)
+                }
+            }
+        }
 
+        private fun onClickMap() {
             mMap.setOnMapLongClickListener {
-                if(!isSelect) {
-                    isSelect = true
-                    selectPositionMarker?.isVisible = true
-                    registerButton.isEnabled = true
-                    ObjectAnimator.ofFloat(registerButton, "translationY", -registerButton.height.toFloat()).apply {
-                        duration = 200
-                        start()
-                    }
-                }
-                selectPositionMarker?.position = it
-            }
-            mMap.setOnMapClickListener {
-                if(isSelect) {
-                    isSelect = false
+                mapsViewModel.selectPosition.value = it
+                selectPositionMarker?.isVisible = true
+                selectPositionCircle?.isVisible = true
+
+                val gpsRegisterButtonDialog = GpsRegisterButtonDialog(mapsViewModel)
+                gpsRegisterButtonDialog.setOnCancelListener {
+                    selectPositionCircle?.isVisible = false
                     selectPositionMarker?.isVisible = false
-                    registerButton.isEnabled = false
-                    ObjectAnimator.ofFloat(registerButton, "translationY", registerButton.height.toFloat()).apply {
-                        duration = 200
-                        start()
-                    }
                 }
+
+                gpsRegisterButtonDialog.show(activity.supportFragmentManager, gpsRegisterButtonDialog.tag)
             }
+
+
             mMap.setOnInfoWindowLongClickListener {
                 mMapController.removeGpsEntryByMarker(it)
             }
         }
     }
 
-    class MapController(private val mMap: GoogleMap) {
+    class MapController(
+        private val mMap: GoogleMap,
+    ) {
         private val gpsEntryList: MutableList<GpsEntry> = mutableListOf()
 
         init {
@@ -230,7 +204,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                     .title(title)
             )
         }
-        private fun addCircle(center: LatLng, radius: Double): Circle? {
+        fun addCircle(center: LatLng, radius: Double): Circle? {
             val circleOption = CircleOptions().apply {
                 radius(radius)
                 center(center)
