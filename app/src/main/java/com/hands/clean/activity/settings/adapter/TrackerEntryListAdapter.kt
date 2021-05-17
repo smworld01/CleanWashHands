@@ -1,15 +1,11 @@
 package com.hands.clean.activity.settings.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.widget.SwitchCompat
-import androidx.core.content.res.ResourcesCompat
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.hands.clean.R
@@ -17,7 +13,7 @@ import com.hands.clean.function.room.DB
 import com.hands.clean.function.room.entry.*
 import kotlin.concurrent.thread
 
-class LocationEntryListAdapter() : ListAdapter<TrackerEntry, RecyclerView.ViewHolder>(TrackerEntry.Companion.DateCountDiffCallback) {
+class TrackerEntryListAdapter() : ListAdapter<TrackerEntry, RecyclerView.ViewHolder>(TrackerEntry.Companion.DateCountDiffCallback) {
     inner class RecyclerWashItem(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val layoutItem: LinearLayout = itemView.findViewById(R.id.layoutItem)
         val textViewDeviceName: TextView = itemView.findViewById(R.id.textViewDeviceName)
@@ -62,19 +58,4 @@ class LocationEntryListAdapter() : ListAdapter<TrackerEntry, RecyclerView.ViewHo
         val recyclerWashItem: RecyclerWashItem = holder as RecyclerWashItem
         recyclerWashItem.bind(getItem(position))
     }
-}
-
-fun adaptRecyclerDevice(context: Context, recyclerView: RecyclerView): LocationEntryListAdapter {
-    val mAdapter = LocationEntryListAdapter()
-    val lm = LinearLayoutManager(context)
-
-    recyclerView.apply {
-        setHasFixedSize(true)
-        adapter = mAdapter
-        layoutManager = lm
-        val itemDecoration = DividerItemDecoration(context, LinearLayoutManager.VERTICAL)
-        itemDecoration.setDrawable(ResourcesCompat.getDrawable(resources, R.color.black, null)!!)
-        addItemDecoration(itemDecoration)
-    }
-    return mAdapter
 }

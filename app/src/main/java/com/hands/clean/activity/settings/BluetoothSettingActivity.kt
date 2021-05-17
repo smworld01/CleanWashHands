@@ -2,18 +2,16 @@ package com.hands.clean.activity.settings
 
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
-import android.view.View
-import android.widget.TextView
+import android.widget.Button
 import androidx.appcompat.widget.SwitchCompat
-import androidx.recyclerview.widget.RecyclerView
 import com.hands.clean.R
 import com.hands.clean.function.room.entry.BluetoothEntry
 import com.hands.clean.function.settings.WashSettingsManager
-import com.hands.clean.activity.settings.adapter.adaptRecyclerDevice
-import com.hands.clean.function.room.DB
+import com.hands.clean.function.notification.type.NotifyType
 import com.hands.clean.function.room.entry.TrackerEntry
 
 class BluetoothSettingActivity : AppCompatActivity() {
@@ -30,7 +28,7 @@ class BluetoothSettingActivity : AppCompatActivity() {
 
         initSwitchViews()
 
-        initRecyclerView()
+        initButtons()
     }
 
     private fun initActionBar() {
@@ -64,19 +62,13 @@ class BluetoothSettingActivity : AppCompatActivity() {
         }
     }
 
-    private fun initRecyclerView() {
-        val recyclerViewBluetooth: RecyclerView = findViewById(R.id.recyclerViewBluetooth)
-        val textViewEmptyRecycler: TextView = findViewById(R.id.textViewEmptyRecycler)
+    private fun initButtons() {
+        val buttonTrackerList: Button = findViewById(R.id.buttonTrackerList)
 
-        val mAdapter = adaptRecyclerDevice(this, recyclerViewBluetooth)
-
-        DB.getInstance().bluetoothDao().getAllByLiveData().observe(this) {
-            mAdapter.submitList(it)
-            if (it.isEmpty()) {
-                textViewEmptyRecycler.visibility = View.VISIBLE
-            } else {
-                textViewEmptyRecycler.visibility = View.GONE
-            }
+        buttonTrackerList.setOnClickListener {
+            val intent = Intent(applicationContext, TrackerListActivity::class.java)
+            intent.putExtra("type", NotifyType.Bluetooth.channelId)
+            startActivity(intent)
         }
     }
 
@@ -87,5 +79,4 @@ class BluetoothSettingActivity : AppCompatActivity() {
 
         return ArrayList<TrackerEntry>(pairedDevices.map { BluetoothEntry(0, it.name, it.address, false) })
     }
-
 }

@@ -7,7 +7,7 @@
     tools:context="com.hands.clean.activity.settings.BluetoothSettingActivity"
     android:orientation="vertical"
     android:divider="?attr/dividerHorizontal"
-    android:showDividers="middle"
+    android:showDividers="middle|end"
     >
 
 
@@ -20,43 +20,23 @@
         />
 
     <Button
-        android:id="@+id/buttonMap"
-        android:background="?attr/selectableItemBackground"
+        android:id="@+id/buttonTrackerList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="start|center"
-        android:text="지도에서 등록할 위치찾기"
+        android:background="?attr/selectableItemBackground"
         android:padding="15dp"
+        android:gravity="start|center"
+        android:text="등록된 위치 관리"
         />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <Button
+        android:id="@+id/buttonMap"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="10dp"
-        >
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewGps"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/recycler_border"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/textViewEmptyRecycler"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:gravity="center"
-            android:text="등록된 위치가 없습니다."
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:padding="15dp"
+        android:gravity="start|center"
+        android:text="지도에서 등록할 위치찾기"
+        />
 
 </LinearLayout>

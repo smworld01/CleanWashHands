@@ -1,18 +1,15 @@
 package com.hands.clean.activity.settings
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
-import android.view.View
-import android.widget.TextView
+import android.widget.Button
 import androidx.appcompat.widget.SwitchCompat
-import androidx.recyclerview.widget.RecyclerView
 import com.hands.clean.R
 import com.hands.clean.function.permission.GpsPermissionRequesterWithBackground
-import com.hands.clean.function.room.DB
 import com.hands.clean.function.settings.WashSettingsManager
-import com.hands.clean.activity.settings.adapter.adaptRecyclerDevice
-import com.hands.clean.function.room.entry.TrackerEntry
+import com.hands.clean.function.notification.type.NotifyType
 import com.hands.clean.function.service.WashLocationServiceManager
 
 class WifiSettingActivity : AppCompatActivity() {
@@ -32,7 +29,7 @@ class WifiSettingActivity : AppCompatActivity() {
 
         initSwitchViews()
 
-        initRecyclerView()
+        initButtons()
     }
 
     private fun initActionBar() {
@@ -77,19 +74,13 @@ class WifiSettingActivity : AppCompatActivity() {
         }
     }
 
-    private fun initRecyclerView() {
-        val recyclerViewWifi: RecyclerView = findViewById(R.id.recyclerViewWifi)
-        val textViewEmptyRecycler: TextView = findViewById(R.id.textViewEmptyRecycler)
+    private fun initButtons() {
+        val buttonTrackerList: Button = findViewById(R.id.buttonTrackerList)
 
-        val mAdapter = adaptRecyclerDevice(this, recyclerViewWifi)
-
-        DB.getInstance().wifiDao().getAllByLiveData().observe(this) {
-            mAdapter.submitList(it as List<TrackerEntry>?)
-            if (it.isEmpty()) {
-                textViewEmptyRecycler.visibility = View.VISIBLE
-            } else {
-                textViewEmptyRecycler.visibility = View.GONE
-            }
+        buttonTrackerList.setOnClickListener {
+            val intent = Intent(applicationContext, TrackerListActivity::class.java)
+            intent.putExtra("type", NotifyType.Wifi.channelId)
+            startActivity(intent)
         }
     }
 }

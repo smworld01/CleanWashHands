@@ -4,17 +4,12 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import android.content.Intent
-import android.view.View
 import android.widget.Button
-import android.widget.TextView
 import androidx.appcompat.widget.SwitchCompat
-import androidx.recyclerview.widget.RecyclerView
 import com.hands.clean.R
-import com.hands.clean.activity.settings.adapter.adaptRecyclerDevice
 import com.hands.clean.function.gps.SystemSettingsGpsManager
+import com.hands.clean.function.notification.type.NotifyType
 import com.hands.clean.function.permission.GpsPermissionRequesterWithBackground
-import com.hands.clean.function.room.DB
-import com.hands.clean.function.room.entry.TrackerEntry
 import com.hands.clean.function.service.WashLocationServiceManager
 import com.hands.clean.function.settings.WashSettingsManager
 
@@ -35,7 +30,6 @@ class GpsSettingActivity : AppCompatActivity(){
 
         initSwitch()
         initButton()
-        initRecyclerView()
     }
     private fun initActionBar() {
         supportActionBar?.title = "GPS 설정"
@@ -74,22 +68,13 @@ class GpsSettingActivity : AppCompatActivity(){
             val intent = Intent(applicationContext, MapsActivity::class.java)
             startActivity(intent)
         }
-    }
-
-    private fun initRecyclerView() {
-        val recyclerViewGps: RecyclerView = findViewById(R.id.recyclerViewGps)
-        val textViewEmptyRecycler: TextView = findViewById(R.id.textViewEmptyRecycler)
-
-        val mAdapter = adaptRecyclerDevice(this, recyclerViewGps)
 
 
-        DB.getInstance().gpsDao().getAllByLiveData().observe(this) {
-            mAdapter.submitList(it as List<TrackerEntry>?)
-            if (it.isEmpty()) {
-                textViewEmptyRecycler.visibility = View.VISIBLE
-            } else {
-                textViewEmptyRecycler.visibility = View.GONE
-            }
+        val buttonTrackerList: Button = findViewById(R.id.buttonTrackerList)
+        buttonTrackerList.setOnClickListener {
+            val intent = Intent(applicationContext, TrackerListActivity::class.java)
+            intent.putExtra("type", NotifyType.GPS.channelId)
+            startActivity(intent)
         }
     }
 }
