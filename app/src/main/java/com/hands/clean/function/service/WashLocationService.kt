@@ -11,6 +11,11 @@ import com.hands.clean.function.gps.LocationRequester
 import com.hands.clean.function.gps.geofencing.WashGeofencing
 import com.hands.clean.function.notification.factory.notification.ForegroundNotificationBuilder
 import com.hands.clean.function.notification.type.NotifyType
+import com.hands.clean.function.room.DB
+import com.hands.clean.function.room.entry.LocationEntry
+import com.hands.clean.function.room.entry.LocationEntryBuilder
+import java.text.SimpleDateFormat
+import java.util.*
 
 class WashLocationService: Service() {
     private lateinit var wifiConnectionChecker: WifiConnectionChecker
@@ -46,10 +51,20 @@ class WashLocationService: Service() {
     private fun initGps() {
         if (!::locationRequester.isInitialized) {
             locationRequester = LocationRequester(applicationContext)
-            locationRequester.registerResultCallback {
-                Log.e("current Location", it.toString())
-                LocationInfo.latitude = it.locations[0].latitude
-                LocationInfo.longitude = it.locations[0].longitude
+            locationRequester.registerResultCallback { locationResult ->
+                Log.e("current Location", locationResult.toString())
+
+                val builder = LocationEntryBuilder()
+
+                val locationEntryList = locationResult.locations.map { location ->
+                    builder.setLocation(location)
+                    builder.build()
+                }
+
+                DB.getInstance().locationDao().insertAll(*locationEntryList.toTypedArray())
+
+                LocationInfo.latitude = locationResult.locations[0].latitude
+                LocationInfo.longitude = locationResult.locations[0].longitude
             }
         }
         locationRequester.onRequest()

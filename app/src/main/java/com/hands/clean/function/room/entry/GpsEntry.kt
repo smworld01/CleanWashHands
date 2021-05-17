@@ -18,7 +18,7 @@ data class GpsEntry(
         @ColumnInfo(name = "longitude") val longitude: Double,
         @ColumnInfo(name = "radius") val radius: Float,
         @ColumnInfo(name = "notification") override val isNotification: Boolean,
-) : LocationEntry {
+) : TrackerEntry {
         @Ignore override val notifyInfo: NotifyInfo = NotifyType.GPS
         @Ignore var marker: Marker? = null
         @Ignore var circle: Circle? = null

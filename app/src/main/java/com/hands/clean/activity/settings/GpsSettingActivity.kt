@@ -14,10 +14,9 @@ import com.hands.clean.activity.settings.adapter.adaptRecyclerDevice
 import com.hands.clean.function.gps.SystemSettingsGpsManager
 import com.hands.clean.function.permission.GpsPermissionRequesterWithBackground
 import com.hands.clean.function.room.DB
-import com.hands.clean.function.room.entry.LocationEntry
+import com.hands.clean.function.room.entry.TrackerEntry
 import com.hands.clean.function.service.WashLocationServiceManager
 import com.hands.clean.function.settings.WashSettingsManager
-import kotlin.concurrent.thread
 
 class GpsSettingActivity : AppCompatActivity(){
     private val permissionRequester = GpsPermissionRequesterWithBackground(this)
@@ -85,7 +84,7 @@ class GpsSettingActivity : AppCompatActivity(){
 
 
         DB.getInstance().gpsDao().getAllByLiveData().observe(this) {
-            mAdapter.submitList(it as List<LocationEntry>?)
+            mAdapter.submitList(it as List<TrackerEntry>?)
             if (it.isEmpty()) {
                 textViewEmptyRecycler.visibility = View.VISIBLE
             } else {

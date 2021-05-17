@@ -8,6 +8,7 @@ import com.hands.clean.function.gps.LocationInfo
 import com.hands.clean.function.gps.SystemSettingsGpsChecker
 import com.hands.clean.function.permission.checker.GpsPermissionChecker
 import com.hands.clean.function.room.DB
+import com.hands.clean.function.room.entry.LocationEntry
 import com.hands.clean.function.room.entry.WashEntry
 import java.text.SimpleDateFormat
 import java.util.*
@@ -16,7 +17,7 @@ class NotifyLimiter(context: Context) {
     private val gpsChecker: SystemSettingsGpsChecker = SystemSettingsGpsChecker(context)
     private val gpsPermissionChecker = GpsPermissionChecker(context)
 
-    private var lastRecord: WashEntry? = null
+    private var lastRecord: LocationEntry? = null
 
     fun isLimited(): Boolean {
         loadLastRecord()
@@ -32,7 +33,7 @@ class NotifyLimiter(context: Context) {
     }
 
     private fun loadLastRecord() {
-        lastRecord = DB.getInstance().washDao().getLatest()
+        lastRecord = DB.getInstance().locationDao().getLast()
     }
 
     private fun isNotExistsLastRecord(): Boolean {
@@ -44,8 +45,14 @@ class NotifyLimiter(context: Context) {
 
         return when {
             isNotGetGpsInfo() -> false
-            isNotSameLocation() -> false
-            else -> true
+            isSameLocation() -> {
+                deleteAllLocationEntryExceptLast()
+                true
+            }
+            else -> {
+                deleteAllLocationEntryExceptLast()
+                false
+            }
         }
     }
 
@@ -59,25 +66,29 @@ class NotifyLimiter(context: Context) {
     }
 
     private fun isNotGetGpsInfo(): Boolean {
-        if (gpsChecker.isEnabled() && gpsPermissionChecker.isGranted() && LocationInfo.isEnable()) {
-            return lastRecord?.latitude == null && lastRecord?.longitude == null
-        }
-        return true
+        return !(gpsChecker.isEnabled() && gpsPermissionChecker.isGranted())
     }
 
-    private fun isNotSameLocation(): Boolean {
+    private fun isSameLocation(): Boolean {
+        val locations = DB.getInstance().locationDao().getAll()
+
         val metersDistance = FloatArray(1)
-        Location.distanceBetween(
-            lastRecord!!.latitude!!, // startLatitude
-            lastRecord!!.longitude!!, // startLongitude
-            LocationInfo.longitude!!, // endLatitude
-            LocationInfo.latitude!!, // endLongitude
-            metersDistance // results
-        )
 
-        Log.e("notify", "${LocationInfo.latitude} ${LocationInfo.longitude} / ${lastRecord!!.latitude} ${lastRecord!!.longitude}")
+        return locations.all {
+            Location.distanceBetween(
+                it.latitude, // startLatitude
+                it.longitude, // startLongitude
+                lastRecord!!.latitude, // endLatitude
+                lastRecord!!.longitude, // endLongitude
+                metersDistance // results
+            )
+            metersDistance[0] < 100
+        }
+    }
 
-        Log.e("notify", "location diff ${metersDistance[0]}")
-        return metersDistance[0] > 100
+    private fun deleteAllLocationEntryExceptLast() {
+        val entry = DB.getInstance().locationDao().getLast()
+        DB.getInstance().locationDao().deleteAll()
+        entry?.let { DB.getInstance().locationDao().insertAll(it) }
     }
 }

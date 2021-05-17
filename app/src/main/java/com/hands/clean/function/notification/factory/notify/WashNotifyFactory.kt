@@ -9,12 +9,12 @@ import com.hands.clean.function.room.entry.*
 
 open class WashNotifyFactory(
     private val context: Context,
-    private val locationInfo: LocationEntry
+    private val trackerInfo: TrackerEntry
 ): NotifyFactory {
     private val notificationId = NotificationIdCounter.getNotificationId()
 
     override fun onBuild(): Notify {
-        val notificationFactory = WashNotificationBuilder(context, locationInfo, notificationId)
+        val notificationFactory = WashNotificationBuilder(context, trackerInfo, notificationId)
         val notification = notificationFactory.build()
 
         val washEntry = notificationFactory.onBuildWashEntry()

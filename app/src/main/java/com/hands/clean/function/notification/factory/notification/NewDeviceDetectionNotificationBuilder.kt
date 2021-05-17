@@ -12,10 +12,10 @@ import com.hands.clean.function.room.entry.*
 
 class NewDeviceDetectionNotificationBuilder(
     private val context: Context,
-    private val locationEntry: LocationEntry,
+    private val trackerEntry: TrackerEntry,
     private val notificationId: Int = NotificationIdCounter.getNotificationId()
-) : BaseNotificationBuilder(context, locationEntry.notifyInfo.channelId) {
-    private val channelId = locationEntry.notifyInfo.channelId
+) : BaseNotificationBuilder(context, trackerEntry.notifyInfo.channelId) {
+    private val channelId = trackerEntry.notifyInfo.channelId
 
 
     init {
@@ -26,9 +26,9 @@ class NewDeviceDetectionNotificationBuilder(
     }
 
     private fun getContentText(): String {
-        return when (locationEntry) {
-            is BluetoothEntry -> "새로운 $channelId 기기 ${locationEntry.name} 에 연결되었습니다."
-            is WifiEntry -> "새로운 $channelId 기기 ${locationEntry.name} 에 연결되었습니다."
+        return when (trackerEntry) {
+            is BluetoothEntry -> "새로운 $channelId 기기 ${trackerEntry.name} 에 연결되었습니다."
+            is WifiEntry -> "새로운 $channelId 기기 ${trackerEntry.name} 에 연결되었습니다."
             else -> throw Exception()
         }
     }
@@ -49,7 +49,7 @@ class NewDeviceDetectionNotificationBuilder(
 
     private fun createDeviceIntent(): Intent {
         return Intent(context, DeviceRegisterReceiver::class.java).also { intent ->
-            intent.putExtra("address", (locationEntry as DeviceEntry).address)
+            intent.putExtra("address", (trackerEntry as DeviceEntry).address)
             intent.putExtra("type", channelId)
             intent.putExtra("notificationId", notificationId)
         }

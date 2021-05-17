@@ -5,9 +5,9 @@ import com.hands.clean.function.room.entry.*
 
 class EncryptionWifiNotificationBuilder(
     context: Context,
-    locationEntry: LocationEntry,
+    trackerEntry: TrackerEntry,
     notificationId: Int,
-) : WashNotificationBuilder(context, locationEntry, notificationId) {
+) : WashNotificationBuilder(context, trackerEntry, notificationId) {
 
     init {
         this

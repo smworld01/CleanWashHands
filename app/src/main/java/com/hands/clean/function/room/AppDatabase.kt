@@ -9,13 +9,14 @@ import com.hands.clean.function.room.dao.*
 import com.hands.clean.function.room.entry.*
 import java.lang.Exception
 
-@Database(entities = [WifiEntry::class, BluetoothEntry::class, GpsEntry::class, WashEntry::class], version = 3)
+@Database(entities = [WifiEntry::class, BluetoothEntry::class, GpsEntry::class, WashEntry::class, LocationEntry::class], version = 4)
 @TypeConverters(DateConverters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun wifiDao(): WifiDao
     abstract fun bluetoothDao(): BluetoothDao
     abstract fun gpsDao(): GpsDao
     abstract fun washDao(): WashDao
+    abstract fun locationDao(): LocationDao
 
     fun matchDaoByEntry(deviceEntry: DeviceEntry): DeviceDao {
         return when (deviceEntry) {

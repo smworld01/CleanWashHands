@@ -27,11 +27,14 @@ interface GpsDao {
     @Query("UPDATE GpsEntry SET notification = :bool WHERE requestId = :requestId")
     fun changeNotificationByRequestId(requestId: String, bool: Boolean)
 
-    @Query("UPDATE GpsEntry SET name = :name WHERE RequestId = :RequestId")
-    fun changeNameByRequestId(RequestId: String, name: String)
+    @Query("UPDATE GpsEntry SET name = :name WHERE requestId = :requestId")
+    fun changeNameByRequestId(requestId: String, name: String)
 
-    @Query("UPDATE GpsEntry SET radius = :radius WHERE RequestId = :RequestId")
-    fun changeRadiusByRequestId(RequestId: String, radius: Float)
+    @Query("UPDATE GpsEntry SET radius = :radius WHERE requestId = :requestId")
+    fun changeRadiusByRequestId(requestId: String, radius: Float)
+
+    @Query("DELETE FROM GpsEntry WHERE requestID = :requestId")
+    fun deleteByRequestId(requestId: String)
 
     @Update
     fun updateAll(vararg gpsEntry: GpsEntry)

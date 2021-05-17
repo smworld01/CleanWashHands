@@ -14,10 +14,10 @@ import java.util.*
 
 open class WashNotificationBuilder(
     private val context: Context,
-    private val locationEntry: LocationEntry,
+    private val trackerEntry: TrackerEntry,
     private val notificationId: Int,
-) : BaseNotificationBuilder(context, locationEntry.notifyInfo.channelId) {
-    private val channelId = locationEntry.notifyInfo.channelId
+) : BaseNotificationBuilder(context, trackerEntry.notifyInfo.channelId) {
+    private val channelId = trackerEntry.notifyInfo.channelId
 
     init {
         this
@@ -39,10 +39,10 @@ open class WashNotificationBuilder(
     }
 
     open fun getContentText(): String {
-        return when (locationEntry) {
-            is BluetoothEntry -> "$channelId 기기 ${locationEntry.name} 에 연결되었습니다."
-            is WifiEntry -> "$channelId 기기 ${locationEntry.name} 에 연결되었습니다."
-            is GpsEntry -> "${locationEntry.name}에 도착하였습니다."
+        return when (trackerEntry) {
+            is BluetoothEntry -> "$channelId 기기 ${trackerEntry.name} 에 연결되었습니다."
+            is WifiEntry -> "$channelId 기기 ${trackerEntry.name} 에 연결되었습니다."
+            is GpsEntry -> "${trackerEntry.name}에 도착하였습니다."
             else -> throw Exception()
         }
     }

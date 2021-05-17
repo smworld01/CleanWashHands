@@ -99,16 +99,20 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         private val builder: AlertDialog.Builder = AlertDialog.Builder(activity)
         private var latLng: LatLng = LatLng(0.0, 0.0)
         init {
-            val editText = EditText(activity)
-            builder.setTitle("등록하기")
-            builder.setMessage(
-                """
-                    등록할 이름을 적어주세요.
-                """.trimIndent()
-            )
-            builder.setView(editText)
+            val inflater = activity.layoutInflater;
+            val view = inflater.inflate(R.layout.dialog_gps_register, null)
+            val nameEditText: EditText = view.findViewById(R.id.name)
+            val radiusEditText: EditText = view.findViewById(R.id.radius)
+
+            builder.setView(view)
             builder.setPositiveButton("입력") { _, _ ->
-                val gpsEntry = GpsEntry(0, editText.text.toString(), editText.hashCode().toString(), latLng.latitude, latLng.longitude, 50f, true)
+                val gpsEntry = GpsEntry(0,
+                    nameEditText.text.toString(),
+                    nameEditText.hashCode().toString(),
+                    latLng.latitude, latLng.longitude,
+                    radiusEditText.text.toString().toFloat(),
+                    true
+                )
                 mapController.insertGpsEntry(gpsEntry)
             }
             builder.setNegativeButton("취소") { _, _ ->
@@ -204,7 +208,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         }
 
         fun removeGpsEntry(gpsEntry: GpsEntry) {
-            DB.getInstance().gpsDao().delete(gpsEntry)
+            DB.getInstance().gpsDao().deleteByRequestId(gpsEntry.requestId)
             gpsEntry.circle?.remove()
             gpsEntry.marker?.remove()
             gpsEntryList.remove(gpsEntry)

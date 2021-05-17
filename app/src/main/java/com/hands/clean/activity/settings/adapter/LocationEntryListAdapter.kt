@@ -15,16 +15,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.hands.clean.R
 import com.hands.clean.function.room.DB
 import com.hands.clean.function.room.entry.*
-import com.hands.clean.ui.home.adapter.ListAdapterWithHeader
 import kotlin.concurrent.thread
 
-class LocationEntryListAdapter() : ListAdapter<LocationEntry, RecyclerView.ViewHolder>(LocationEntry.Companion.DateCountDiffCallback) {
+class LocationEntryListAdapter() : ListAdapter<TrackerEntry, RecyclerView.ViewHolder>(TrackerEntry.Companion.DateCountDiffCallback) {
     inner class RecyclerWashItem(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val layoutItem: LinearLayout = itemView.findViewById(R.id.layoutItem)
         val textViewDeviceName: TextView = itemView.findViewById(R.id.textViewDeviceName)
         var switchNotification: SwitchCompat = itemView.findViewById(R.id.switchNotification)
 
-        fun bind (data: LocationEntry) {
+        fun bind (data: TrackerEntry) {
             layoutItem.setOnLongClickListener {
                 when(data) {
                     is BluetoothEntry -> DB.getInstance().bluetoothDao().delete(data)

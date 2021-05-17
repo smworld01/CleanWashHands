@@ -1,5 +1,5 @@
 package com.hands.clean.function.room.entry
 
-interface DeviceEntry: LocationEntry {
+interface DeviceEntry: TrackerEntry {
     val address: String
 }

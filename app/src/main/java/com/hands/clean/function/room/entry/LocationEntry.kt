@@ -1,32 +1,39 @@
 package com.hands.clean.function.room.entry
 
-import androidx.recyclerview.widget.DiffUtil
-import com.hands.clean.function.notification.type.NotifyInfo
+import android.location.Location
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import com.google.android.gms.maps.model.LatLng
+import java.text.SimpleDateFormat
+import java.util.*
 
-interface LocationEntry {
-    val uid: Int
-    val name: String
-    val isNotification: Boolean
-    val notifyInfo: NotifyInfo
+@Entity
+data class LocationEntry(
+    @PrimaryKey(autoGenerate = true) val uid: Int,
+    val date: String,
+    val latitude: Double,
+    val longitude: Double,
+)
 
-    companion object {
-        object DateCountDiffCallback : DiffUtil.ItemCallback<LocationEntry>() {
-            override fun areItemsTheSame(oldItem: LocationEntry, newItem: LocationEntry): Boolean {
-                return oldItem.uid == newItem.uid
-            }
+class LocationEntryBuilder() {
+    private var latitude: Double = 0.0
+    private var longitude: Double = 0.0
 
-            override fun areContentsTheSame(oldItem: LocationEntry, newItem: LocationEntry): Boolean {
-                fun areContentsNameTheSame(oldItem: LocationEntry, newItem: LocationEntry): Boolean {
-                    return oldItem.name == newItem.name
-                }
+    fun setLocation(position: LatLng) {
+        latitude = position.latitude
+        longitude = position.longitude
+    }
 
-                fun areContentsNotificationTheSame(oldItem: LocationEntry, newItem: LocationEntry): Boolean {
-                    return oldItem.isNotification == newItem.isNotification
-                }
-                return areContentsNameTheSame(oldItem, newItem)
-                        && areContentsNotificationTheSame(oldItem, newItem)
-            }
+    fun setLocation(position: Location) {
+        latitude = position.latitude
+        longitude = position.longitude
+    }
 
-        }
+    fun build(): LocationEntry {
+        val mFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.UK)
+        val date: String = mFormat.format(Date())
+        return LocationEntry(
+            0, date, latitude, longitude
+        )
     }
 }

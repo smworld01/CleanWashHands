@@ -4,7 +4,7 @@ import com.hands.clean.function.notification.type.NotifyInfo
 import com.hands.clean.function.notification.type.NotifyType
 import com.hands.clean.function.room.entry.BluetoothEntry
 import com.hands.clean.function.room.entry.GpsEntry
-import com.hands.clean.function.room.entry.LocationEntry
+import com.hands.clean.function.room.entry.TrackerEntry
 import com.hands.clean.function.room.entry.WifiEntry
 import java.text.SimpleDateFormat
 import java.util.*
@@ -30,8 +30,8 @@ fun convertStringToMsTime(stringTime: String): Long {
 }
 
 
-fun convertDeviceEntryToNotifyInfo(locationInfoEntry: LocationEntry): NotifyInfo {
-    return when (locationInfoEntry) {
+fun convertDeviceEntryToNotifyInfo(trackerInfoEntry: TrackerEntry): NotifyInfo {
+    return when (trackerInfoEntry) {
         is BluetoothEntry -> NotifyType.Bluetooth
         is WifiEntry -> NotifyType.Wifi
         is GpsEntry -> NotifyType.GPS
