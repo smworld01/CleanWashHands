@@ -52,16 +52,16 @@ class WashLocationService: Service() {
         if (!::locationRequester.isInitialized) {
             locationRequester = LocationRequester(applicationContext)
             locationRequester.registerResultCallback { locationResult ->
-                Log.e("current Location", locationResult.toString())
-
                 val builder = LocationEntryBuilder()
-
                 val locationEntryList = locationResult.locations.map { location ->
                     builder.setLocation(location)
                     builder.build()
                 }
-
                 DB.getInstance().locationDao().insertAll(*locationEntryList.toTypedArray())
+
+                if (DB.getInstance().locationDao().getCount() > 100) {
+                    DB.getInstance().locationDao().deleteOverData()
+                }
 
                 LocationInfo.latitude = locationResult.locations[0].latitude
                 LocationInfo.longitude = locationResult.locations[0].longitude

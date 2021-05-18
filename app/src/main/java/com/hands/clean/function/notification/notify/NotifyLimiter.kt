@@ -17,15 +17,16 @@ class NotifyLimiter(context: Context) {
     private val gpsChecker: SystemSettingsGpsChecker = SystemSettingsGpsChecker(context)
     private val gpsPermissionChecker = GpsPermissionChecker(context)
 
-    private var lastRecord: LocationEntry? = null
+    private var lastLocationRecord: LocationEntry? = null
+    private var lastWashRecord: WashEntry? = null
 
     fun isLimited(): Boolean {
         loadLastRecord()
 
-        return if (isNotExistsLastRecord()) {
-            false
-        } else {
-            limit()
+        return when {
+            washRecordIsNotExist() -> false
+            lastLocationRecordIsNotExist() -> false
+            else -> limit()
         }
     }
     fun isNotLimited(): Boolean {
@@ -33,11 +34,16 @@ class NotifyLimiter(context: Context) {
     }
 
     private fun loadLastRecord() {
-        lastRecord = DB.getInstance().locationDao().getLast()
+        lastLocationRecord = DB.getInstance().locationDao().getLast()
+        lastWashRecord = DB.getInstance().washDao().getLatest()
     }
 
-    private fun isNotExistsLastRecord(): Boolean {
-        return lastRecord == null
+    private fun washRecordIsNotExist(): Boolean {
+        return lastWashRecord == null
+    }
+
+    private fun lastLocationRecordIsNotExist(): Boolean {
+        return lastLocationRecord == null
     }
 
     private fun limit(): Boolean {
@@ -60,7 +66,7 @@ class NotifyLimiter(context: Context) {
         val mFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.UK)
         val now: String = mFormat.format(Date())
 
-        val result = compareStringTimeByAbsoluteMinute(now, lastRecord!!.date)
+        val result = compareStringTimeByAbsoluteMinute(now, lastWashRecord!!.date)
         Log.e("notify", "time diff $result Minute")
         return result < 10
     }
@@ -78,8 +84,8 @@ class NotifyLimiter(context: Context) {
             Location.distanceBetween(
                 it.latitude, // startLatitude
                 it.longitude, // startLongitude
-                lastRecord!!.latitude, // endLatitude
-                lastRecord!!.longitude, // endLongitude
+                lastLocationRecord!!.latitude, // endLatitude
+                lastLocationRecord!!.longitude, // endLongitude
                 metersDistance // results
             )
             metersDistance[0] < 100

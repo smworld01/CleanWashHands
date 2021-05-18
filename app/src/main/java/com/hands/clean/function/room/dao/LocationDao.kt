@@ -16,6 +16,16 @@ interface LocationDao {
     @Query("SELECT * FROM LocationEntry ORDER BY uid DESC LIMIT 1")
     fun getLast(): LocationEntry?
 
+    @Query("""DELETE FROM LocationEntry 
+        WHERE uid < (select min(uid) from (
+        select uid
+        from LocationEntry
+        order by uid desc limit 100) a)""")
+    fun deleteOverData()
+
+    @Query("SELECT count(*) FROM LocationEntry")
+    fun getCount() : Int
+
     @Update
     fun updateAll(vararg entries: LocationEntry)
 

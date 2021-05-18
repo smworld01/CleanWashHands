@@ -14,8 +14,8 @@ class LocationRequester(
 ) {
     private val fusedLocationClient = LocationServices.getFusedLocationProviderClient(context)
     private val locationRequest: LocationRequest = LocationRequest.create().apply {
-        interval = 300000 // todo 수치 조정
-        fastestInterval = 60000
+        interval = 1*60*1000 // todo 수치 조정
+        fastestInterval = 30*1000
         priority = LocationRequest.PRIORITY_HIGH_ACCURACY
     }
     private val locationCallback = LocationRequestCallback()
