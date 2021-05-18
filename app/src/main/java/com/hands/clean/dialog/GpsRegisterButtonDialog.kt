@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.hands.clean.R
-import com.hands.clean.activity.settings.MapsViewModel
+import com.hands.clean.activity.settings.gps.MapsViewModel
 
 class GpsRegisterButtonDialog(private val mapsViewModel: MapsViewModel): BottomSheetDialogFragment() {
     private var cancelCallback: () -> Unit = {}

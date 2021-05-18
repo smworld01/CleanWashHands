@@ -1,4 +1,4 @@
-package com.hands.clean.function.service
+package com.hands.clean.service
 
 import android.content.Context
 import android.content.Intent

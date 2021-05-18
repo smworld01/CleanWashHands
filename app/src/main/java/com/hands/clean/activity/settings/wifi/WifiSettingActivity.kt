@@ -1,4 +1,4 @@
-package com.hands.clean.activity.settings
+package com.hands.clean.activity.settings.wifi
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -7,10 +7,11 @@ import android.view.MenuItem
 import android.widget.Button
 import androidx.appcompat.widget.SwitchCompat
 import com.hands.clean.R
+import com.hands.clean.activity.settings.TrackerListActivity
 import com.hands.clean.function.permission.GpsPermissionRequesterWithBackground
 import com.hands.clean.function.settings.WashSettingsManager
 import com.hands.clean.function.notification.type.NotifyType
-import com.hands.clean.function.service.WashLocationServiceManager
+import com.hands.clean.service.WashLocationServiceManager
 
 class WifiSettingActivity : AppCompatActivity() {
     private val permissionRequester = GpsPermissionRequesterWithBackground(this)
@@ -76,11 +77,15 @@ class WifiSettingActivity : AppCompatActivity() {
 
     private fun initButtons() {
         val buttonTrackerList: Button = findViewById(R.id.buttonTrackerList)
+        val buttonWifiScan: Button = findViewById(R.id.buttonWifiScan)
 
         buttonTrackerList.setOnClickListener {
-            val intent = Intent(applicationContext, TrackerListActivity::class.java)
+            val intent = Intent(this, TrackerListActivity::class.java)
             intent.putExtra("type", NotifyType.Wifi.channelId)
             startActivity(intent)
+        }
+        buttonWifiScan.setOnClickListener {
+            startActivity(Intent(this, WifiScanActivity::class.java))
         }
     }
 }

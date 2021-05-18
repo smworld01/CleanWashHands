@@ -1,9 +1,8 @@
-package com.hands.clean
+package com.hands.clean.activity
 
 import android.bluetooth.BluetoothDevice
 import android.content.Intent
 import android.content.IntentFilter
-import android.os.Build
 import android.os.Bundle
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
@@ -14,13 +13,12 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import com.hands.clean.activity.TutorialActivity
+import com.hands.clean.R
 import com.hands.clean.function.gps.geofencing.WashGeofencing
 import com.hands.clean.function.notification.init.NotificationChannelManager
 import com.hands.clean.function.receiver.bluetoothReceiver
 import com.hands.clean.function.room.DB
-import com.hands.clean.function.service.WashLocationService
-import com.hands.clean.function.service.WashLocationServiceManager
+import com.hands.clean.service.WashLocationServiceManager
 import com.hands.clean.function.settings.WashSettingsManager
 
 class NavigationActivity : AppCompatActivity() {

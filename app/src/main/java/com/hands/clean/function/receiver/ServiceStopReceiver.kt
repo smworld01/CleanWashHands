@@ -3,7 +3,7 @@ package com.hands.clean.function.receiver
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import com.hands.clean.function.service.WashLocationServiceManager
+import com.hands.clean.service.WashLocationServiceManager
 import com.hands.clean.function.settings.WashSettingsManager
 
 class ServiceStopReceiver : BroadcastReceiver() {

@@ -1,4 +1,4 @@
-package com.hands.clean.ui.home
+package com.hands.clean.activity.ui.home
 
 import android.os.Bundle
 import android.util.Log
@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.hands.clean.R
 import com.hands.clean.function.room.DB
 import com.hands.clean.function.room.entry.DateCount
-import com.hands.clean.ui.home.adapter.WashListAdapterWithHeader
+import com.hands.clean.activity.ui.home.adapter.WashListAdapterWithHeader
 
 class HomeFragment : Fragment() {
 

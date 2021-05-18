@@ -1,4 +1,4 @@
-package com.hands.clean.ui.settings
+package com.hands.clean.activity.ui.settings
 
 import android.content.Intent
 import android.os.Bundle
@@ -12,6 +12,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.hands.clean.R
 import com.hands.clean.activity.TutorialActivity
 import com.hands.clean.activity.settings.*
+import com.hands.clean.activity.settings.gps.GpsSettingActivity
+import com.hands.clean.activity.settings.wifi.WifiSettingActivity
 
 class SettingsFragment : Fragment() {
 

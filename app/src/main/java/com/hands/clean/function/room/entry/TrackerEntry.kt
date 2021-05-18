@@ -28,7 +28,6 @@ interface TrackerEntry {
                 return areContentsNameTheSame(oldItem, newItem)
                         && areContentsNotificationTheSame(oldItem, newItem)
             }
-
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.hands.clean.activity.settings.adapter
+package com.hands.clean.function.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -13,8 +13,21 @@ import com.hands.clean.function.room.DB
 import com.hands.clean.function.room.entry.*
 import kotlin.concurrent.thread
 
-class TrackerEntryListAdapter() : ListAdapter<TrackerEntry, RecyclerView.ViewHolder>(TrackerEntry.Companion.DateCountDiffCallback) {
-    inner class RecyclerWashItem(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class TrackerEntryListAdapter() : ListAdapter<TrackerEntry, RecyclerView.ViewHolder>(
+    TrackerEntry.Companion.DateCountDiffCallback
+) {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        val view : View =
+            LayoutInflater.from(parent.context).inflate(R.layout.recycler_item_tracker, parent, false)
+        return RecyclerItem(view)
+    }
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        val recyclerItem: RecyclerItem = holder as RecyclerItem
+        recyclerItem.bind(getItem(position))
+    }
+
+    class RecyclerItem(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val layoutItem: LinearLayout = itemView.findViewById(R.id.layoutItem)
         val textViewDeviceName: TextView = itemView.findViewById(R.id.textViewDeviceName)
         var switchNotification: SwitchCompat = itemView.findViewById(R.id.switchNotification)
@@ -46,16 +59,5 @@ class TrackerEntryListAdapter() : ListAdapter<TrackerEntry, RecyclerView.ViewHol
                 }
             }
         }
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val view : View =
-            LayoutInflater.from(parent.context).inflate(R.layout.device_recycler_item, parent, false)
-        return RecyclerWashItem(view)
-    }
-
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val recyclerWashItem: RecyclerWashItem = holder as RecyclerWashItem
-        recyclerWashItem.bind(getItem(position))
     }
 }

@@ -1,6 +1,5 @@
-package com.hands.clean.activity.settings
+package com.hands.clean.activity.settings.gps
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.android.gms.maps.model.LatLng

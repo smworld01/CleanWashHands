@@ -1,10 +1,9 @@
-package com.hands.clean.function.service
+package com.hands.clean.service
 
 import android.app.Service
 import android.content.Intent
 import android.os.Build
 import android.os.IBinder
-import android.util.Log
 import androidx.annotation.RequiresApi
 import com.hands.clean.function.gps.LocationInfo
 import com.hands.clean.function.gps.LocationRequester
@@ -12,10 +11,7 @@ import com.hands.clean.function.gps.geofencing.WashGeofencing
 import com.hands.clean.function.notification.factory.notification.ForegroundNotificationBuilder
 import com.hands.clean.function.notification.type.NotifyType
 import com.hands.clean.function.room.DB
-import com.hands.clean.function.room.entry.LocationEntry
 import com.hands.clean.function.room.entry.LocationEntryBuilder
-import java.text.SimpleDateFormat
-import java.util.*
 
 class WashLocationService: Service() {
     private lateinit var wifiConnectionChecker: WifiConnectionChecker

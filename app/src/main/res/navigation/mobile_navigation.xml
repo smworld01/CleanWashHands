@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.hands.clean.ui.home.HomeFragment"
+        android:name="com.hands.clean.activity.ui.home.HomeFragment"
         android:label="홈"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/nav_settings"
-        android:name="com.hands.clean.ui.settings.SettingsFragment"
+        android:name="com.hands.clean.activity.ui.settings.SettingsFragment"
         android:label="설정"
         tools:layout="@layout/fragment_settings" />
 
     <fragment
         android:id="@+id/nav_logs"
-        android:name="com.hands.clean.ui.logs.LogsFragment"
+        android:name="com.hands.clean.activity.ui.logs.LogsFragment"
         android:label="로그"
         tools:layout="@layout/fragment_logs" />
 </navigation>

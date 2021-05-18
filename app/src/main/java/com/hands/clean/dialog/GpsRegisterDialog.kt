@@ -11,7 +11,7 @@ import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.hands.clean.R
-import com.hands.clean.activity.settings.MapsViewModel
+import com.hands.clean.activity.settings.gps.MapsViewModel
 import com.hands.clean.function.room.entry.GpsEntry
 
 class GpsRegisterDialog(private val mapsViewModel: MapsViewModel): BottomSheetDialogFragment() {

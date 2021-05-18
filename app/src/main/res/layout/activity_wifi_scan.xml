@@ -4,17 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.hands.clean.activity.settings.gps.MapsActivity">
+    tools:context=".activity.settings.wifi.WifiScanActivity">
 
-    <fragment
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewWifiScanResult"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:id="@+id/map"
-        tools:context=".MapsActivity"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        />
-
-
+        android:layout_height="match_parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

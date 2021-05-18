@@ -1,4 +1,4 @@
-package com.hands.clean.ui.logs
+package com.hands.clean.activity.ui.logs
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.hands.clean.R
 import com.hands.clean.function.room.DB
-import com.hands.clean.ui.logs.adapter.RecyclerLogsAdapter
+import com.hands.clean.activity.ui.logs.adapter.RecyclerLogsAdapter
 import kotlin.concurrent.thread
 
 class LogsFragment : Fragment() {

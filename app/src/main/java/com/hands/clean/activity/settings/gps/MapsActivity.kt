@@ -1,17 +1,10 @@
-package com.hands.clean.activity.settings
+package com.hands.clean.activity.settings.gps
 
-import android.animation.ObjectAnimator
-import android.content.Context
-import android.content.Intent
 import android.graphics.Color
 import android.location.Location
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
-import android.widget.Button
-import android.widget.EditText
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -23,15 +16,10 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
 import com.hands.clean.R
 import com.hands.clean.dialog.GpsRegisterButtonDialog
-import com.hands.clean.dialog.GpsRegisterDialog
 import com.hands.clean.function.gps.geofencing.WashGeofencing
 import com.hands.clean.function.room.DB
 import com.hands.clean.function.room.entry.GpsEntry
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import java.lang.Exception
-import kotlin.concurrent.thread
 
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {

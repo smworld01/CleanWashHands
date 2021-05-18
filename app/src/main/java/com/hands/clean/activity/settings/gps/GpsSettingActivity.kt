@@ -1,4 +1,4 @@
-package com.hands.clean.activity.settings
+package com.hands.clean.activity.settings.gps
 
 import android.os.Bundle
 import android.view.MenuItem
@@ -7,10 +7,11 @@ import android.content.Intent
 import android.widget.Button
 import androidx.appcompat.widget.SwitchCompat
 import com.hands.clean.R
+import com.hands.clean.activity.settings.TrackerListActivity
 import com.hands.clean.function.gps.SystemSettingsGpsManager
 import com.hands.clean.function.notification.type.NotifyType
 import com.hands.clean.function.permission.GpsPermissionRequesterWithBackground
-import com.hands.clean.function.service.WashLocationServiceManager
+import com.hands.clean.service.WashLocationServiceManager
 import com.hands.clean.function.settings.WashSettingsManager
 
 class GpsSettingActivity : AppCompatActivity(){

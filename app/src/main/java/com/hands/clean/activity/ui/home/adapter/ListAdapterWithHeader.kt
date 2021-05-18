@@ -1,4 +1,4 @@
-package com.hands.clean.ui.home.adapter
+package com.hands.clean.activity.ui.home.adapter
 
 import androidx.recyclerview.widget.*
 

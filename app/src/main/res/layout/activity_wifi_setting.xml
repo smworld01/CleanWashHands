@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.hands.clean.activity.settings.WifiSettingActivity"
+    tools:context="com.hands.clean.activity.settings.wifi.WifiSettingActivity"
     android:orientation="vertical"
     android:divider="?attr/dividerHorizontal"
     android:showDividers="middle|end"
@@ -46,6 +46,7 @@
         />
 
     <Button
+        android:id="@+id/buttonWifiScan"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"

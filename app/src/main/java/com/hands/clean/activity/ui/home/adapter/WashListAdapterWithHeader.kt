@@ -1,4 +1,4 @@
-package com.hands.clean.ui.home.adapter
+package com.hands.clean.activity.ui.home.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.hands.clean.R
 import com.hands.clean.function.room.entry.DateCount
 
-class WashListAdapterWithHeader() : ListAdapterWithHeader<DateCount ,RecyclerView.ViewHolder>(DateCount.Companion.DateCountDiffCallback) {
+class WashListAdapterWithHeader() : ListAdapterWithHeader<DateCount, RecyclerView.ViewHolder>(DateCount.Companion.DateCountDiffCallback) {
     private val TYPE_HEADER = 0
     private val TYPE_ITEM = 1
 
@@ -29,10 +29,10 @@ class WashListAdapterWithHeader() : ListAdapterWithHeader<DateCount ,RecyclerVie
         val view : View?
         val holder:RecyclerView.ViewHolder
         if (viewType == TYPE_HEADER) {
-            view = LayoutInflater.from(parent.context).inflate(R.layout.wash_recycler_header, parent, false)
+            view = LayoutInflater.from(parent.context).inflate(R.layout.recycler_item_wash_header, parent, false)
             holder = RecyclerWashHeader(view)
         } else {
-            view = LayoutInflater.from(parent.context).inflate(R.layout.wash_recycler_item, parent, false)
+            view = LayoutInflater.from(parent.context).inflate(R.layout.recycler_item_wash, parent, false)
             holder = RecyclerWashItem(view)
         }
         return holder

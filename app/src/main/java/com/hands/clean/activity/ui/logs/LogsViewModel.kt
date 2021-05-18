@@ -1,13 +1,13 @@
-package com.hands.clean.ui.home
+package com.hands.clean.activity.ui.logs
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class HomeViewModel : ViewModel() {
+class LogsViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = "This is home Fragment"
+        value = "This is logs Fragment"
     }
     val text: LiveData<String> = _text
 }

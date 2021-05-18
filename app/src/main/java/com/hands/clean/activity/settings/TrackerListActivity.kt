@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.hands.clean.R
-import com.hands.clean.activity.settings.adapter.TrackerEntryListAdapter
+import com.hands.clean.function.adapter.TrackerEntryListAdapter
 import com.hands.clean.function.notification.type.NotifyType
 import com.hands.clean.function.room.DB
 import com.hands.clean.function.room.entry.TrackerEntry

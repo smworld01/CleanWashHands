@@ -1,4 +1,4 @@
-package com.hands.clean.ui.logs.adapter
+package com.hands.clean.activity.ui.logs.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -22,7 +22,7 @@ class RecyclerLogsAdapter(private val washData: List<WashEntry>) : RecyclerView.
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view : View?
         val holder:RecyclerView.ViewHolder
-        view = LayoutInflater.from(parent.context).inflate(R.layout.logs_recycler_item, parent, false)
+        view = LayoutInflater.from(parent.context).inflate(R.layout.recycler_item_logs, parent, false)
         holder = RecyclerWashItem(view)
 
         return holder
