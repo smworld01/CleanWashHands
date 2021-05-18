@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingHorizontal="32dp"
+    android:paddingTop="24dp"
+    android:paddingBottom="40dp"
+    android:divider="?attr/dividerHorizontal"
+    >
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="알림 활성화"
+        android:textSize="20dp"
+        android:paddingTop="6dp"
+        android:paddingBottom="18dp"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp"
+        >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1.5"
+            android:layout_height="wrap_content"
+            android:text="기기 이름"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            />
+        <EditText
+            android:id="@+id/devicename"
+            android:layout_width="0dp"
+            android:layout_weight="1.5"
+            android:background="null"
+            android:paddingHorizontal="10dp"
+            android:textSize="18sp"
+            android:layout_height="wrap_content"
+            android:hint="KT wifi"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp"
+        >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1.5"
+            android:layout_height="wrap_content"
+            android:text="등록 이름"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            />
+        <EditText
+            android:id="@+id/registername"
+            android:layout_width="0dp"
+            android:layout_weight="1.5"
+            android:background="null"
+            android:paddingHorizontal="10dp"
+            android:textSize="18sp"
+            android:layout_height="wrap_content"
+            android:hint="집"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp"
+        >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1.5"
+            android:layout_height="wrap_content"
+            android:text="등록 날짜"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            />
+        <TextView
+            android:id="@+id/registerdate"
+            android:layout_width="0dp"
+            android:layout_weight="1.5"
+            android:background="null"
+            android:paddingHorizontal="10dp"
+            android:textSize="18sp"
+            android:layout_height="wrap_content"
+            android:hint="2000-01-01"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="6dp"
+        android:paddingBottom="18dp"
+        >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1.5"
+            android:layout_height="wrap_content"
+            android:text="마지막 알림 날짜"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            />
+        <TextView
+            android:id="@+id/lastnotifydate"
+            android:layout_width="0dp"
+            android:layout_weight="1.5"
+            android:background="null"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="10dp"
+            android:textSize="18sp"
+            android:inputType="numberDecimal"
+            android:hint="2000-01-01 12:00"
+            />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/infodeletebutton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#1c9d9e"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:layout_margin="5dp"
+        android:text="삭제하기"
+        />
+
+</LinearLayout>
