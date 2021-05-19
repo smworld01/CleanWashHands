@@ -6,21 +6,25 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.hands.clean.R
+import com.hands.clean.activity.settings.gps.MapsViewModel
+import com.hands.clean.dialog.DeviceInfoDialog
+import com.hands.clean.dialog.GpsInfoDialog
 import com.hands.clean.function.adapter.TrackerEntryListAdapter
 import com.hands.clean.function.notification.type.NotifyType
 import com.hands.clean.function.room.DB
-import com.hands.clean.function.room.entry.TrackerEntry
+import com.hands.clean.function.room.entry.*
 
 class TrackerListActivity : AppCompatActivity() {
     private lateinit var type: String
 
+    private lateinit var viewModel: TrackerListViewModel
 
     private lateinit var textViewEmptyRecycler: TextView
-
     private lateinit var mAdapter: TrackerEntryListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,9 +33,10 @@ class TrackerListActivity : AppCompatActivity() {
 
         type = intent.getStringExtra("type")!!
 
+        viewModel = ViewModelProvider(this).get(TrackerListViewModel::class.java)
+
         initActionBar()
         initRecyclerView()
-
     }
 
     private fun initActionBar() {
@@ -53,6 +58,16 @@ class TrackerListActivity : AppCompatActivity() {
         textViewEmptyRecycler = findViewById(R.id.textViewEmptyRecycler)
 
         mAdapter = adaptRecyclerDevice(recyclerViewTracker)
+
+        viewModel.searchTrackerEntry.observe(this) {
+            val dialog = when (it) {
+                is DeviceEntry -> DeviceInfoDialog(it)
+                is GpsEntry -> GpsInfoDialog(it)
+                else -> throw Exception()
+            }
+
+            dialog.show(this.supportFragmentManager, dialog.tag)
+        }
 
         when (type) {
             NotifyType.Bluetooth.channelId -> {
@@ -81,7 +96,7 @@ class TrackerListActivity : AppCompatActivity() {
 
 
     private fun adaptRecyclerDevice(recyclerView: RecyclerView): TrackerEntryListAdapter {
-        val mAdapter = TrackerEntryListAdapter()
+        val mAdapter = TrackerEntryListAdapter(viewModel)
         val lm = LinearLayoutManager(this)
 
         recyclerView.apply {

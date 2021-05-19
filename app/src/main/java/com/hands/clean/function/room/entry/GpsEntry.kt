@@ -18,7 +18,7 @@ data class GpsEntry(
     @ColumnInfo(name = "requestId") val requestId: String,
     @ColumnInfo(name = "latitude") val latitude: Double,
     @ColumnInfo(name = "longitude") val longitude: Double,
-    @ColumnInfo(name = "radius") val radius: Float,
+    @ColumnInfo(name = "radius") var radius: Float,
     @ColumnInfo(name = "notification") override var isNotification: Boolean = false,
     @ColumnInfo(name = "last_notify_time") override var lastNotifyTime: String? = null,
     @ColumnInfo(name = "registration_time") override val registrationTime: String = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.UK).format(Date()),

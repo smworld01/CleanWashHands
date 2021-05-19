@@ -9,25 +9,29 @@ import androidx.appcompat.widget.SwitchCompat
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.hands.clean.R
+import com.hands.clean.activity.settings.TrackerListViewModel
 import com.hands.clean.function.room.DB
 import com.hands.clean.function.room.entry.*
 import kotlin.concurrent.thread
 
-class TrackerEntryListAdapter() : ListAdapter<TrackerEntry, RecyclerView.ViewHolder>(
+class TrackerEntryListAdapter(private val viewModel: TrackerListViewModel) : ListAdapter<TrackerEntry, RecyclerView.ViewHolder>(
     TrackerEntry.Companion.DateCountDiffCallback
 ) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view : View =
             LayoutInflater.from(parent.context).inflate(R.layout.recycler_item_tracker, parent, false)
-        return RecyclerItem(view)
+        return RecyclerItem(view, viewModel)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val recyclerItem: RecyclerItem = holder as RecyclerItem
         recyclerItem.bind(getItem(position))
+
+
+
     }
 
-    class RecyclerItem(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class RecyclerItem(itemView: View, private val viewModel: TrackerListViewModel) : RecyclerView.ViewHolder(itemView) {
         val layoutItem: LinearLayout = itemView.findViewById(R.id.layoutItem)
         val textViewDeviceName: TextView = itemView.findViewById(R.id.textViewDeviceName)
         var switchNotification: SwitchCompat = itemView.findViewById(R.id.switchNotification)
@@ -43,7 +47,7 @@ class TrackerEntryListAdapter() : ListAdapter<TrackerEntry, RecyclerView.ViewHol
                 return@setOnLongClickListener true
             }
             layoutItem.setOnClickListener {
-                switchNotification.isChecked = !switchNotification.isChecked
+                viewModel.searchTrackerEntry.value = data
             }
 
             textViewDeviceName.text = data.name

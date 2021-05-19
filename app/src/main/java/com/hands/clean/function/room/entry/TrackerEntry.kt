@@ -25,8 +25,15 @@ interface TrackerEntry {
                 fun areContentsNotificationTheSame(oldItem: TrackerEntry, newItem: TrackerEntry): Boolean {
                     return oldItem.isNotification == newItem.isNotification
                 }
-                return areContentsNameTheSame(oldItem, newItem)
+
+                val result = areContentsNameTheSame(oldItem, newItem)
                         && areContentsNotificationTheSame(oldItem, newItem)
+
+                if (oldItem is GpsEntry && newItem is GpsEntry) {
+                    return result.and(oldItem.radius == newItem.radius)
+                }
+
+                return result
             }
         }
     }
