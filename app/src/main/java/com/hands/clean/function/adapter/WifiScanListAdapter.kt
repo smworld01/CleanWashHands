@@ -4,27 +4,22 @@ import android.net.wifi.ScanResult
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
-import androidx.appcompat.widget.SwitchCompat
-import androidx.core.widget.ImageViewCompat
+import android.widget.*
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.hands.clean.R
+import com.hands.clean.activity.settings.wifi.WifiScanViewModel
 import com.hands.clean.function.room.DB
 import com.hands.clean.function.room.entry.*
-import kotlin.concurrent.thread
 
-class WifiScanListAdapter : ListAdapter<ScanResult, RecyclerView.ViewHolder>(
+class WifiScanListAdapter(private val viewModel: WifiScanViewModel) : ListAdapter<ScanResult, RecyclerView.ViewHolder>(
     DateCountDiffCallback
 ) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view : View =
             LayoutInflater.from(parent.context).inflate(R.layout.recycler_item_wifi_scan, parent, false)
-        return RecyclerItem(view)
+        return RecyclerItem(view, viewModel)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -32,7 +27,7 @@ class WifiScanListAdapter : ListAdapter<ScanResult, RecyclerView.ViewHolder>(
         recyclerItem.bind(getItem(position))
     }
 
-    class RecyclerItem(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class RecyclerItem(itemView: View, private val viewModel: WifiScanViewModel) : RecyclerView.ViewHolder(itemView) {
         val icon: ImageView = itemView.findViewById(R.id.icon)
         val deviceName: TextView = itemView.findViewById(R.id.textViewDeviceName)
         var button: Button = itemView.findViewById(R.id.button)
@@ -46,6 +41,26 @@ class WifiScanListAdapter : ListAdapter<ScanResult, RecyclerView.ViewHolder>(
             icon.setImageDrawable(drawable)
 
             deviceName.text = data.SSID
+
+            button.setOnClickListener {
+                val findWifiEntry = DB.getInstance().wifiDao().findByAddress(data.BSSID)
+                if(findEntryIsExist(findWifiEntry)) {
+                    Toast.makeText(
+                        itemView.context, "이미 등록된 와이파이입니다.", Toast.LENGTH_SHORT
+                    ).show()
+                } else {
+                    viewModel.createWifiEntry.value = WifiEntry(
+                        0,
+                        "",
+                        data.SSID,
+                        data.BSSID,
+                        true
+                    )
+                }
+            }
+        }
+        private fun findEntryIsExist(findEntry: WifiEntry?): Boolean {
+            return findEntry != null
         }
     }
 

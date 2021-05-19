@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.hands.clean.R
+import com.hands.clean.dialog.DeviceRegisterDialog
 import com.hands.clean.function.adapter.WifiScanListAdapter
 
 class WifiScanActivity : AppCompatActivity() {
@@ -49,9 +50,15 @@ class WifiScanActivity : AppCompatActivity() {
         viewModel.wifiScanResult.observe(this) {
             mAdapter.submitList(it)
         }
+        viewModel.createWifiEntry.observe(this) {
+            if (it != null) {
+                val dialog = DeviceRegisterDialog(it)
+                dialog.show(this.supportFragmentManager, dialog.tag)
+            }
+        }
     }
     private fun adaptRecycler(recyclerView: RecyclerView): WifiScanListAdapter {
-        val mAdapter = WifiScanListAdapter()
+        val mAdapter = WifiScanListAdapter(viewModel)
         val lm = LinearLayoutManager(this)
 
         recyclerView.apply {

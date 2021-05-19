@@ -11,9 +11,15 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.hands.clean.R
+import com.hands.clean.function.room.DB
+import com.hands.clean.function.room.entry.BluetoothEntry
+import com.hands.clean.function.room.entry.DeviceEntry
 import com.hands.clean.function.room.entry.WifiEntry
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.callbackFlow
 
-class DeviceRegisterDialog(private val ViewModel: ViewModel): BottomSheetDialogFragment() {
+class DeviceRegisterDialog(private val deviceEntry: DeviceEntry): BottomSheetDialogFragment() {
     private var cancelCallback: () -> Unit = {}
     private var dismissCallback: () -> Unit = {}
     override fun onCreateView(
@@ -22,18 +28,10 @@ class DeviceRegisterDialog(private val ViewModel: ViewModel): BottomSheetDialogF
         savedInstanceState: Bundle?
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        return inflater.inflate(R.layout.dialog_gps_register, container, false)
+        return inflater.inflate(R.layout.dialog_device_register, container, false)
     }
-        lateinit var editTextName: EditText
-        lateinit var button: Button
-
-    fun setOnCancelListener(callback: () -> Unit) {
-        cancelCallback = callback
-    }
-
-    fun setOnDismissListener(callback: () -> Unit) {
-        dismissCallback = callback
-    }
+    lateinit var editTextName: EditText
+    lateinit var button: Button
 
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
@@ -44,8 +42,11 @@ class DeviceRegisterDialog(private val ViewModel: ViewModel): BottomSheetDialogF
         super.onCancel(dialog)
         cancelCallback()
     }
+
+    @ExperimentalCoroutinesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         editTextName = view.findViewById(R.id.name)
+
         button = view.findViewById(R.id.button)
 
         button.setOnClickListener{
@@ -61,13 +62,13 @@ class DeviceRegisterDialog(private val ViewModel: ViewModel): BottomSheetDialogF
     }
 
     private fun createMode() {
-        WifiEntry(
-            0,
-            "name",
-            "deviceName",
-            "address",
-            true
-        )
+        deviceEntry.name = editTextName.text.toString()
+        when(deviceEntry) {
+            is WifiEntry -> DB.getInstance().wifiDao().insertAll(deviceEntry)
+            is BluetoothEntry -> DB.getInstance().bluetoothDao().insertAll(deviceEntry)
+            else -> throw Exception()
+        }
+        dismiss()
     }
 
     private fun nameDescriptionMode() {
