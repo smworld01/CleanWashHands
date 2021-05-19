@@ -1,11 +1,8 @@
-package com.hands.clean.function.receiver
+package com.hands.clean.receiver
 
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.util.Log
-import androidx.core.app.RemoteInput
-import com.hands.clean.function.notification.factory.notify.NewDeviceRegisterNotifyFactory
 import com.hands.clean.function.room.DB
 import kotlin.concurrent.thread
 

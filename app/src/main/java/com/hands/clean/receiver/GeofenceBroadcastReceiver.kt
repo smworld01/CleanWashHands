@@ -1,15 +1,13 @@
-package com.hands.clean.function.receiver
+package com.hands.clean.receiver
 
 import android.content.BroadcastReceiver
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
-import android.provider.Settings.Global.getString
 import android.util.Log
 import com.google.android.gms.location.Geofence
 import com.google.android.gms.location.GeofenceStatusCodes
 import com.google.android.gms.location.GeofencingEvent
-import com.hands.clean.function.notification.factory.notify.WashNotifyFactory
 import com.hands.clean.function.notification.notify.location.GpsNotify
 
 class GeofenceBroadcastReceiver : BroadcastReceiver() {

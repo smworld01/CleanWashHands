@@ -31,10 +31,10 @@
             android:enabled="true"
             android:exported="true" />
 
-        <receiver android:name=".function.receiver.GeofenceBroadcastReceiver" />
-        <receiver android:name=".function.receiver.DeviceRegisterReceiver" />
-        <receiver android:name=".function.receiver.ServiceStopReceiver" />
-        <receiver android:name=".function.receiver.WashReceiver" />
+        <receiver android:name="com.hands.clean.receiver.GeofenceBroadcastReceiver" />
+        <receiver android:name="com.hands.clean.receiver.DeviceRegisterReceiver" />
+        <receiver android:name="com.hands.clean.receiver.ServiceStopReceiver" />
+        <receiver android:name="com.hands.clean.receiver.WashReceiver" />
 
         <activity android:name=".activity.settings.TestActivity" />
         <activity

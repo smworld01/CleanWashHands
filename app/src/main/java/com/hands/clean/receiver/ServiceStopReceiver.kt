@@ -1,4 +1,4 @@
-package com.hands.clean.function.receiver
+package com.hands.clean.receiver
 
 import android.content.BroadcastReceiver
 import android.content.Context

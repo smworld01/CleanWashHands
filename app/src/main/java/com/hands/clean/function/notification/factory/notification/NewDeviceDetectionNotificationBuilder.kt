@@ -7,7 +7,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.RemoteInput
 import com.hands.clean.R
 import com.hands.clean.function.notification.NotificationIdCounter
-import com.hands.clean.function.receiver.DeviceRegisterReceiver
+import com.hands.clean.receiver.DeviceRegisterReceiver
 import com.hands.clean.function.room.entry.*
 
 class NewDeviceDetectionNotificationBuilder(

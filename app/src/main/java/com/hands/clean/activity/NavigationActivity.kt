@@ -16,7 +16,7 @@ import androidx.appcompat.widget.Toolbar
 import com.hands.clean.R
 import com.hands.clean.function.gps.geofencing.WashGeofencing
 import com.hands.clean.function.notification.init.NotificationChannelManager
-import com.hands.clean.function.receiver.bluetoothReceiver
+import com.hands.clean.receiver.bluetoothReceiver
 import com.hands.clean.function.room.DB
 import com.hands.clean.service.WashLocationServiceManager
 import com.hands.clean.function.settings.WashSettingsManager

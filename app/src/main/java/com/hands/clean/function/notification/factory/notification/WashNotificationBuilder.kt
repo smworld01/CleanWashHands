@@ -6,7 +6,7 @@ import android.content.Intent
 import androidx.core.app.NotificationCompat
 import com.hands.clean.R
 import com.hands.clean.function.gps.LocationInfo
-import com.hands.clean.function.receiver.WashReceiver
+import com.hands.clean.receiver.WashReceiver
 import com.hands.clean.function.room.DB
 import com.hands.clean.function.room.entry.*
 import java.text.SimpleDateFormat

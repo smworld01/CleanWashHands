@@ -12,7 +12,7 @@ import com.google.android.gms.location.GeofencingRequest
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.model.LatLng
 import com.hands.clean.function.permission.checker.PermissionChecker
-import com.hands.clean.function.receiver.GeofenceBroadcastReceiver
+import com.hands.clean.receiver.GeofenceBroadcastReceiver
 import com.hands.clean.function.room.DB
 import com.hands.clean.function.room.entry.GpsEntry
 import kotlin.concurrent.thread

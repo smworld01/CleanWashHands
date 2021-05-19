@@ -6,7 +6,7 @@ import android.content.Intent
 import androidx.core.app.NotificationCompat
 import com.hands.clean.R
 import com.hands.clean.function.notification.type.NotifyInfo
-import com.hands.clean.function.receiver.ServiceStopReceiver
+import com.hands.clean.receiver.ServiceStopReceiver
 
 class ForegroundNotificationBuilder(
     private val context: Context,
