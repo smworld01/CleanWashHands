@@ -12,9 +12,10 @@ import java.util.*
 @Entity
 data class BluetoothEntry(
     @PrimaryKey(autoGenerate = true) override val uid: Int,
-    @ColumnInfo(name = "name") override val name: String,
+    @ColumnInfo(name = "name") override var name: String,
+    @ColumnInfo(name = "device_name") override val deviceName: String,
     @ColumnInfo(name = "address") override val address: String,
-    @ColumnInfo(name = "notification") override val isNotification: Boolean,
+    @ColumnInfo(name = "notification") override var isNotification: Boolean = false,
     @ColumnInfo(name = "last_notify_time") override var lastNotifyTime: String? = null,
     @ColumnInfo(name = "registration_time") override val registrationTime: String = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.UK).format(Date()),
 ): DeviceEntry {

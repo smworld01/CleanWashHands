@@ -47,7 +47,7 @@ class TestActivity : AppCompatActivity() {
         }
 
         buttonChangeNotificationChannel.setOnClickListener {
-            WashNotifyFactory(applicationContext, WifiEntry(0, "1", "2", false)).onBuild().onNotify()
+//            WashNotifyFactory(applicationContext, WifiEntry(0, "1", "2", false)).onBuild().onNotify()
         }
     }
 }

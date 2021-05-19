@@ -10,7 +10,7 @@
     >
 
     <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/switch"
+        android:id="@+id/notifySwitch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="알림 활성화"
@@ -39,7 +39,7 @@
             android:id="@+id/devicename"
             android:layout_width="0dp"
             android:layout_weight="1.5"
-            android:background="null"
+            android:background="@null"
             android:paddingHorizontal="10dp"
             android:textSize="18sp"
             android:layout_height="wrap_content"
@@ -67,7 +67,7 @@
             android:id="@+id/registername"
             android:layout_width="0dp"
             android:layout_weight="1.5"
-            android:background="null"
+            android:background="@null"
             android:paddingHorizontal="10dp"
             android:textSize="18sp"
             android:layout_height="wrap_content"
@@ -95,11 +95,10 @@
             android:id="@+id/registerdate"
             android:layout_width="0dp"
             android:layout_weight="1.5"
-            android:background="null"
             android:paddingHorizontal="10dp"
             android:textSize="18sp"
             android:layout_height="wrap_content"
-            android:hint="2000-01-01"
+            android:text="2000-01-01"
             />
     </LinearLayout>
 
@@ -123,12 +122,11 @@
             android:id="@+id/lastnotifydate"
             android:layout_width="0dp"
             android:layout_weight="1.5"
-            android:background="null"
             android:layout_height="wrap_content"
             android:paddingHorizontal="10dp"
             android:textSize="18sp"
             android:inputType="numberDecimal"
-            android:hint="2000-01-01 12:00"
+            android:text="2000-01-01 12:00"
             />
     </LinearLayout>
 

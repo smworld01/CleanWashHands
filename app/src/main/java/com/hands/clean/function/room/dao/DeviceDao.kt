@@ -13,11 +13,9 @@ interface DeviceDao {
 
     fun findByName(name: String): DeviceEntry?
 
-    fun changeNotificationByAddress(address: String, bool: Boolean)
+    fun insertAll(vararg entries: DeviceEntry)
 
-    fun changeNameByAddress(address: String, name: String)
+    fun updateAll(vararg entries: DeviceEntry)
 
-    fun insertAll(vararg users: DeviceEntry)
-
-    fun delete(user: DeviceEntry)
+    fun delete(entry: DeviceEntry)
 }

@@ -10,7 +10,7 @@
     >
 
     <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/switch"
+        android:id="@+id/notifySwitch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="알림 활성화"
@@ -39,7 +39,7 @@
             android:id="@+id/locationname"
             android:layout_width="0dp"
             android:layout_weight="1.8"
-            android:background="null"
+            android:background="@null"
             android:paddingHorizontal="10dp"
             android:textSize="18sp"
             android:layout_height="wrap_content"
@@ -64,20 +64,20 @@
             android:textSize="18sp"
             />
         <EditText
-            android:id="@+id/locationlatilongti"
+            android:id="@+id/latitude"
             android:layout_width="0dp"
             android:layout_weight="0.9"
-            android:background="null"
+            android:background="@null"
             android:paddingHorizontal="10dp"
             android:textSize="18sp"
             android:layout_height="wrap_content"
             android:hint="110,120"
             />
         <EditText
-            android:id="@+id/locationlatilongti"
+            android:id="@+id/longitude"
             android:layout_width="0dp"
             android:layout_weight="0.9"
-            android:background="null"
+            android:background="@null"
             android:paddingHorizontal="10dp"
             android:textSize="18sp"
             android:layout_height="wrap_content"
@@ -105,7 +105,7 @@
             android:id="@+id/fencedistance"
             android:layout_width="0dp"
             android:layout_weight="1.8"
-            android:background="null"
+            android:background="@null"
             android:paddingHorizontal="10dp"
             android:textSize="18sp"
             android:layout_height="wrap_content"

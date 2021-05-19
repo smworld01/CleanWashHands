@@ -1,12 +1,10 @@
 package com.hands.clean.function.room.dao
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import com.hands.clean.function.room.entry.BluetoothEntry
 import com.hands.clean.function.room.entry.DeviceEntry
+import com.hands.clean.function.room.entry.WifiEntry
 
 @Dao
 interface BluetoothDao: DeviceDao {
@@ -25,17 +23,14 @@ interface BluetoothDao: DeviceDao {
     @Query("SELECT * FROM BluetoothEntry WHERE name = :name")
     fun findByNameBluetooth(name: String): BluetoothEntry?
 
-    @Query("UPDATE BluetoothEntry SET notification = :bool WHERE address = :address")
-    fun changeNotificationByAddressBluetooth(address: String, bool: Boolean)
-
-    @Query("UPDATE BluetoothEntry SET name = :name WHERE address = :address")
-    fun changeNameByAddressBluetooth(address: String, name: String)
-
     @Insert
-    fun insertAllBluetooth(vararg users: BluetoothEntry)
+    fun insertAllBluetooth(vararg entries: BluetoothEntry)
+
+    @Update
+    fun updateAllBluetooth(vararg entries: BluetoothEntry)
 
     @Delete
-    fun deleteBluetooth(user: BluetoothEntry)
+    fun deleteBluetooth(entry: BluetoothEntry)
 
 
     override fun getAll(): List<DeviceEntry> {
@@ -45,21 +40,18 @@ interface BluetoothDao: DeviceDao {
         return loadAllByIdsBluetooth(userIds)
     }
     override fun findByAddress(address: String): BluetoothEntry? {
-           return findByAddressBluetooth (address)
+        return findByAddressBluetooth (address)
     }
     override fun findByName(name: String): BluetoothEntry? {
         return findByNameBluetooth(name)
     }
-    override fun changeNotificationByAddress(address: String, bool: Boolean) {
-        changeNotificationByAddressBluetooth(address, bool)
+    override fun insertAll(vararg entries: DeviceEntry) {
+        insertAllBluetooth(*(entries.map { it as BluetoothEntry }.toTypedArray()))
     }
-    override fun changeNameByAddress(address: String, name: String) {
-        changeNameByAddressBluetooth(address, name)
+    override fun updateAll(vararg entries: DeviceEntry) {
+        updateAllBluetooth(*(entries.map { it as BluetoothEntry }.toTypedArray()))
     }
-    override fun insertAll(vararg users: DeviceEntry) {
-        insertAllBluetooth(*(users.map { it as BluetoothEntry }.toTypedArray()))
-    }
-    override fun delete(user: DeviceEntry) {
-        deleteBluetooth(user as BluetoothEntry)
+    override fun delete(entry: DeviceEntry) {
+        deleteBluetooth(entry as BluetoothEntry)
     }
 }

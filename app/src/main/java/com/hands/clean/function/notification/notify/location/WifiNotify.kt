@@ -23,7 +23,13 @@ class WifiNotify(context: Context) : Notify {
         private val settings = WashSettingsManager(context)
         private val deviceInfo = getDeviceInContent()
 
-        override var deviceEntry: DeviceEntry = WifiEntry(0, deviceInfo.SSID, deviceInfo.BSSID, false)
+        override var deviceEntry: DeviceEntry = WifiEntry(
+            0,
+            "",
+            deviceInfo.SSID,
+            deviceInfo.BSSID,
+            false
+        )
 
         override fun doNotify() {
             super.doNotify()

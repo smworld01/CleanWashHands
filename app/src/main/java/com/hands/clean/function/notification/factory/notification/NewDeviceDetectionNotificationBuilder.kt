@@ -27,8 +27,8 @@ class NewDeviceDetectionNotificationBuilder(
 
     private fun getContentText(): String {
         return when (trackerEntry) {
-            is BluetoothEntry -> "새로운 $channelId 기기 ${trackerEntry.name} 에 연결되었습니다."
-            is WifiEntry -> "새로운 $channelId 기기 ${trackerEntry.name} 에 연결되었습니다."
+            is BluetoothEntry -> "새로운 $channelId 기기 ${trackerEntry.deviceName} 에 연결되었습니다."
+            is WifiEntry -> "새로운 $channelId 기기 ${trackerEntry.deviceName} 에 연결되었습니다."
             else -> throw Exception()
         }
     }

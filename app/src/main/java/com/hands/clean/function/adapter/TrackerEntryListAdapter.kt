@@ -51,10 +51,11 @@ class TrackerEntryListAdapter() : ListAdapter<TrackerEntry, RecyclerView.ViewHol
 
             switchNotification.setOnCheckedChangeListener { _, isChecked ->
                 thread {
+                    data.isNotification = true
                     when(data) {
-                        is BluetoothEntry -> DB.getInstance().bluetoothDao().changeNotificationByAddress(data.address, isChecked)
-                        is WifiEntry -> DB.getInstance().matchDaoByEntry(data).changeNotificationByAddress(data.address, isChecked)
-                        is GpsEntry -> DB.getInstance().gpsDao().changeNotificationByRequestId(data.requestId, isChecked)
+                        is BluetoothEntry -> DB.getInstance().bluetoothDao().updateAll(data)
+                        is WifiEntry -> DB.getInstance().wifiDao().updateAll(data)
+                        is GpsEntry -> DB.getInstance().gpsDao().updateAll(data)
                     }
                 }
             }

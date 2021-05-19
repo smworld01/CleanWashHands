@@ -14,12 +14,12 @@ import java.util.*
 @Entity
 data class GpsEntry(
     @PrimaryKey(autoGenerate = true) override val uid: Int,
-    @ColumnInfo(name = "name") override val name: String,
+    @ColumnInfo(name = "name") override var name: String,
     @ColumnInfo(name = "requestId") val requestId: String,
     @ColumnInfo(name = "latitude") val latitude: Double,
     @ColumnInfo(name = "longitude") val longitude: Double,
     @ColumnInfo(name = "radius") val radius: Float,
-    @ColumnInfo(name = "notification") override val isNotification: Boolean,
+    @ColumnInfo(name = "notification") override var isNotification: Boolean = false,
     @ColumnInfo(name = "last_notify_time") override var lastNotifyTime: String? = null,
     @ColumnInfo(name = "registration_time") override val registrationTime: String = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.UK).format(Date()),
 ) : TrackerEntry {

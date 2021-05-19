@@ -5,8 +5,8 @@ import com.hands.clean.function.notification.type.NotifyInfo
 
 interface TrackerEntry {
     val uid: Int
-    val name: String
-    val isNotification: Boolean
+    var name: String
+    var isNotification: Boolean
     val notifyInfo: NotifyInfo
     var lastNotifyTime: String?
     val registrationTime: String

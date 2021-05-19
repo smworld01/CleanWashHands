@@ -16,16 +16,21 @@ class DeviceRegisterReceiver : BroadcastReceiver() {
     private fun registerNotificationDevice(context: Context, intent: Intent) {
         thread {
             val remoteReply = RemoteInput.getResultsFromIntent(intent)
-            val deviceName = remoteReply.getCharSequence("deviceName")
+            val name = remoteReply.getCharSequence("deviceName")
 
             val address = intent.getStringExtra("address")!!
             val type = intent.getStringExtra("type")!!
             val notificationId = intent.getIntExtra("notificationId", 0)
 
-            DB.getInstance().matchDaoByChannelId(type).changeNotificationByAddress(address, true)
-            DB.getInstance().matchDaoByChannelId(type).changeNameByAddress(address, deviceName.toString())
+            var deviceEntry = DB.getInstance().matchDaoByChannelId(type).findByAddress(address)
+            if (deviceEntry != null) {
+                deviceEntry.name = name.toString()
+                deviceEntry.isNotification = true
+                DB.getInstance().matchDaoByChannelId(type).updateAll(deviceEntry)
 
-            NewDeviceRegisterNotifyFactory(context, deviceName.toString(), type, notificationId).onBuild().onNotify()
+                NewDeviceRegisterNotifyFactory(context, deviceEntry, notificationId).onBuild().onNotify()
+            }
+
         }
     }
 }

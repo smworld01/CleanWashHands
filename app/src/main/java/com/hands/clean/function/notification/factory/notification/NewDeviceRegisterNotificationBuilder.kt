@@ -1,12 +1,12 @@
 package com.hands.clean.function.notification.factory.notification
 
 import android.content.Context
+import com.hands.clean.function.room.entry.DeviceEntry
 
 class NewDeviceRegisterNotificationBuilder(
     private val context: Context,
-    private val deviceName: String,
-    private val type: String
-) : BaseNotificationBuilder(context, type) {
+    private val deviceEntry: DeviceEntry
+) : BaseNotificationBuilder(context, deviceEntry.notifyInfo.channelId) {
 
     init {
         this
@@ -15,6 +15,6 @@ class NewDeviceRegisterNotificationBuilder(
     }
 
     private fun getContentText(): String {
-        return "새로운 $type 기기 ${deviceName}가 등록되었습니다."
+        return "새로운 ${deviceEntry.notifyInfo.channelId} 기기 ${deviceEntry.name}이(가) 등록되었습니다."
     }
 }

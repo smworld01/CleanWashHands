@@ -1,10 +1,7 @@
 package com.hands.clean.function.room.dao
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import com.hands.clean.function.room.entry.DeviceEntry
 import com.hands.clean.function.room.entry.WifiEntry
 
@@ -25,17 +22,14 @@ interface WifiDao: DeviceDao {
     @Query("SELECT * FROM WifiEntry WHERE name = :name")
     fun findByNameWifi(name: String): WifiEntry?
 
-    @Query("UPDATE WifiEntry SET notification = :bool WHERE address = :address")
-    fun changeNotificationByAddressWifi(address: String, bool: Boolean)
-
-    @Query("UPDATE WifiEntry SET name = :name WHERE address = :address")
-    fun changeNameByAddressWifi(address: String, name: String)
-
     @Insert
-    fun insertAllWifi(vararg users: WifiEntry)
+    fun insertAllWifi(vararg entries: WifiEntry)
+
+    @Update
+    fun updateAllWifi(vararg entries: WifiEntry)
 
     @Delete
-    fun deleteWifi(user: WifiEntry)
+    fun deleteWifi(entry: WifiEntry)
 
     override fun getAll(): List<DeviceEntry> {
         return getAllWifi()
@@ -49,16 +43,14 @@ interface WifiDao: DeviceDao {
     override fun findByName(name: String): WifiEntry? {
         return findByNameWifi(name)
     }
-    override fun changeNotificationByAddress(address: String, bool: Boolean) {
-        changeNotificationByAddressWifi(address, bool)
+    override fun insertAll(vararg entries: DeviceEntry) {
+        insertAllWifi(*(entries.map { it as WifiEntry }.toTypedArray()))
     }
-    override fun changeNameByAddress(address: String, name: String) {
-        changeNameByAddressWifi(address, name)
+
+    override fun updateAll(vararg entries: DeviceEntry) {
+        updateAllWifi(*(entries.map { it as WifiEntry }.toTypedArray()))
     }
-    override fun insertAll(vararg users: DeviceEntry) {
-        insertAllWifi(*(users.map { it as WifiEntry }.toTypedArray()))
-    }
-    override fun delete(user: DeviceEntry) {
-        deleteWifi(user as WifiEntry)
+    override fun delete(entry: DeviceEntry) {
+        deleteWifi(entry as WifiEntry)
     }
 }

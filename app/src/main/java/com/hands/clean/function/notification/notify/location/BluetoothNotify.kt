@@ -20,7 +20,13 @@ class BluetoothNotify(context: Context, intent: Intent) : Notify {
         private val settings = WashSettingsManager(context)
         private val deviceInfo = getDeviceInIntent(intent)
 
-        override val deviceEntry = BluetoothEntry(0, deviceInfo.name, deviceInfo.address, false)
+        override val deviceEntry = BluetoothEntry(
+            0,
+            "",
+            deviceInfo.name,
+            deviceInfo.address,
+            false
+        )
 
         private fun getDeviceInIntent(intent: Intent): BluetoothDevice {
             return intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE)!!
