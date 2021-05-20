@@ -44,7 +44,7 @@
         android:background="?attr/selectableItemBackground"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:contentImage="@drawable/ic_baseline_gps_fixed_24"
+        app:contentImage="@drawable/ic_icon_detect_wash"
         app:contentTitle="손 씻기 인식 설정"
         app:contentContext="음성인식과 화면인식을 통해 인식종류를 설정합니다."
         />
@@ -53,7 +53,7 @@
         android:background="?attr/selectableItemBackground"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:contentImage="@drawable/ic_baseline_gps_fixed_24"
+        app:contentImage="@drawable/ic_icon_replay_tutorial"
         app:contentTitle="튜토리얼 다시보기"
         app:contentContext="튜토리얼을 다시봅니다."
         />
