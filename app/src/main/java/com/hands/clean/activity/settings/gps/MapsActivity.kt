@@ -15,6 +15,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
 import com.hands.clean.R
+import com.hands.clean.dialog.GpsInfoDialog
 import com.hands.clean.dialog.GpsRegisterButtonDialog
 import com.hands.clean.function.gps.geofencing.WashGeofencing
 import com.hands.clean.function.room.DB
@@ -98,6 +99,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             valueChangedObserve()
 
             onClickMap()
+            onClickMarker()
         }
 
         private fun valueChangedObserve() {
@@ -129,18 +131,21 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
                 gpsRegisterButtonDialog.show(activity.supportFragmentManager, gpsRegisterButtonDialog.tag)
             }
-            mMap.setOnInfoWindowClickListener {
+        }
+        private fun onClickMarker() {
+            mMap.setOnMarkerClickListener {
                 val gpsEntry: GpsEntry = it.tag as GpsEntry
                 gpsEntry.circle?.isVisible = true
+
+                return@setOnMarkerClickListener false
             }
             mMap.setOnInfoWindowCloseListener {
                 val gpsEntry: GpsEntry = it.tag as GpsEntry
                 gpsEntry.circle?.isVisible = false
             }
-
-
-            mMap.setOnInfoWindowLongClickListener {
-                mMapController.removeGpsEntryByMarker(it)
+            mMap.setOnInfoWindowClickListener {
+                val gpsInfoDialog = GpsInfoDialog(it.tag as GpsEntry)
+                gpsInfoDialog.show(activity.supportFragmentManager, gpsInfoDialog.tag)
             }
         }
     }
@@ -201,6 +206,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 MarkerOptions()
                     .position(position)
                     .title(title)
+                    .snippet("Population: 4,137,400")
             )
         }
         fun addCircle(center: LatLng, radius: Double): Circle? {
