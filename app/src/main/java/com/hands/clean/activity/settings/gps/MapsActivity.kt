@@ -129,6 +129,14 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
                 gpsRegisterButtonDialog.show(activity.supportFragmentManager, gpsRegisterButtonDialog.tag)
             }
+            mMap.setOnInfoWindowClickListener {
+                val gpsEntry: GpsEntry = it.tag as GpsEntry
+                gpsEntry.circle?.isVisible = true
+            }
+            mMap.setOnInfoWindowCloseListener {
+                val gpsEntry: GpsEntry = it.tag as GpsEntry
+                gpsEntry.circle?.isVisible = false
+            }
 
 
             mMap.setOnInfoWindowLongClickListener {
@@ -183,6 +191,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
             gpsEntry.marker = addMarkers(latLng, gpsEntry.name)
             gpsEntry.circle = addCircle(latLng, gpsEntry.radius.toDouble())
+
+            gpsEntry.marker?.tag = gpsEntry
+            gpsEntry.circle?.tag = gpsEntry
         }
 
         private fun addMarkers(position: LatLng, title:String): Marker? {
@@ -201,7 +212,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 strokeWidth(2f)
             }
 
-            return mMap.addCircle(circleOption)
+            return mMap.addCircle(circleOption).apply {
+                isVisible = false
+            }
         }
     }
 }
