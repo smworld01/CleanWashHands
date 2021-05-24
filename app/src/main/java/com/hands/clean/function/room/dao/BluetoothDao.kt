@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.hands.clean.function.room.entry.BluetoothEntry
 import com.hands.clean.function.room.entry.DeviceEntry
-import com.hands.clean.function.room.entry.WifiEntry
 
 @Dao
 interface BluetoothDao: DeviceDao {

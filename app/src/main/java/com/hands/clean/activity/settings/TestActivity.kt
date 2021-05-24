@@ -1,17 +1,18 @@
 package com.hands.clean.activity.settings
 
 import android.location.Location
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
-import com.google.android.gms.location.*
+import androidx.appcompat.app.AppCompatActivity
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationResult
+import com.google.android.gms.location.LocationServices
 import com.hands.clean.R
 import com.hands.clean.function.gps.geofencing.WashGeofencing
-import com.hands.clean.function.notification.factory.notify.WashNotifyFactory
 import com.hands.clean.function.room.DB
 import com.hands.clean.function.room.entry.GpsEntry
-import com.hands.clean.function.room.entry.WifiEntry
 import kotlin.concurrent.thread
 
 class TestActivity : AppCompatActivity() {

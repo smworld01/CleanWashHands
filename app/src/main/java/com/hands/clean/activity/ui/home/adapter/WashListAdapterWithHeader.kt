@@ -8,19 +8,19 @@ import androidx.recyclerview.widget.RecyclerView
 import com.hands.clean.R
 import com.hands.clean.function.room.entry.DateCount
 
-class WashListAdapterWithHeader() : ListAdapterWithHeader<DateCount, RecyclerView.ViewHolder>(DateCount.Companion.DateCountDiffCallback) {
-    private val TYPE_HEADER = 0
-    private val TYPE_ITEM = 1
+class WashListAdapterWithHeader : ListAdapterWithHeader<DateCount, RecyclerView.ViewHolder>(DateCount.Companion.DateCountDiffCallback) {
+    private val typeHeader = 0
+    private val typeItem = 1
 
 
     inner class RecyclerWashHeader(headerView: View): RecyclerView.ViewHolder(headerView)
     inner class RecyclerWashItem(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var date: TextView = itemView.findViewById<TextView>(R.id.date)
-        var count: TextView = itemView.findViewById<TextView>(R.id.count)
+        var date: TextView = itemView.findViewById(R.id.date)
+        var count: TextView = itemView.findViewById(R.id.count)
 
         fun bind (data: DateCount) {
             date.text = data.date
-            count.text = data.count.toString()
+            count.text = data.count
         }
     }
 
@@ -28,7 +28,7 @@ class WashListAdapterWithHeader() : ListAdapterWithHeader<DateCount, RecyclerVie
 
         val view : View?
         val holder:RecyclerView.ViewHolder
-        if (viewType == TYPE_HEADER) {
+        if (viewType == typeHeader) {
             view = LayoutInflater.from(parent.context).inflate(R.layout.recycler_item_wash_header, parent, false)
             holder = RecyclerWashHeader(view)
         } else {
@@ -48,7 +48,7 @@ class WashListAdapterWithHeader() : ListAdapterWithHeader<DateCount, RecyclerVie
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if(position == 0) TYPE_HEADER
-        else TYPE_ITEM
+        return if(position == 0) typeHeader
+        else typeItem
     }
 }

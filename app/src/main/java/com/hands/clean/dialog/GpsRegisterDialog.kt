@@ -25,9 +25,9 @@ class GpsRegisterDialog(private val mapsViewModel: MapsViewModel): BottomSheetDi
         super.onCreateView(inflater, container, savedInstanceState)
         return inflater.inflate(R.layout.dialog_gps_register, container, false)
     }
-        lateinit var editTextName: EditText
-        lateinit var editTextRadius: EditText
-        lateinit var button: Button
+        private lateinit var editTextName: EditText
+        private lateinit var editTextRadius: EditText
+        private lateinit var button: Button
 
     fun setOnCancelListener(callback: () -> Unit) {
         cancelCallback = callback

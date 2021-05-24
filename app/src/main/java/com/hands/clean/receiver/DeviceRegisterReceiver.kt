@@ -22,7 +22,7 @@ class DeviceRegisterReceiver : BroadcastReceiver() {
             val type = intent.getStringExtra("type")!!
             val notificationId = intent.getIntExtra("notificationId", 0)
 
-            var deviceEntry = DB.getInstance().matchDaoByChannelId(type).findByAddress(address)
+            val deviceEntry = DB.getInstance().matchDaoByChannelId(type).findByAddress(address)
             if (deviceEntry != null) {
                 deviceEntry.name = name.toString()
                 deviceEntry.isNotification = true

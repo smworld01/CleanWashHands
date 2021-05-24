@@ -20,10 +20,10 @@ class ForegroundNotificationBuilder(
             .addAction(getAction())
     }
 
-    private fun getAction(): NotificationCompat.Action? {
+    private fun getAction(): NotificationCompat.Action {
         val intent: Intent = getIntent()
         val pendingIntent: PendingIntent =
-            PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_ONE_SHOT);
+            PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_ONE_SHOT)
         return NotificationCompat.Action.Builder(
             R.drawable.ic_baseline_home_24, "중지", pendingIntent
         )

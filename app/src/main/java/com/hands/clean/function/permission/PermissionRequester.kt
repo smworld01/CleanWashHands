@@ -1,10 +1,8 @@
 package com.hands.clean.function.permission
 
-import android.content.pm.PackageManager
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat.shouldShowRequestPermissionRationale
-import androidx.core.content.ContextCompat
 
 class PermissionRequester(
     private val activity: AppCompatActivity,

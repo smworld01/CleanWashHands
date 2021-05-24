@@ -32,9 +32,9 @@ class TrackerEntryListAdapter(private val viewModel: TrackerListViewModel) : Lis
     }
 
     class RecyclerItem(itemView: View, private val viewModel: TrackerListViewModel) : RecyclerView.ViewHolder(itemView) {
-        val layoutItem: LinearLayout = itemView.findViewById(R.id.layoutItem)
-        val textViewDeviceName: TextView = itemView.findViewById(R.id.textViewDeviceName)
-        var switchNotification: SwitchCompat = itemView.findViewById(R.id.switchNotification)
+        private val layoutItem: LinearLayout = itemView.findViewById(R.id.layoutItem)
+        private val textViewDeviceName: TextView = itemView.findViewById(R.id.textViewDeviceName)
+        private var switchNotification: SwitchCompat = itemView.findViewById(R.id.switchNotification)
 
         fun bind (data: TrackerEntry) {
             layoutItem.setOnLongClickListener {
@@ -55,7 +55,7 @@ class TrackerEntryListAdapter(private val viewModel: TrackerListViewModel) : Lis
 
             switchNotification.setOnCheckedChangeListener { _, isChecked ->
                 thread {
-                    data.isNotification = true
+                    data.isNotification = isChecked
                     when(data) {
                         is BluetoothEntry -> DB.getInstance().bluetoothDao().updateAll(data)
                         is WifiEntry -> DB.getInstance().wifiDao().updateAll(data)

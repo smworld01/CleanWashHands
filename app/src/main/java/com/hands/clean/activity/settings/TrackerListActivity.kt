@@ -1,23 +1,24 @@
 package com.hands.clean.activity.settings
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.hands.clean.R
-import com.hands.clean.activity.settings.gps.MapsViewModel
 import com.hands.clean.dialog.DeviceInfoDialog
 import com.hands.clean.dialog.GpsInfoDialog
 import com.hands.clean.function.adapter.TrackerEntryListAdapter
 import com.hands.clean.function.notification.type.NotifyType
 import com.hands.clean.function.room.DB
-import com.hands.clean.function.room.entry.*
+import com.hands.clean.function.room.entry.DeviceEntry
+import com.hands.clean.function.room.entry.GpsEntry
+import com.hands.clean.function.room.entry.TrackerEntry
 
 class TrackerListActivity : AppCompatActivity() {
     private lateinit var type: String
@@ -41,7 +42,7 @@ class TrackerListActivity : AppCompatActivity() {
 
     private fun initActionBar() {
         supportActionBar?.title = "관리"
-        supportActionBar?.setDisplayHomeAsUpEnabled(true);
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {

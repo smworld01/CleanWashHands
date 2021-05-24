@@ -10,8 +10,7 @@ import kotlin.concurrent.thread
 val bluetoothReceiver = object : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
-        val action: String = intent.action!!
-        when(action) {
+        when(intent.action!!) {
             BluetoothDevice.ACTION_ACL_CONNECTED -> {
                 connectBluetooth(context, intent)
             }

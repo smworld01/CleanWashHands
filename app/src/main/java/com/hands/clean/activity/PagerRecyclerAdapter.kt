@@ -1,10 +1,11 @@
-package com.hands.clean
+package com.hands.clean.activity
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.hands.clean.R
 
 class PagerRecyclerAdapter(private val pageList: ArrayList<String>) : RecyclerView.Adapter<PagerViewHolder>() {
 

@@ -1,18 +1,10 @@
 package com.hands.clean.function.gps
 
-import android.app.Activity
 import android.app.AlertDialog
-import android.content.Context
-import android.content.Context.LOCATION_SERVICE
-import android.content.DialogInterface
 import android.content.Intent
-import android.location.LocationManager
 import android.provider.Settings
-import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat.startActivityForResult
-import androidx.core.content.ContextCompat.getSystemService
 
 class SystemSettingsGpsManager(
     private val activity: AppCompatActivity,
@@ -54,11 +46,11 @@ class SystemSettingsGpsManager(
             """.trimIndent()
         )
         builder.setCancelable(true)
-        builder.setPositiveButton("설정") { dialog, id ->
+        builder.setPositiveButton("설정") { _, _ ->
             val callGPSSettingIntent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
             startForResult.launch(callGPSSettingIntent)
         }
-        builder.setNegativeButton("취소") { dialog, id ->
+        builder.setNegativeButton("취소") { dialog, _ ->
             dialog.cancel()
         }
         builder.create().show()

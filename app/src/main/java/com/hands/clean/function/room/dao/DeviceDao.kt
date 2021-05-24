@@ -1,6 +1,5 @@
 package com.hands.clean.function.room.dao
 
-import androidx.lifecycle.LiveData
 import com.hands.clean.function.room.entry.DeviceEntry
 
 

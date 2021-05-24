@@ -1,23 +1,20 @@
 package com.hands.clean.view
 
-import com.hands.clean.R
 import android.content.Context
-
 import android.content.res.TypedArray
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
-import android.view.LayoutInflater
-import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.hands.clean.R
 
 
-class CustomSettingsButton : ConstraintLayout {
-    var layout: ConstraintLayout? = null
-    var imageView: ImageView? = null
-    var textViewTitle: TextView? = null
-    var textViewContext: TextView? = null
+class SettingsButton : ConstraintLayout {
+    private var layout: ConstraintLayout? = null
+    private var imageView: ImageView? = null
+    private var textViewTitle: TextView? = null
+    private var textViewContext: TextView? = null
 
 
     constructor(context: Context) : super(context) {
@@ -35,7 +32,7 @@ class CustomSettingsButton : ConstraintLayout {
     }
 
     private fun initView() {
-        inflate(getContext(), R.layout.button_settings, this);
+        inflate(context, R.layout.button_settings, this)
         layout = findViewById(R.id.layout)
         imageView= findViewById(R.id.imageView)
         textViewTitle= findViewById(R.id.textViewTitle)
@@ -44,13 +41,13 @@ class CustomSettingsButton : ConstraintLayout {
 
     private fun getAttrs(attrs: AttributeSet) {
         val typedArray: TypedArray =
-            getContext().obtainStyledAttributes(attrs, R.styleable.SettingsButton)
+            context.obtainStyledAttributes(attrs, R.styleable.SettingsButton)
         setTypeArray(typedArray)
     }
 
     private fun getAttrs(attrs: AttributeSet, defStyle: Int) {
         val typedArray: TypedArray =
-            getContext().obtainStyledAttributes(attrs, R.styleable.SettingsButton, defStyle, 0)
+            context.obtainStyledAttributes(attrs, R.styleable.SettingsButton, defStyle, 0)
         setTypeArray(typedArray)
     }
 
@@ -67,15 +64,15 @@ class CustomSettingsButton : ConstraintLayout {
         typedArray.recycle()
     }
 
-    fun setImageView(drawable: Drawable?) {
+    private fun setImageView(drawable: Drawable?) {
         imageView?.setImageDrawable(drawable)
     }
 
-    fun setTextViewTitle(text: String?) {
+    private fun setTextViewTitle(text: String?) {
         textViewTitle?.text=text
     }
 
-    fun setTextViewContext(text: String?) {
+    private fun setTextViewContext(text: String?) {
         textViewContext?.text=text
     }
 

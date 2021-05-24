@@ -31,10 +31,10 @@ open class MyServiceManager<T>(
 
         for (service : ActivityManager.RunningServiceInfo in manager.getRunningServices(Integer.MAX_VALUE)) {
             if (serviceClass.name.equals(service.service.className)) {
-                return true;
+                return true
             }
         }
-        return false;
+        return false
     }
 
     fun onStopService() {

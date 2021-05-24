@@ -30,7 +30,7 @@ class BluetoothSettingActivity : AppCompatActivity() {
 
     private fun initActionBar() {
         supportActionBar?.title = "블루투스 설정"
-        supportActionBar?.setDisplayHomeAsUpEnabled(true);
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     // 상단바 뒤로가기 버튼 이벤트

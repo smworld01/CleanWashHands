@@ -18,30 +18,26 @@ class WashLocationService: Service() {
     private lateinit var locationRequester: LocationRequester
 
     override fun onBind(p0: Intent?): IBinder? {
-        TODO("Not yet implemented")
-        throw UnsupportedOperationException("Not yet implemented");
+        return null
     }
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            initWifi(intent)
-        }
+        initWifi(intent)
         initGps()
 
         WashGeofencing.getInstance().initGeofence()
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {    //  LOLLIPOP Version 이상..
-            registerNotification()
-        }
+        registerNotification()
+
         return START_STICKY
     }
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     private fun initWifi(intent: Intent) {
         if(!::wifiConnectionChecker.isInitialized) {
-            wifiConnectionChecker = WifiConnectionChecker(applicationContext, intent);
+            wifiConnectionChecker = WifiConnectionChecker(applicationContext, intent)
         }
-        wifiConnectionChecker.register();
+        wifiConnectionChecker.register()
     }
 
     private fun initGps() {
@@ -70,10 +66,10 @@ class WashLocationService: Service() {
         super.onDestroy()
         stopForeground(true)
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {     //  LOLLIPOP Version 이상..
-            wifiConnectionChecker.unregister();
-        }
+        wifiConnectionChecker.unregister()
+
         locationRequester.onPause()
+
         LocationInfo.onRemove()
 
         WashGeofencing.getInstance().onStop()
@@ -82,6 +78,6 @@ class WashLocationService: Service() {
     private fun registerNotification() {
         val foregroundNotification =
             ForegroundNotificationBuilder(applicationContext, NotifyType.NoticeService).build()
-        startForeground(1, foregroundNotification);
+        startForeground(1, foregroundNotification)
     }
 }

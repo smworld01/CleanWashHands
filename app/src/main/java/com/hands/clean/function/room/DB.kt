@@ -1,7 +1,6 @@
 package com.hands.clean.function.room
 
 import android.content.Context
-import android.util.Log
 import androidx.room.Room
 
 object DB {

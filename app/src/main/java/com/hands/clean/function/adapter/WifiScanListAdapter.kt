@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -34,9 +35,9 @@ class WifiScanListAdapter(private val viewModel: WifiScanViewModel) : ListAdapte
         fun bind (data: ScanResult) {
             val capabilities = data.capabilities
             val drawable = if (capabilities.contains("WPA") || capabilities.contains("WEP"))
-                itemView.resources.getDrawable(R.drawable.ic_baseline_signal_wifi_4_bar_lock_24, null)
+                ResourcesCompat.getDrawable(itemView.resources, R.drawable.ic_baseline_signal_wifi_4_bar_lock_24, null)
             else
-                itemView.resources.getDrawable(R.drawable.ic_baseline_signal_wifi_4_bar_24, null)
+                ResourcesCompat.getDrawable(itemView.resources, R.drawable.ic_baseline_signal_wifi_4_bar_24, null)
 
             icon.setImageDrawable(drawable)
 

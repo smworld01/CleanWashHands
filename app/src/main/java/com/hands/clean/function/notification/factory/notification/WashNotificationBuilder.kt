@@ -47,7 +47,7 @@ open class WashNotificationBuilder(
         }
     }
 
-    private fun getWashAction(): NotificationCompat.Action? {
+    private fun getWashAction(): NotificationCompat.Action {
         val intent: Intent = getIntent()
         val pendingIntent: PendingIntent =
             PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_ONE_SHOT)

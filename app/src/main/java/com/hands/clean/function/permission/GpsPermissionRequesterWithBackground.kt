@@ -11,7 +11,7 @@ class GpsPermissionRequesterWithBackground(activity: AppCompatActivity): Permiss
     arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION),
     GpsPermissionUserGuide(activity)
 ) {
-    lateinit var backgroundRequester: PermissionManager
+    private lateinit var backgroundRequester: PermissionManager
     init {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             backgroundRequester = object: PermissionManager(

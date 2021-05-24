@@ -15,7 +15,7 @@ data class LocationEntry(
     val longitude: Double,
 )
 
-class LocationEntryBuilder() {
+class LocationEntryBuilder {
     private var latitude: Double = 0.0
     private var longitude: Double = 0.0
 

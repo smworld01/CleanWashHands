@@ -10,7 +10,7 @@ import com.hands.clean.function.permission.checker.GpsPermissionChecker
 
 @SuppressLint("MissingPermission")
 class LocationRequester(
-    private val context: Context
+    context: Context
 ) {
     private val fusedLocationClient = LocationServices.getFusedLocationProviderClient(context)
     private val locationRequest: LocationRequest = LocationRequest.create().apply {
@@ -29,11 +29,11 @@ class LocationRequester(
         val task: Task<LocationSettingsResponse> = client.checkLocationSettings(builder.build())
 
 
-        task.addOnSuccessListener { locationSettingsResponse ->
+        task.addOnSuccessListener {
             Log.e("location settings", "success")
         }
 
-        task.addOnFailureListener { exception ->
+        task.addOnFailureListener {
             Log.e("location settings", "fall")
         }
     }
@@ -55,7 +55,7 @@ class LocationRequester(
     }
 
 
-    private class LocationRequestCallback(): LocationCallback() {
+    private class LocationRequestCallback: LocationCallback() {
         var resultCallback: (LocationResult) -> Unit = {}
 
         override fun onLocationResult(locationResult: LocationResult) {

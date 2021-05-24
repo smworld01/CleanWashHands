@@ -1,7 +1,6 @@
 package com.hands.clean.activity.ui.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,15 +8,14 @@ import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.hands.clean.R
+import com.hands.clean.activity.ui.home.adapter.WashListAdapterWithHeader
 import com.hands.clean.function.room.DB
 import com.hands.clean.function.room.entry.DateCount
-import com.hands.clean.activity.ui.home.adapter.WashListAdapterWithHeader
 
 class HomeFragment : Fragment() {
 
@@ -28,16 +26,11 @@ class HomeFragment : Fragment() {
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-
         homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
 
-        homeViewModel.text.observe(viewLifecycleOwner, Observer<String> {
-            Log.e("test", it)
-        })
         val root = inflater.inflate(R.layout.fragment_home, container, false)
 
         initLayout(root)
-
 
         return root
     }
@@ -76,12 +69,12 @@ class HomeFragment : Fragment() {
     private fun initTextView(root: View) {
         val textView: TextView = root.findViewById(R.id.textView)
 
-        textView.text = "오늘은 0번 알림을 받으셨어요"
+        textView.text = getString(R.string.today_notify_count, 0)
 
         val todayCount = getTodayNotification()
 
         todayCount.observe(this.viewLifecycleOwner, {
-            textView.text = "오늘은 ${it}번 알림을 받으셨어요"
+            textView.text = getString(R.string.today_notify_count, it)
         })
     }
 

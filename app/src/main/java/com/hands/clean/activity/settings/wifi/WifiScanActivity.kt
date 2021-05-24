@@ -4,7 +4,6 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import android.net.wifi.ScanResult
 import android.net.wifi.WifiManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -77,9 +76,9 @@ class WifiScanActivity : AppCompatActivity() {
         private val viewModel: WifiScanViewModel
     ) {
         private val context: Context = activity
-        val wifiManager = activity.applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
+        private val wifiManager = activity.applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
 
-        val wifiScanReceiver = object : BroadcastReceiver() {
+        private val wifiScanReceiver = object : BroadcastReceiver() {
             override fun onReceive(context: Context, intent: Intent) {
                 viewModel.wifiScanResult.value =
                     wifiManager.scanResults.filter { it.SSID.isNotEmpty() }

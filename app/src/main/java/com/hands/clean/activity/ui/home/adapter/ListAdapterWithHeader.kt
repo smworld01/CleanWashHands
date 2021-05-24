@@ -10,7 +10,7 @@ abstract class ListAdapterWithHeader<T, VH : RecyclerView.ViewHolder>(
     private val mHelper by lazy {
         AsyncListDiffer<T>(
             OffsetListUpdateCallback(this, headerOffset),
-            AsyncDifferConfig.Builder<T>(diffCallback).build()
+            AsyncDifferConfig.Builder(diffCallback).build()
         )
     }
 

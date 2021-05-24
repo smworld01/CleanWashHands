@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import androidx.viewpager2.widget.ViewPager2
-import com.hands.clean.PagerRecyclerAdapter
 import com.hands.clean.R
 import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
 

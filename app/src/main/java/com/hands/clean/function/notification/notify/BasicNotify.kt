@@ -3,7 +3,6 @@ package com.hands.clean.function.notification.notify
 import android.app.Notification
 import android.content.Context
 import androidx.core.app.NotificationManagerCompat
-import com.hands.clean.function.notification.NotificationIdCounter
 
 open class BasicNotify(
     private val context: Context,

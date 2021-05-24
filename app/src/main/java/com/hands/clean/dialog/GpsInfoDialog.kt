@@ -25,18 +25,18 @@ class GpsInfoDialog(private val gpsEntry: GpsEntry): BottomSheetDialogFragment()
         super.onCreateView(inflater, container, savedInstanceState)
         return inflater.inflate(R.layout.dialog_gps_info, container, false)
     }
-    lateinit var notifySwitch: SwitchCompat
+    private lateinit var notifySwitch: SwitchCompat
 
-    lateinit var editTextName: EditText
-    lateinit var editTextLatitude: EditText
-    lateinit var editTextLongitude: EditText
-    lateinit var editTextRadius: EditText
+    private lateinit var editTextName: EditText
+    private lateinit var editTextLatitude: EditText
+    private lateinit var editTextLongitude: EditText
+    private lateinit var editTextRadius: EditText
 
 
-    lateinit var textViewRegisteredDate: TextView
-    lateinit var textViewLastNotifyDate: TextView
+    private lateinit var textViewRegisteredDate: TextView
+    private lateinit var textViewLastNotifyDate: TextView
 
-    lateinit var deleteButton: Button
+    private lateinit var deleteButton: Button
 
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)

@@ -6,8 +6,8 @@ import java.util.*
 
 class DateConverters {
         @TypeConverter
-        fun dateToString(date: Date?): String? {
-            val format = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+        fun dateToString(date: Date): String? {
+            val format = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.UK)
             return format.format(date)
         }
     }

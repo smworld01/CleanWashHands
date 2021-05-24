@@ -34,7 +34,7 @@ class GpsSettingActivity : AppCompatActivity(){
     }
     private fun initActionBar() {
         supportActionBar?.title = "GPS 설정"
-        supportActionBar?.setDisplayHomeAsUpEnabled(true);
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
     // 상단바 뒤로가기 버튼 이벤트
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

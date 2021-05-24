@@ -20,7 +20,7 @@ class WifiConnectionChecker(val context: Context, val intent: Intent): Connectiv
     private var connectivityManager: ConnectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
     fun register() = this.connectivityManager.registerNetworkCallback(networkRequest, this)
-    fun unregister() = this.connectivityManager.unregisterNetworkCallback(this);
+    fun unregister() = this.connectivityManager.unregisterNetworkCallback(this)
 
     override fun onAvailable(network: Network) {
         super.onAvailable(network)

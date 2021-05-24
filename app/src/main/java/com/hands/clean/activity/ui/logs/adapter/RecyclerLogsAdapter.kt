@@ -1,39 +1,47 @@
 package com.hands.clean.activity.ui.logs.adapter
 
-import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.annotation.RequiresApi
+import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.hands.clean.R
 import com.hands.clean.function.room.entry.WashEntry
 
-class RecyclerLogsAdapter(private val washData: List<WashEntry>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class RecyclerLogsAdapter(
+    private val washData: List<WashEntry>
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     inner class RecyclerWashItem(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var date: TextView = itemView.findViewById<TextView>(R.id.logsDate)
-        var detail: TextView = itemView.findViewById<TextView>(R.id.logsDetail)
-        val image: ImageView = itemView.findViewById<ImageView>(R.id.logsImage)
+        private var date: TextView = itemView.findViewById(R.id.logsDate)
+        private var detail: TextView = itemView.findViewById(R.id.logsDetail)
+        private val image: ImageView = itemView.findViewById(R.id.logsImage)
 
         fun bind (data: WashEntry) {
             date.text = data.date
             detail.text = data.detail
-            if(data.type == "Bluetooth") image.setImageDrawable(itemView.resources.getDrawable(R.drawable.ic_baseline_bluetooth_24, null))
-            if(data.type == "WiFi") image.setImageDrawable(itemView.resources.getDrawable(R.drawable.ic_baseline_wifi_24, null))
-            if(data.type == "GPS") image.setImageDrawable(itemView.resources.getDrawable(R.drawable.ic_baseline_gps_fixed_24, null))
 
+            val draw = when (data.type) {
+                "Bluetooth" ->
+                    ResourcesCompat.getDrawable(itemView.resources, R.drawable.ic_baseline_bluetooth_24, null)
+                "WiFi" ->
+                    ResourcesCompat.getDrawable(itemView.resources, R.drawable.ic_baseline_wifi_24, null)
+                "GPS" ->
+                    ResourcesCompat.getDrawable(itemView.resources, R.drawable.ic_baseline_gps_fixed_24, null)
+                else -> throw Exception()
+            }
+
+            image.setImageDrawable(draw)
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val view : View?
-        val holder:RecyclerView.ViewHolder
-        view = LayoutInflater.from(parent.context).inflate(R.layout.recycler_item_logs, parent, false)
-        holder = RecyclerWashItem(view)
-
-        return holder
+        return RecyclerWashItem(
+            LayoutInflater
+                .from(parent.context)
+                .inflate(R.layout.recycler_item_logs, parent, false)
+        )
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {

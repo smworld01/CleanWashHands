@@ -1,7 +1,7 @@
 package com.hands.clean.function.notification.type
 
 object NotifyType {
-    private val notifyTypeList = arrayListOf<NotifyInfo>(Bluetooth, GPS, Wifi, NoticeService)
+    private val notifyTypeList = arrayListOf(Bluetooth, GPS, Wifi, NoticeService)
 
     object Bluetooth: NotifyInfo {
         override val channelId: String = "Bluetooth"

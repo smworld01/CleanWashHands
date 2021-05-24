@@ -36,7 +36,7 @@ class NewDeviceDetectionNotificationBuilder(
     private fun getRegisterAction(): NotificationCompat.Action {
         val intent: Intent = createDeviceIntent()
         val pendingIntent: PendingIntent =
-            PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_ONE_SHOT);
+            PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_ONE_SHOT)
         val remoteInput: RemoteInput = RemoteInput.Builder("deviceName")
             .setLabel("등록할 이름")
             .build()

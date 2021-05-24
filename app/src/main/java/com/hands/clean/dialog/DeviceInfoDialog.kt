@@ -8,18 +8,13 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.widget.SwitchCompat
-import androidx.lifecycle.ViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.hands.clean.R
 import com.hands.clean.function.room.DB
 import com.hands.clean.function.room.entry.BluetoothEntry
 import com.hands.clean.function.room.entry.DeviceEntry
 import com.hands.clean.function.room.entry.WifiEntry
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.callbackFlow
 
 class DeviceInfoDialog(private val deviceEntry: DeviceEntry): BottomSheetDialogFragment() {
     private var cancelCallback: () -> Unit = {}
@@ -32,14 +27,14 @@ class DeviceInfoDialog(private val deviceEntry: DeviceEntry): BottomSheetDialogF
         super.onCreateView(inflater, container, savedInstanceState)
         return inflater.inflate(R.layout.dialog_device_info, container, false)
     }
-    lateinit var notifySwitch: SwitchCompat
+    private lateinit var notifySwitch: SwitchCompat
 
-    lateinit var textViewDeviceName: TextView
-    lateinit var editTextName: EditText
-    lateinit var textViewRegisteredDate: TextView
-    lateinit var textViewLastNotifyDate: TextView
+    private lateinit var textViewDeviceName: TextView
+    private lateinit var editTextName: EditText
+    private lateinit var textViewRegisteredDate: TextView
+    private lateinit var textViewLastNotifyDate: TextView
 
-    lateinit var deleteButton: Button
+    private lateinit var deleteButton: Button
 
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)

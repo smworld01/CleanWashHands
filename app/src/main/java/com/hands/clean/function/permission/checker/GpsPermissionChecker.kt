@@ -4,7 +4,7 @@ import android.Manifest
 import android.content.Context
 import android.os.Build
 
-class GpsPermissionChecker(private val context: Context) : PermissionChecker(
+class GpsPermissionChecker(context: Context) : PermissionChecker(
     context,
     arrayOf(
         Manifest.permission.ACCESS_FINE_LOCATION,
