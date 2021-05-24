@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.hands.clean.R
 import com.hands.clean.activity.TutorialActivity
 import com.hands.clean.activity.settings.*
+import com.hands.clean.activity.settings.bluetooth.BluetoothSettingActivity
 import com.hands.clean.activity.settings.gps.GpsSettingActivity
 import com.hands.clean.activity.settings.wifi.WifiSettingActivity
 

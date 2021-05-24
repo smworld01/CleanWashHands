@@ -1,7 +1,5 @@
-package com.hands.clean.activity.settings
+package com.hands.clean.activity.settings.bluetooth
 
-import android.bluetooth.BluetoothAdapter
-import android.bluetooth.BluetoothDevice
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -9,10 +7,9 @@ import android.view.MenuItem
 import android.widget.Button
 import androidx.appcompat.widget.SwitchCompat
 import com.hands.clean.R
-import com.hands.clean.function.room.entry.BluetoothEntry
+import com.hands.clean.activity.settings.TrackerListActivity
 import com.hands.clean.function.settings.WashSettingsManager
 import com.hands.clean.function.notification.type.NotifyType
-import com.hands.clean.function.room.entry.TrackerEntry
 
 class BluetoothSettingActivity : AppCompatActivity() {
     private val settings = WashSettingsManager(this)
@@ -65,11 +62,15 @@ class BluetoothSettingActivity : AppCompatActivity() {
 
     private fun initButtons() {
         val buttonTrackerList: Button = findViewById(R.id.buttonTrackerList)
+        val buttonBluetoothList: Button = findViewById(R.id.buttonSystemBluetoothList)
 
         buttonTrackerList.setOnClickListener {
             val intent = Intent(applicationContext, TrackerListActivity::class.java)
             intent.putExtra("type", NotifyType.Bluetooth.channelId)
             startActivity(intent)
+        }
+        buttonBluetoothList.setOnClickListener {
+            startActivity(Intent(applicationContext, BluetoothRegisterActivity::class.java))
         }
     }
 }

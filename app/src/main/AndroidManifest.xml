@@ -11,7 +11,6 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.Manifest.permission.CHANGE_WIFI_STATE" />
 
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -19,7 +18,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CleanWashHands">
-        <activity android:name=".activity.settings.wifi.WifiScanActivity"></activity>
+        <activity android:name=".activity.settings.bluetooth.BluetoothRegisterActivity" />
+        <activity android:name=".activity.settings.wifi.WifiScanActivity" />
         <activity android:name=".activity.settings.TrackerListActivity" />
 
         <meta-data
@@ -27,14 +27,14 @@
             android:value="AIzaSyD_0ExQzqqU-6c-9h9NVBYUpStjC9Tld9c" />
 
         <service
-            android:name="com.hands.clean.service.WashLocationService"
+            android:name=".service.WashLocationService"
             android:enabled="true"
             android:exported="true" />
 
-        <receiver android:name="com.hands.clean.receiver.GeofenceBroadcastReceiver" />
-        <receiver android:name="com.hands.clean.receiver.DeviceRegisterReceiver" />
-        <receiver android:name="com.hands.clean.receiver.ServiceStopReceiver" />
-        <receiver android:name="com.hands.clean.receiver.WashReceiver" />
+        <receiver android:name=".receiver.GeofenceBroadcastReceiver" />
+        <receiver android:name=".receiver.DeviceRegisterReceiver" />
+        <receiver android:name=".receiver.ServiceStopReceiver" />
+        <receiver android:name=".receiver.WashReceiver" />
 
         <activity android:name=".activity.settings.TestActivity" />
         <activity
@@ -50,7 +50,7 @@
         <activity android:name=".activity.settings.gps.MapsActivity" />
         <activity android:name=".activity.settings.gps.GpsSettingActivity" />
         <activity android:name=".activity.settings.wifi.WifiSettingActivity" />
-        <activity android:name=".activity.settings.BluetoothSettingActivity" />
+        <activity android:name=".activity.settings.bluetooth.BluetoothSettingActivity" />
     </application>
 
 </manifest>
