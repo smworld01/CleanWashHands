@@ -4,9 +4,16 @@ import android.graphics.Color
 import android.location.Location
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
 import android.view.MenuItem
+import android.widget.RelativeLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -17,6 +24,7 @@ import com.google.android.gms.maps.model.*
 import com.hands.clean.R
 import com.hands.clean.dialog.GpsInfoDialog
 import com.hands.clean.dialog.GpsRegisterButtonDialog
+import com.hands.clean.function.adapter.GpsListAdapter
 import com.hands.clean.function.gps.geofencing.WashGeofencing
 import com.hands.clean.function.room.DB
 import com.hands.clean.function.room.entry.GpsEntry
@@ -32,6 +40,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var mMapController: MapController
     private lateinit var mMapListener: MapListener
 
+    private lateinit var drawLayout: DrawerLayout
+    private lateinit var navLayout: RelativeLayout
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_maps)
@@ -46,6 +57,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             onCallBack(location)
         }
 
+        initDrawerView()
+
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment!!.getMapAsync(this)
@@ -55,15 +68,53 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         supportActionBar?.title = "GPS 설정"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
-    // 상단바 뒤로가기 버튼 이벤트
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.option_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> {
                 finish()
                 return true
             }
+            R.id.action_menu -> {
+                if(drawLayout.isOpen) {
+                    drawLayout.closeDrawer(navLayout)
+                } else {
+                    drawLayout.openDrawer(navLayout)
+                }
+            }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+
+    private fun initDrawerView() {
+        drawLayout =  findViewById(R.id.drawer_layout)
+        navLayout = findViewById(R.id.nav_view)
+        initRecyclerView()
+    }
+
+    private fun initRecyclerView() {
+        val recyclerView: RecyclerView = findViewById(R.id.recyclerViewGpsList)
+        val lm = LinearLayoutManager(this)
+        val mAdapter = GpsListAdapter(mapsViewModel)
+
+        recyclerView.apply {
+            setHasFixedSize(true)
+            adapter = mAdapter
+            layoutManager = lm
+            val itemDecoration = DividerItemDecoration(context, LinearLayoutManager.VERTICAL)
+            itemDecoration.setDrawable(ResourcesCompat.getDrawable(resources, R.color.black, null)!!)
+            addItemDecoration(itemDecoration)
+        }
+
+        DB.getInstance().gpsDao().getAllByLiveData().observe(this) {
+            mAdapter.submitList(it)
+        }
     }
 
     private fun onCallBack(location: Location) {
@@ -74,7 +125,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
-        mMapController = MapController(googleMap)
+        mMapController = MapController(this, googleMap)
         mMapListener = MapListener(this, mapsViewModel, googleMap, mMapController)
 
     }
@@ -151,7 +202,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     class MapController(
-        private val mMap: GoogleMap,
+        private val activity: AppCompatActivity,
+        private val mMap: GoogleMap
     ) {
         private val gpsEntryList: MutableList<GpsEntry> = mutableListOf()
 
