@@ -12,4 +12,7 @@ class MapsViewModel: ViewModel() {
     val selectRadius = MutableLiveData<Double>()
 
     val createGpsEntry = MutableLiveData<GpsEntry?>()
+
+    val clickInRecycler = MutableLiveData<GpsEntry?>()
+    val longClickInRecycler = MutableLiveData<GpsEntry?>()
 }

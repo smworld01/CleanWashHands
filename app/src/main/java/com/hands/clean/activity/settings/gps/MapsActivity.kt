@@ -3,10 +3,18 @@ package com.hands.clean.activity.settings.gps
 import android.graphics.Color
 import android.location.Location
 import android.os.Bundle
+import android.text.Editable
 import android.util.Log
+import android.view.Menu
 import android.view.MenuItem
+import android.widget.RelativeLayout
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
+import androidx.core.content.res.ResourcesCompat
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.*
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -17,9 +25,11 @@ import com.google.android.gms.maps.model.*
 import com.hands.clean.R
 import com.hands.clean.dialog.GpsInfoDialog
 import com.hands.clean.dialog.GpsRegisterButtonDialog
+import com.hands.clean.function.adapter.GpsListAdapter
 import com.hands.clean.function.gps.geofencing.WashGeofencing
 import com.hands.clean.function.room.DB
 import com.hands.clean.function.room.entry.GpsEntry
+import com.hands.clean.function.room.entry.TrackerEntry
 import java.lang.Exception
 
 
@@ -31,6 +41,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var mMap: GoogleMap
     private lateinit var mMapController: MapController
     private lateinit var mMapListener: MapListener
+
+    private lateinit var drawLayout: DrawerLayout
+    private lateinit var navLayout: RelativeLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +59,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             onCallBack(location)
         }
 
+        initDrawerView()
+
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment!!.getMapAsync(this)
@@ -55,15 +70,69 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         supportActionBar?.title = "GPS 설정"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
-    // 상단바 뒤로가기 버튼 이벤트
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.option_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> {
                 finish()
                 return true
             }
+            R.id.action_menu -> {
+                if(drawLayout.isOpen) {
+                    drawLayout.closeDrawer(navLayout)
+                } else {
+                    drawLayout.openDrawer(navLayout)
+                }
+            }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+
+    private fun initDrawerView() {
+        drawLayout =  findViewById(R.id.drawer_layout)
+        navLayout = findViewById(R.id.nav_view)
+        initRecyclerView()
+        initRecyclerViewClickEvent()
+    }
+
+    private fun initRecyclerView() {
+        val recyclerView: RecyclerView = findViewById(R.id.recyclerViewGpsList)
+        val lm = LinearLayoutManager(this)
+        val mAdapter = GpsListAdapter(mapsViewModel)
+
+        recyclerView.apply {
+            setHasFixedSize(true)
+            adapter = mAdapter
+            layoutManager = lm
+            val itemDecoration = DividerItemDecoration(context, LinearLayoutManager.VERTICAL)
+            itemDecoration.setDrawable(ResourcesCompat.getDrawable(resources, R.color.black, null)!!)
+            addItemDecoration(itemDecoration)
+        }
+
+        DB.getInstance().gpsDao().getAllByLiveData().observe(this) {
+            mAdapter.submitList(it)
+        }
+    }
+
+    private fun initRecyclerViewClickEvent() {
+        mapsViewModel.clickInRecycler.observe(this) {
+            it?.let {
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(LatLng(it.latitude, it.longitude)))
+                drawLayout.closeDrawers()
+            }
+        }
+        mapsViewModel.longClickInRecycler.observe(this) {
+            it?.let {
+                val gpsInfoDialog = GpsInfoDialog(it)
+                gpsInfoDialog.show(supportFragmentManager, gpsInfoDialog.tag)
+            }
+        }
     }
 
     private fun onCallBack(location: Location) {
@@ -74,7 +143,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
-        mMapController = MapController(googleMap)
+        mMapController = MapController(this, googleMap)
         mMapListener = MapListener(this, mapsViewModel, googleMap, mMapController)
 
     }
@@ -144,25 +213,72 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 gpsEntry.circle?.isVisible = false
             }
             mMap.setOnInfoWindowClickListener {
-                val gpsInfoDialog = GpsInfoDialog(it.tag as GpsEntry)
+                val gpsEntry = it.tag as GpsEntry
+                val gpsInfoDialog = GpsInfoDialog(gpsEntry)
                 gpsInfoDialog.show(activity.supportFragmentManager, gpsInfoDialog.tag)
             }
         }
     }
 
     class MapController(
-        private val mMap: GoogleMap,
+        private val activity: AppCompatActivity,
+        private val mMap: GoogleMap
     ) {
         private val gpsEntryList: MutableList<GpsEntry> = mutableListOf()
 
         init {
-            getGpsEntries().map {
-                addGpsEntry(it)
+            getGpsEntries().observe(activity) {
+                submitList(it)
+            }
+        }
+        private fun submitList(newList: List<GpsEntry>) {
+            val diffCallback = TrackerEntry.Companion.DateCountDiffCallback
+            val newItems = newList.iterator()
+            val oldItems = gpsEntryList.iterator()
+
+            if (!newItems.hasNext()) {
+                oldItems.forEach {
+                    removeGpsEntry(it)
+                }
+                return
+            } else if (!oldItems.hasNext()) {
+                newItems.forEach {
+                    addGpsEntry(it)
+                }
+                return
+            }
+
+            var newItem: GpsEntry? = null
+            var oldItem: GpsEntry? = null
+            while (newItems.hasNext() || oldItems.hasNext()) {
+                if (newItem == null || oldItem == null) {
+                    newItem = newItems.next()
+                    oldItem = oldItems.next()
+                } else if (oldItem.uid < newItem.uid){
+                    if (oldItems.hasNext()) oldItem = oldItems.next()
+                } else if (oldItem.uid > newItem.uid) {
+                    if (newItems.hasNext()) newItem = newItems.next()
+                } else {
+                    newItem = newItems.next()
+                    oldItem = oldItems.next()
+                }
+
+                if (diffCallback.areItemsTheSame(oldItem, newItem)) {
+                    if (!diffCallback.areContentsTheSame(oldItem, newItem)) {
+                        modifyGpsEntry(oldItem, newItem)
+                    }
+                } else {
+                    if (oldItem.uid < newItem.uid) {
+                        removeGpsEntry(oldItem)
+                    } else {
+                        addGpsEntry(newItem)
+                    }
+                }
             }
         }
 
-        private fun getGpsEntries(): List<GpsEntry> {
-            return DB.getInstance().gpsDao().getAll()
+        private fun getGpsEntries(): LiveData<List<GpsEntry>> {
+            return DB.getInstance().gpsDao().getAllByLiveData()
         }
 
         fun insertGpsEntry(gpsEntry: GpsEntry) {
@@ -189,6 +305,18 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             gpsEntryList.remove(gpsEntry)
         }
 
+        fun modifyGpsEntry(oldGpsEntry: GpsEntry, newGpsEntry: GpsEntry) {
+            Log.e("modify", "$oldGpsEntry || $newGpsEntry")
+            oldGpsEntry.radius = newGpsEntry.radius
+            oldGpsEntry.name = newGpsEntry.name
+            oldGpsEntry.marker?.let {
+                it.title = newGpsEntry.name
+            }
+            oldGpsEntry.circle?.let {
+                it.radius = newGpsEntry.radius.toDouble()
+            }
+        }
+
         private fun addGpsEntry(gpsEntry: GpsEntry) {
             gpsEntryList.add(gpsEntry)
 
@@ -206,7 +334,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 MarkerOptions()
                     .position(position)
                     .title(title)
-                    .snippet("Population: 4,137,400")
             )
         }
         fun addCircle(center: LatLng, radius: Double): Circle? {

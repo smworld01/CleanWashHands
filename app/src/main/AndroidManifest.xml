@@ -24,7 +24,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyD_0ExQzqqU-6c-9h9NVBYUpStjC9Tld9c" />
+            android:value="AIzaSyBVkhRtoRDKIkomeQH5QadO8P4crplyVzs" />
 
         <service
             android:name=".service.WashLocationService"
