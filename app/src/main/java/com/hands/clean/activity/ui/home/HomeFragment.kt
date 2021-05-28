@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.hands.clean.R
-import com.hands.clean.activity.ui.home.adapter.WashListAdapterWithHeader
+import com.hands.clean.function.adapter.WashListAdapterWithHeader
 import com.hands.clean.function.room.DB
 import com.hands.clean.function.room.entry.DateCount
 
