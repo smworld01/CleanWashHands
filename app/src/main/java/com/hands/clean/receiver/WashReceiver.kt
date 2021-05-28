@@ -13,10 +13,10 @@ class WashReceiver : BroadcastReceiver() {
 
     private fun recordWash(context: Context, intent: Intent) {
         thread {
-            val recordId = intent.getIntExtra("recordId",1)
+            val recordId = intent.getLongExtra("recordId",1)
             val notificationId = intent.getIntExtra("notificationId", 5)
 
-            val washEntry = DB.getInstance().washDao().findById(recordId)
+            val washEntry = DB.getInstance().washDao().findById(recordId.toInt())
 
             washEntry.wash = true
 

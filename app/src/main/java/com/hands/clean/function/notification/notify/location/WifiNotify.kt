@@ -35,8 +35,8 @@ class WifiNotify(context: Context) : Notify {
             super.doNotify()
 
             if (isEncryptionNotify()) {
-                EncryptionWifiNotifyFactory(context, deviceEntry as WifiEntry).onBuild()
-                    .onNotify()
+                EncryptionWifiNotifyFactory(context, deviceEntry as WifiEntry).onBuildWithLimiter()
+                    ?.onNotify()
             }
         }
 
@@ -74,8 +74,8 @@ class WifiNotify(context: Context) : Notify {
 
         override fun sendNotify(foundDevice: DeviceEntry) {
             if (foundDevice.isNotification) {
-                WashNotifyFactory(context, foundDevice).onBuild()
-                    .onNotify()
+                WashNotifyFactory(context, foundDevice).onBuildWithLimiter()
+                    ?.onNotify()
             }
         }
     }

@@ -36,15 +36,6 @@ class TestActivity : AppCompatActivity() {
         val buttonChangeNotificationChannel : Button = findViewById(R.id.buttonChangeNotificationChannel)
 
         buttonSendNotification.setOnClickListener {
-            fusedLocationClient.lastLocation
-            .addOnSuccessListener { location : Location ->
-                val entry = GpsEntry(0, "home", "test", location.latitude, location.longitude, 50f, true)
-                Log.e("test",entry.toString())
-                thread {
-                    DB.getInstance().gpsDao().insertAll(entry)
-                    WashGeofencing.getInstance().initGeofence()
-                }
-            }
         }
 
         buttonChangeNotificationChannel.setOnClickListener {

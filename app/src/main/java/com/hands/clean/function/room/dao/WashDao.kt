@@ -39,7 +39,7 @@ interface WashDao {
     fun update(vararg washEntries: WashEntry)
 
     @Insert
-    fun insertAll(vararg users: WashEntry)
+    fun insertAll(vararg users: WashEntry): List<Long>
 
     @Delete
     fun delete(user: WashEntry)

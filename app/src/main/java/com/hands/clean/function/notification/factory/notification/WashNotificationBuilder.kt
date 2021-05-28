@@ -1,5 +1,6 @@
 package com.hands.clean.function.notification.factory.notification
 
+import android.app.Notification
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
@@ -23,10 +24,16 @@ open class WashNotificationBuilder(
         this
             .setContentTitle("손을 씻어주세요.")
             .setContentText(getContentText())
-            .addAction(getWashAction())
     }
 
-    fun onBuildWashEntry(): WashEntry {
+    override fun build(): Notification {
+
+        this
+            .addAction(getWashAction())
+        return super.build()
+    }
+
+    private fun onBuildWashEntry(): WashEntry {
         val mFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.UK)
 
         return WashEntry(
@@ -58,9 +65,13 @@ open class WashNotificationBuilder(
     }
     private fun getIntent(): Intent {
         return Intent(context, WashReceiver::class.java)
-            .putExtra("recordId", getWashUid())
+            .putExtra("recordId", getWashUid(onBuildWashEntry()))
             .putExtra("notificationId", notificationId)
     }
+    private fun getWashUid(entry: WashEntry): Long {
+        return DB.getInstance().washDao().insertAll(entry)[0]
+    }
+
     private fun getWashUid(): Int {
         val recordId = DB.getInstance().washDao().getLatest()?.uid
         return if (recordId == null)  1

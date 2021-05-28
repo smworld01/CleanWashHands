@@ -21,18 +21,18 @@ class GpsNotify(
 
     override fun doNotify() {
         thread {
-            val gpsEntryList = findGpsEntryInDB()
+            val gpsEntry = findGpsEntryInDB()
 
-            Log.e("test", gpsEntryList.toString())
+            Log.e("notify", gpsEntry.toString())
 
-            if (gpsEntryList != null) {
-                sendNotify(gpsEntryList)
+            if (gpsEntry != null && gpsEntry.isNotification) {
+                sendNotify(gpsEntry)
             }
         }
     }
 
     private fun sendNotify(gpsEntry : GpsEntry) {
-        WashNotifyFactory(context, gpsEntry).onBuild().onNotify()
+        WashNotifyFactory(context, gpsEntry).onBuildWithLimiter()?.onNotify()
     }
 
     private fun findGpsEntryInDB(): GpsEntry? {

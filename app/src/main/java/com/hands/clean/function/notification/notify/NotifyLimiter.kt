@@ -67,7 +67,7 @@ class NotifyLimiter(context: Context) {
 
         val result = compareStringTimeByAbsoluteMinute(now, lastWashRecord!!.date)
         Log.e("notify", "time diff $result Minute")
-        return result < 10
+        return result < 3
     }
 
     private fun isNotGetGpsInfo(): Boolean {

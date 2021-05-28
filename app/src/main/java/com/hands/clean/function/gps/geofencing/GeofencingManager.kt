@@ -32,16 +32,27 @@ class GeofencingManager(context: Context) {
 
     private var geofencingClient: GeofencingClient = LocationServices.getGeofencingClient(context)
 
+    private var geoFenceList = listOf<Geofence>()
+
     private val geofencePendingIntent: PendingIntent by lazy {
         val intent = Intent(context, GeofenceBroadcastReceiver::class.java)
         PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
     }
 
-    fun initGeofence() {
+    fun initGeofence(requestGpsEntry: List<GpsEntry>) {
+        val requestGeofence = requestGpsEntry
+            .filter {
+                it.isNotification
+            }
+            .map { entry ->
+                convertGpsEntryToGeofence(entry)
+            }
         thread {
             if (permissionChecker.isGranted()) {
-                val geoFenceList = getGeoFencesInDB()
-                add(geoFenceList)
+                if (geoFenceList != requestGeofence) {
+                    geoFenceList = requestGeofence
+                    add(geoFenceList)
+                }
             }
         }
     }
@@ -57,14 +68,14 @@ class GeofencingManager(context: Context) {
         }
     }
 
-    private fun getGeoFencesInDB(): List<Geofence> {
+    private fun getGeoFencesInDB(): MutableList<Geofence> {
         var locationList = DB.getInstance().gpsDao().getAll()
 
         locationList = locationList.filter { it.isNotification }
 
         return locationList.map { entry ->
             convertGpsEntryToGeofence(entry)
-        }
+        } as MutableList<Geofence>
     }
 
     @SuppressLint("MissingPermission")

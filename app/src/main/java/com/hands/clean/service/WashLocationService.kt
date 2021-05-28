@@ -1,11 +1,7 @@
 package com.hands.clean.service
 
-import android.app.Service
+
 import android.content.Intent
-import android.os.Build
-import android.os.IBinder
-import androidx.annotation.RequiresApi
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleService
 import com.hands.clean.function.gps.LocationInfo
 import com.hands.clean.function.gps.LocationRequester
@@ -28,7 +24,7 @@ class WashLocationService: LifecycleService() {
         initGps()
 
         DB.getInstance().gpsDao().getAllByLiveData().observe(this) {
-            WashGeofencing.getInstance().initGeofence()
+            WashGeofencing.getInstance().initGeofence(it)
         }
 
         registerNotification()
