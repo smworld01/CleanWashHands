@@ -1,4 +1,4 @@
-package com.hands.clean.activity.ui.logs.adapter
+package com.hands.clean.function.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,14 +8,27 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.hands.clean.R
 import com.hands.clean.function.room.entry.WashEntry
 
-class RecyclerLogsAdapter(
-    private val washData: List<WashEntry>
-) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    class RecyclerWashItem(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class RecyclerLogsAdapter : ListAdapter<WashEntry, RecyclerView.ViewHolder>(
+    DiffCallback
+) {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        val view : View =
+            LayoutInflater.from(parent.context).inflate(R.layout.recycler_item_logs, parent, false)
+        return RecyclerItem(view)
+    }
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        val recyclerItem: RecyclerItem = holder as RecyclerItem
+        recyclerItem.bind(getItem(position))
+    }
+
+    class RecyclerItem(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private var layout: LinearLayout = itemView.findViewById(R.id.itemLayout)
         private var date: TextView = itemView.findViewById(R.id.logsDate)
         private var detail: TextView = itemView.findViewById(R.id.logsDetail)
@@ -44,20 +57,13 @@ class RecyclerLogsAdapter(
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return RecyclerWashItem(
-            LayoutInflater
-                .from(parent.context)
-                .inflate(R.layout.recycler_item_logs, parent, false)
-        )
-    }
+    object DiffCallback : DiffUtil.ItemCallback<WashEntry>() {
+        override fun areItemsTheSame(oldItem: WashEntry, newItem: WashEntry): Boolean {
+            return oldItem.uid == newItem.uid
+        }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val recyclerWashItem: RecyclerWashItem = holder as RecyclerWashItem
-        recyclerWashItem.bind(washData[position])
-    }
-
-    override fun getItemCount(): Int {
-        return washData.size
+        override fun areContentsTheSame(oldItem: WashEntry, newItem: WashEntry): Boolean {
+            return oldItem.wash == newItem.wash
+        }
     }
 }

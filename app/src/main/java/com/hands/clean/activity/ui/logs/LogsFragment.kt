@@ -12,8 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.hands.clean.R
 import com.hands.clean.function.room.DB
-import com.hands.clean.activity.ui.logs.adapter.RecyclerLogsAdapter
-import kotlin.concurrent.thread
+import com.hands.clean.function.adapter.RecyclerLogsAdapter
 
 class LogsFragment : Fragment() {
 
@@ -33,21 +32,22 @@ class LogsFragment : Fragment() {
         initRecycler(root)
     }
     private fun initRecycler(root: View) {
-        thread {
-            val recyclerViewLogs: RecyclerView = root.findViewById(R.id.recyclerViewLogs)
-            val washLogs = DB.getInstance().washDao().getAll()
-            val mAdapter = RecyclerLogsAdapter(washLogs)
+        val recyclerViewLogs: RecyclerView = root.findViewById(R.id.recyclerViewLogs)
+        val mAdapter = RecyclerLogsAdapter()
 
-            val lm = LinearLayoutManager(root.context)
+        val lm = LinearLayoutManager(root.context)
 
-            recyclerViewLogs.apply {
-                setHasFixedSize(true)
-                adapter = mAdapter
-                layoutManager = lm
-                val itemDecoration = DividerItemDecoration(root.context, LinearLayoutManager.VERTICAL)
-                itemDecoration.setDrawable(ResourcesCompat.getDrawable(resources, R.color.black, null)!!)
-                addItemDecoration(itemDecoration)
-            }
+        recyclerViewLogs.apply {
+            setHasFixedSize(true)
+            adapter = mAdapter
+            layoutManager = lm
+            val itemDecoration = DividerItemDecoration(root.context, LinearLayoutManager.VERTICAL)
+            itemDecoration.setDrawable(ResourcesCompat.getDrawable(resources, R.color.black, null)!!)
+            addItemDecoration(itemDecoration)
+        }
+
+        DB.getInstance().washDao().getAllDescByLiveData().observe(this.viewLifecycleOwner) {
+            mAdapter.submitList(it)
         }
     }
 }

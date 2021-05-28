@@ -11,6 +11,9 @@ interface WashDao {
     @Query("SELECT * FROM WashEntry")
     fun getAll(): List<WashEntry>
 
+    @Query("SELECT * FROM WashEntry ORDER BY uid DESC")
+    fun getAllDescByLiveData(): LiveData<List<WashEntry>>
+
     @Query("SELECT * FROM WashEntry ORDER BY uid DESC LIMIT 1")
     fun getLatest(): WashEntry?
 
