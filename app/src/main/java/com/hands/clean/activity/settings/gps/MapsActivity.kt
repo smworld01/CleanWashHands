@@ -54,10 +54,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mapsViewModel = ViewModelProvider(this).get(MapsViewModel::class.java)
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-        fusedLocationClient.lastLocation
-        .addOnSuccessListener { location : Location ->
-            onCallBack(location)
-        }
 
         initDrawerView()
 
@@ -135,6 +131,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
+
     private fun onCallBack(location: Location) {
         Log.e("current location", location.toString())
         val currentLocation = LatLng(location.latitude, location.longitude)
@@ -146,6 +143,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mMapController = MapController(this, googleMap)
         mMapListener = MapListener(this, mapsViewModel, googleMap, mMapController)
 
+        fusedLocationClient.lastLocation
+            .addOnSuccessListener { location : Location ->
+                onCallBack(location)
+            }
     }
 
     class MapListener(
@@ -178,11 +179,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             }
             mapsViewModel.selectRadius.observe(activity) { radius ->
                 selectPositionCircle?.radius = radius
-            }
-            mapsViewModel.createGpsEntry.observe(activity) { entry ->
-                if (entry != null) {
-                    mMapController.insertGpsEntry(entry)
-                }
             }
         }
 
@@ -234,7 +230,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         private fun submitList(newList: List<GpsEntry>) {
             val diffCallback = TrackerEntry.Companion.DateCountDiffCallback
             val newItems = newList.iterator()
-            val oldItems = gpsEntryList.iterator()
+            val oldItems = gpsEntryList.toList().iterator()
 
             if (!newItems.hasNext()) {
                 oldItems.forEach {
@@ -247,23 +243,24 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 }
                 return
             }
-
             var newItem: GpsEntry? = null
             var oldItem: GpsEntry? = null
-            while (newItems.hasNext() || oldItems.hasNext()) {
-                if (newItem == null || oldItem == null) {
-                    newItem = newItems.next()
-                    oldItem = oldItems.next()
-                } else if (oldItem.uid < newItem.uid){
-                    if (oldItems.hasNext()) oldItem = oldItems.next()
-                } else if (oldItem.uid > newItem.uid) {
-                    if (newItems.hasNext()) newItem = newItems.next()
-                } else {
-                    newItem = newItems.next()
-                    oldItem = oldItems.next()
+
+            while (newItems.hasNext() && oldItems.hasNext()) {
+                when {
+                    oldItem == newItem -> {
+                        newItem = newItems.next()
+                        oldItem = oldItems.next()
+                    }
+                    oldItem!!.uid < newItem!!.uid -> {
+                        oldItem = oldItems.next()
+                    }
+                    oldItem.uid > newItem.uid -> {
+                        newItem = newItems.next()
+                    }
                 }
 
-                if (diffCallback.areItemsTheSame(oldItem, newItem)) {
+                if (diffCallback.areItemsTheSame(oldItem!!, newItem!!)) {
                     if (!diffCallback.areContentsTheSame(oldItem, newItem)) {
                         modifyGpsEntry(oldItem, newItem)
                     }
@@ -275,37 +272,29 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                     }
                 }
             }
+            while (newItems.hasNext()) {
+                newItem = newItems.next()
+                if (newItem.uid == oldItem!!.uid) break
+                addGpsEntry(newItem)
+            }
+            while (oldItems.hasNext()) {
+                oldItem = oldItems.next()
+                if (newItem!!.uid == oldItem.uid) break
+                removeGpsEntry(oldItem)
+            }
         }
 
         private fun getGpsEntries(): LiveData<List<GpsEntry>> {
             return DB.getInstance().gpsDao().getAllByLiveData()
         }
 
-        fun insertGpsEntry(gpsEntry: GpsEntry) {
-            DB.getInstance().gpsDao().insertAll(gpsEntry)
-            WashGeofencing.getInstance().initGeofence()
-            addGpsEntry(gpsEntry)
-        }
-
-        fun removeGpsEntryByMarker(marker: Marker) {
-            try {
-                val gpsEntry = gpsEntryList.filter {
-                    it.marker == marker
-                }[0]
-                removeGpsEntry(gpsEntry)
-            } catch (e: Exception) {
-
-            }
-        }
-
-        fun removeGpsEntry(gpsEntry: GpsEntry) {
-            DB.getInstance().gpsDao().deleteByRequestId(gpsEntry.requestId)
+        private fun removeGpsEntry(gpsEntry: GpsEntry) {
             gpsEntry.circle?.remove()
             gpsEntry.marker?.remove()
             gpsEntryList.remove(gpsEntry)
         }
 
-        fun modifyGpsEntry(oldGpsEntry: GpsEntry, newGpsEntry: GpsEntry) {
+        private fun modifyGpsEntry(oldGpsEntry: GpsEntry, newGpsEntry: GpsEntry) {
             Log.e("modify", "$oldGpsEntry || $newGpsEntry")
             oldGpsEntry.radius = newGpsEntry.radius
             oldGpsEntry.name = newGpsEntry.name

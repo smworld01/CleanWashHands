@@ -34,7 +34,6 @@ class GpsListAdapter(private val viewModel: MapsViewModel) : ListAdapter<Tracker
         private val deviceName: TextView = itemView.findViewById(R.id.deviceName)
 
         fun bind (data: TrackerEntry, viewModel: MapsViewModel) {
-            Log.e("bind", data.toString())
             gpsEntry = data as GpsEntry
             deviceName.text = data.name
 

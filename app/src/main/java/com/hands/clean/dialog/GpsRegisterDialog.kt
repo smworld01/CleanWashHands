@@ -12,6 +12,7 @@ import androidx.core.widget.addTextChangedListener
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.hands.clean.R
 import com.hands.clean.activity.settings.gps.MapsViewModel
+import com.hands.clean.function.room.DB
 import com.hands.clean.function.room.entry.GpsEntry
 
 class GpsRegisterDialog(private val mapsViewModel: MapsViewModel): BottomSheetDialogFragment() {
@@ -77,7 +78,7 @@ class GpsRegisterDialog(private val mapsViewModel: MapsViewModel): BottomSheetDi
     }
 
     private fun createMode() {
-        mapsViewModel.createGpsEntry.value =
+        DB.getInstance().gpsDao().insertAll(
             GpsEntry(0,
                 editTextName.text.toString(),
                 editTextName.text.hashCode().toString(),
@@ -86,6 +87,7 @@ class GpsRegisterDialog(private val mapsViewModel: MapsViewModel): BottomSheetDi
                 editTextRadius.text.toString().toFloat(),
                 true
             )
+        )
         dismiss()
     }
 

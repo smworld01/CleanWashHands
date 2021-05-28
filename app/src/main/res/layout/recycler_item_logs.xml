@@ -3,7 +3,9 @@
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingVertical="8dp"
-    android:gravity="center_vertical">
+    android:gravity="center_vertical"
+    android:id="@+id/itemLayout"
+    >
 
     <ImageView
         android:id="@+id/logsImage"
@@ -19,7 +21,6 @@
         android:layout_weight="1"
         android:orientation="vertical"
         android:gravity="center_vertical">
-
         <TextView
             android:id="@+id/logsDate"
             android:layout_width="match_parent"
@@ -38,6 +39,5 @@
             android:textColor="@android:color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
-
     </LinearLayout>
 </LinearLayout>

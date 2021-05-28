@@ -5,6 +5,8 @@ import android.content.Intent
 import android.os.Build
 import android.os.IBinder
 import androidx.annotation.RequiresApi
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleService
 import com.hands.clean.function.gps.LocationInfo
 import com.hands.clean.function.gps.LocationRequester
 import com.hands.clean.function.gps.geofencing.WashGeofencing
@@ -13,27 +15,28 @@ import com.hands.clean.function.notification.type.NotifyType
 import com.hands.clean.function.room.DB
 import com.hands.clean.function.room.entry.LocationEntryBuilder
 
-class WashLocationService: Service() {
+class WashLocationService: LifecycleService() {
     private lateinit var wifiConnectionChecker: WifiConnectionChecker
     private lateinit var locationRequester: LocationRequester
 
-    override fun onBind(p0: Intent?): IBinder? {
-        return null
-    }
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        super.onStartCommand(intent, flags, startId)
+        DB.init(applicationContext)
+        WashGeofencing.init(applicationContext)
 
-    override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
         initWifi(intent)
         initGps()
 
-        WashGeofencing.getInstance().initGeofence()
+        DB.getInstance().gpsDao().getAllByLiveData().observe(this) {
+            WashGeofencing.getInstance().initGeofence()
+        }
 
         registerNotification()
 
         return START_STICKY
     }
 
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-    private fun initWifi(intent: Intent) {
+    private fun initWifi(intent: Intent?) {
         if(!::wifiConnectionChecker.isInitialized) {
             wifiConnectionChecker = WifiConnectionChecker(applicationContext, intent)
         }
