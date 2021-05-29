@@ -29,11 +29,20 @@
         <service
             android:name=".service.WashLocationService"
             android:enabled="true"
-            android:exported="true" />
+            android:exported="false" />
+        <service
+            android:name=".service.EmptyService"
+            android:enabled="true"
+            android:exported="false" />
 
         <receiver android:name=".receiver.GeofenceBroadcastReceiver" />
         <receiver android:name=".receiver.DeviceRegisterReceiver" />
-        <receiver android:name=".receiver.ServiceStopReceiver" />
+        <receiver android:name=".receiver.ServiceStopReceiver" >
+            <intent-filter>
+                <action android:name="android.location.PROVIDERS_CHANGED" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
         <receiver android:name=".receiver.WashReceiver" />
 
         <activity android:name=".activity.settings.TestActivity" />

@@ -11,4 +11,8 @@ class SystemSettingsGpsChecker(
         return (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
                 || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER))
     }
+
+    fun isDisabled(): Boolean {
+        return !isEnabled()
+    }
 }

@@ -9,14 +9,14 @@ import com.hands.clean.function.notification.type.NotifyInfo
 import com.hands.clean.function.notification.type.NotifyType
 import com.hands.clean.receiver.ServiceStopReceiver
 
-class ForegroundNotificationBuilder(
+class GpsPauseNotificationBuilder(
     private val context: Context,
 ) : BaseNotificationBuilder(context, NotifyType.NoticeService.channelId) {
 
     init {
         this
-            .setContentTitle("서비스 시작됨")
-            .setContentText("WiFi와 GPS를 확인하고 있습니다.")
+            .setContentTitle("서비스 일시정지됨")
+            .setContentText("GPS가 비활성화 되어 서비스가 일시정지 되었습니다.")
             .addAction(getAction())
     }
 

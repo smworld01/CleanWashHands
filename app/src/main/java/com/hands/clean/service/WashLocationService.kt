@@ -5,9 +5,10 @@ import android.content.Intent
 import androidx.lifecycle.LifecycleService
 import com.hands.clean.function.gps.LocationInfo
 import com.hands.clean.function.gps.LocationRequester
+import com.hands.clean.function.gps.SystemSettingsGpsChecker
 import com.hands.clean.function.gps.geofencing.WashGeofencing
 import com.hands.clean.function.notification.factory.notification.ForegroundNotificationBuilder
-import com.hands.clean.function.notification.type.NotifyType
+import com.hands.clean.function.notification.factory.notification.GpsPauseNotificationBuilder
 import com.hands.clean.function.room.DB
 import com.hands.clean.function.room.entry.LocationEntryBuilder
 
@@ -30,6 +31,16 @@ class WashLocationService: LifecycleService() {
         registerNotification()
 
         return START_STICKY
+    }
+
+    fun pause() {
+        locationRequester.onPause()
+        WashGeofencing.getInstance().onStop()
+    }
+
+    fun resume() {
+        initGps()
+        WashGeofencing.getInstance().initGeofence()
     }
 
     private fun initWifi(intent: Intent?) {
@@ -76,7 +87,7 @@ class WashLocationService: LifecycleService() {
 
     private fun registerNotification() {
         val foregroundNotification =
-            ForegroundNotificationBuilder(applicationContext, NotifyType.NoticeService).build()
+            ForegroundNotificationBuilder(applicationContext).build()
         startForeground(1, foregroundNotification)
     }
 }

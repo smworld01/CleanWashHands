@@ -47,14 +47,19 @@ class GeofencingManager(context: Context) {
             .map { entry ->
                 convertGpsEntryToGeofence(entry)
             }
-        thread {
-            if (permissionChecker.isGranted()) {
-                if (geoFenceList != requestGeofence) {
-                    geoFenceList = requestGeofence
-                    add(geoFenceList)
-                }
+        if (permissionChecker.isGranted()) {
+            if (geoFenceList != requestGeofence) {
+                geoFenceList = requestGeofence
+                add(geoFenceList)
             }
         }
+    }
+
+    fun initGeofence() {
+        if (permissionChecker.isGranted()) {
+            add(geoFenceList)
+        }
+
     }
 
     fun onStop() {

@@ -3,6 +3,7 @@ package com.hands.clean.activity
 import android.bluetooth.BluetoothDevice
 import android.content.Intent
 import android.content.IntentFilter
+import android.location.LocationManager
 import android.os.Bundle
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
@@ -18,8 +19,9 @@ import com.hands.clean.function.gps.geofencing.WashGeofencing
 import com.hands.clean.function.notification.init.NotificationChannelManager
 import com.hands.clean.receiver.bluetoothReceiver
 import com.hands.clean.function.room.DB
-import com.hands.clean.service.WashLocationServiceManager
 import com.hands.clean.function.settings.WashSettingsManager
+import com.hands.clean.receiver.ServiceStopReceiver
+import com.hands.clean.service.TrackerServiceManager
 
 class NavigationActivity : AppCompatActivity() {
     private val washSettings = WashSettingsManager(this)
@@ -69,10 +71,16 @@ class NavigationActivity : AppCompatActivity() {
         bluetoothFilter.addAction(BluetoothDevice.ACTION_ACL_CONNECTED)
 
         registerReceiver(bluetoothReceiver, bluetoothFilter)
+
+        val gpsFilter = IntentFilter()
+        gpsFilter.addAction(LocationManager.PROVIDERS_CHANGED_ACTION)
+
+        val gpsReceiver = ServiceStopReceiver()
+        registerReceiver(gpsReceiver, gpsFilter)
     }
     private fun initService() {
         if (washSettings.wifiNotify || washSettings.gpsNotify) {
-            val ws = WashLocationServiceManager(this)
+            val ws = TrackerServiceManager(this)
             ws.onStartService()
         }
     }

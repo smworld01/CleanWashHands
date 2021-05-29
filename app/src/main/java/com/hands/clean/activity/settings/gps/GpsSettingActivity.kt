@@ -11,8 +11,8 @@ import com.hands.clean.activity.settings.TrackerListActivity
 import com.hands.clean.function.gps.SystemSettingsGpsManager
 import com.hands.clean.function.notification.type.NotifyType
 import com.hands.clean.function.permission.GpsPermissionRequesterWithBackground
-import com.hands.clean.service.WashLocationServiceManager
 import com.hands.clean.function.settings.WashSettingsManager
+import com.hands.clean.service.TrackerServiceManager
 
 class GpsSettingActivity : AppCompatActivity(){
     private val permissionRequester = GpsPermissionRequesterWithBackground(this)
@@ -54,7 +54,7 @@ class GpsSettingActivity : AppCompatActivity(){
 
         switchGps.setOnCheckedChangeListener{ _, isChecked ->
             settings.gpsNotify = isChecked
-            val wsm = WashLocationServiceManager(this)
+            val wsm = TrackerServiceManager(this)
             // Todo waiting
             if (isChecked)
                 wsm.onStartService()
