@@ -63,7 +63,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun initActionBar() {
-        supportActionBar?.title = "GPS 설정"
+        supportActionBar?.title = "지도에서 등록하기"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 

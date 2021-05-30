@@ -2,6 +2,7 @@ package com.hands.clean.activity.settings.wifi
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
@@ -22,9 +23,26 @@ class WifiDetectedActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_wifi_detected)
 
+        initActionBar()
+
         viewModel = ViewModelProvider(this).get(WifiDetectedViewModel::class.java)
 
         initRecyclerView()
+    }
+
+    private fun initActionBar() {
+        supportActionBar?.title = "와이파이 등록"
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+    // 상단바 뒤로가기 버튼 이벤트
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                finish()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun initRecyclerView() {
