@@ -87,8 +87,11 @@ class TrackerListActivity : AppCompatActivity() {
     }
 
     private fun observe(entries :List<TrackerEntry>) {
-        mAdapter.submitList(entries)
-        if (entries.isEmpty()) {
+        val filteredEntries = entries.filter {
+            it.name.isNotEmpty()
+        }
+        mAdapter.submitList(filteredEntries)
+        if (filteredEntries.isEmpty()) {
             textViewEmptyRecycler.visibility = View.VISIBLE
         } else {
             textViewEmptyRecycler.visibility = View.GONE

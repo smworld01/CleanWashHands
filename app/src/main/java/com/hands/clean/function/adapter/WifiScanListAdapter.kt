@@ -61,7 +61,7 @@ class WifiScanListAdapter(private val viewModel: WifiScanViewModel) : ListAdapte
             }
         }
         private fun findEntryIsExist(findEntry: WifiEntry?): Boolean {
-            return findEntry != null
+            return findEntry != null && findEntry.name.isNotEmpty()
         }
     }
 

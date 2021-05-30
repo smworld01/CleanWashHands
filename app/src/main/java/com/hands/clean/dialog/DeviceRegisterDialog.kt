@@ -52,6 +52,8 @@ class DeviceRegisterDialog(private val deviceEntry: DeviceEntry): BottomSheetDia
     private fun checkButtonMode() {
         when {
             editTextName.text.isEmpty() -> nameDescriptionMode()
+            DB.getInstance().matchDaoByEntry(deviceEntry)
+                .findByAddress(deviceEntry.address) != null -> modifyMode()
             else -> createMode()
         }
     }
@@ -63,6 +65,21 @@ class DeviceRegisterDialog(private val deviceEntry: DeviceEntry): BottomSheetDia
             is BluetoothEntry -> DB.getInstance().bluetoothDao().insertAll(deviceEntry)
             else -> throw Exception()
         }
+        Toast.makeText(this.context, "등록이 완료되었습니다.", Toast.LENGTH_SHORT).show()
+        dismiss()
+    }
+
+    private fun modifyMode() {
+        val entry = DB.getInstance().matchDaoByEntry(deviceEntry).findByAddress(deviceEntry.address)
+        entry!!.name = editTextName.text.toString()
+        entry!!.isNotification = true
+
+        when(entry) {
+            is WifiEntry -> DB.getInstance().wifiDao().updateAll(entry)
+            is BluetoothEntry -> DB.getInstance().bluetoothDao().updateAll(entry)
+            else -> throw Exception()
+        }
+        Toast.makeText(this.context, "등록이 완료되었습니다.", Toast.LENGTH_SHORT).show()
         dismiss()
     }
 

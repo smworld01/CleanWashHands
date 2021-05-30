@@ -18,6 +18,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CleanWashHands">
+        <activity android:name=".activity.settings.wifi.WifiDetectedActivity"></activity>
         <activity android:name=".activity.settings.bluetooth.BluetoothRegisterActivity" />
         <activity android:name=".activity.settings.wifi.WifiScanActivity" />
         <activity android:name=".activity.settings.TrackerListActivity" />
@@ -37,9 +38,10 @@
 
         <receiver android:name=".receiver.GeofenceBroadcastReceiver" />
         <receiver android:name=".receiver.DeviceRegisterReceiver" />
-        <receiver android:name=".receiver.ServiceStopReceiver" >
+        <receiver android:name=".receiver.ServiceStopReceiver">
             <intent-filter>
                 <action android:name="android.location.PROVIDERS_CHANGED" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </receiver>

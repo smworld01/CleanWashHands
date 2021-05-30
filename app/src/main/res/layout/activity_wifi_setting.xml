@@ -42,7 +42,7 @@
         android:background="?attr/selectableItemBackground"
         android:padding="15dp"
         android:gravity="start|center"
-        android:text="등록된 와이파이 기기 관리"
+        android:text="앱에 등록된 와이파이 기기 관리"
         />
 
     <Button
@@ -55,4 +55,13 @@
         android:text="주변 와이파이 스캔해서 등록하기"
         />
 
+    <Button
+        android:id="@+id/buttonDetectedWifi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:padding="15dp"
+        android:gravity="start|center"
+        android:text="연결되었던 와이파이에서 등록하기"
+        />
 </LinearLayout>

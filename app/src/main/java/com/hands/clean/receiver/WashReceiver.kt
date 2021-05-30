@@ -3,6 +3,7 @@ package com.hands.clean.receiver
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import androidx.core.app.NotificationManagerCompat
 import com.hands.clean.function.room.DB
 import kotlin.concurrent.thread
 
@@ -21,6 +22,10 @@ class WashReceiver : BroadcastReceiver() {
             washEntry.wash = true
 
             DB.getInstance().washDao().update(washEntry)
+
+            with(NotificationManagerCompat.from(context)) {
+                cancel(notificationId)
+            }
         }
     }
 }

@@ -13,9 +13,11 @@ abstract class DeviceNotify: LocationNotify() {
         val deviceInfo: DeviceEntry? = findDeviceInDB()
 
         if (deviceInfoIsNotExist(deviceInfo)) {
+            registerDeviceInDB()
+
             sendNewDeviceNotify()
-        } else {
-            sendNotify(deviceInfo!!)
+        } else if (deviceInfoIsRegistered(deviceInfo!!)) {
+            sendNotify(deviceInfo)
         }
     }
 
@@ -29,10 +31,11 @@ abstract class DeviceNotify: LocationNotify() {
 
     private fun sendNewDeviceNotify() {
         if (newDeviceNotifySettingsIsEnable()) {
-            registerDeviceInDB()
-
             askUserForNewDeviceIsNotification()
         }
+    }
+    private fun deviceInfoIsRegistered(device: DeviceEntry): Boolean {
+        return device.name != ""
     }
 
     abstract fun newDeviceNotifySettingsIsEnable(): Boolean

@@ -52,7 +52,7 @@ class BluetoothDeviceAdapter(private val viewModel: BluetoothRegisterViewModel) 
                 val findBluetoothEntry = DB.getInstance().bluetoothDao().findByAddress(data.address)
                 if(findEntryIsExist(findBluetoothEntry)) {
                     Toast.makeText(
-                        itemView.context, "이미 등록된 블루투스 기기입니다..", Toast.LENGTH_SHORT
+                        itemView.context, "이미 등록된 블루투스 기기입니다.", Toast.LENGTH_SHORT
                     ).show()
                 } else {
                     viewModel.createBluetoothEntry.value = BluetoothEntry(
@@ -66,7 +66,7 @@ class BluetoothDeviceAdapter(private val viewModel: BluetoothRegisterViewModel) 
             }
         }
         private fun findEntryIsExist(findEntry: BluetoothEntry?): Boolean {
-            return findEntry != null
+            return findEntry != null && findEntry.name.isNotEmpty()
         }
     }
 }
