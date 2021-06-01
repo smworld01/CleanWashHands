@@ -59,6 +59,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     //인디케이터 애니메이션 오픈소스
     implementation 'com.tbuonomo:dotsindicator:4.2'
+    implementation "androidx.viewpager2:viewpager2:1.0.0"
 
     def room_version = "2.3.0"
 
