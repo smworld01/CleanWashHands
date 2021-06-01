@@ -16,14 +16,12 @@ import com.hands.clean.service.TrackerServiceManager
 
 class GpsSettingActivity : AppCompatActivity(){
     private val permissionRequester = GpsPermissionRequesterWithBackground(this)
-    private val gpsSetting: SystemSettingsGpsManager = SystemSettingsGpsManager(this)
     private val settings = WashSettingsManager(this)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         initActionBar()
 
-        permissionRequester.registerGranted { gpsSetting.onRequest() }
         permissionRequester.registerDenied { finish() }
         permissionRequester.onRequest()
 

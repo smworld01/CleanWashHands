@@ -20,6 +20,7 @@ class SystemSettingsGpsManager(
 
     private var enableCallBack: () -> Unit = {}
     private var disableCallBack: () -> Unit = {}
+    private var cancelCallBack: () -> Unit = {}
 
     fun registerEnableCallBack(callback: () -> Unit) {
         enableCallBack = callback
@@ -27,6 +28,10 @@ class SystemSettingsGpsManager(
 
     fun registerDisableCallBack(callback: () -> Unit) {
         disableCallBack = callback
+    }
+
+    fun registerCancelCallback(callback: () -> Unit) {
+        cancelCallBack = callback
     }
 
     fun onRequest() {
@@ -41,8 +46,7 @@ class SystemSettingsGpsManager(
         builder.setTitle("위치 서비스 비활성화")
         builder.setMessage(
             """
-            앱을 사용하기 위해서는 위치 서비스가 필요합니다.
-            위치 설정을 수정하실래요?
+            해당 기능을 사용하기 위해서는 위치 서비스가 필요합니다.
             """.trimIndent()
         )
         builder.setCancelable(true)
@@ -53,8 +57,11 @@ class SystemSettingsGpsManager(
         builder.setNegativeButton("취소") { dialog, _ ->
             dialog.cancel()
         }
-        builder.create().show()
+        builder.setOnCancelListener {
+            cancelCallBack()
+        }
 
+        builder.create().show()
     }
 
     fun isEnabled(): Boolean {

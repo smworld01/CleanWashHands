@@ -58,8 +58,8 @@ class WifiDetectedActivity : AppCompatActivity() {
                 textViewEmptyRecycler.visibility = View.VISIBLE
             } else {
                 textViewEmptyRecycler.visibility = View.GONE
-                mAdapter.submitList(filteredEntries)
             }
+            mAdapter.submitList(filteredEntries)
         }
 
         viewModel.createWifiEntry.observe(this) {

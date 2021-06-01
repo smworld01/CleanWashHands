@@ -3,11 +3,11 @@ package com.hands.clean.activity.settings.gps
 import android.graphics.Color
 import android.location.Location
 import android.os.Bundle
-import android.text.Editable
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.RelativeLayout
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -26,11 +26,10 @@ import com.hands.clean.R
 import com.hands.clean.dialog.GpsInfoDialog
 import com.hands.clean.dialog.GpsRegisterButtonDialog
 import com.hands.clean.function.adapter.GpsListAdapter
-import com.hands.clean.function.gps.geofencing.WashGeofencing
+import com.hands.clean.function.gps.SystemSettingsGpsManager
 import com.hands.clean.function.room.DB
 import com.hands.clean.function.room.entry.GpsEntry
 import com.hands.clean.function.room.entry.TrackerEntry
-import java.lang.Exception
 
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
@@ -50,6 +49,16 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         setContentView(R.layout.activity_maps)
 
         initActionBar()
+
+        val gpsManager = SystemSettingsGpsManager(this)
+
+        gpsManager.registerDisableCallBack {
+            Toast.makeText(this, "위치 서비스가 활성화되지 않았습니다.", Toast.LENGTH_SHORT)
+                .show()
+            finish()
+        }
+        gpsManager.registerCancelCallback { finish() }
+        gpsManager.onRequest()
 
         mapsViewModel = ViewModelProvider(this).get(MapsViewModel::class.java)
 

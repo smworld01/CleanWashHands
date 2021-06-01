@@ -9,19 +9,24 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.hands.clean.R
 import com.hands.clean.dialog.DeviceRegisterDialog
 import com.hands.clean.function.adapter.WifiScanListAdapter
+import com.hands.clean.function.gps.SystemSettingsGpsManager
 
 class WifiScanActivity : AppCompatActivity() {
     private lateinit var wifiManager: WifiManager
     private lateinit var viewModel: WifiScanViewModel
     private lateinit var wifiScanReceiver: WifiScanReceiver
+
+    private lateinit var swipeRefreshLayout: SwipeRefreshLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,9 +34,21 @@ class WifiScanActivity : AppCompatActivity() {
 
         initActionBar()
 
+        initSwipeRefresh()
+
         initWifiScan()
 
         initRecyclerView()
+
+        val gpsManager = SystemSettingsGpsManager(this)
+
+        gpsManager.registerDisableCallBack {
+            Toast.makeText(this, "위치 서비스가 활성화되지 않았습니다.", Toast.LENGTH_SHORT)
+                .show()
+            finish()
+        }
+        gpsManager.registerCancelCallback { finish() }
+        gpsManager.onRequest()
     }
 
     private fun initActionBar() {
@@ -49,13 +66,20 @@ class WifiScanActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+    private fun initSwipeRefresh() {
+        swipeRefreshLayout = findViewById(R.id.swipeRefresh)
+
+        swipeRefreshLayout.setOnRefreshListener {
+            if (!wifiManager.startScan()) {
+                swipeRefreshLayout.isRefreshing = false
+            }
+        }
+    }
+
     private fun initWifiScan() {
         wifiManager = applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
         viewModel = ViewModelProvider(this).get(WifiScanViewModel::class.java)
         viewModel.wifiScanResult.value = wifiManager.scanResults.filter { it.SSID.isNotEmpty() }
-        viewModel.wifiScanResult.observe(this) {
-            Log.e("result", it.toString())
-        }
 
         wifiScanReceiver = WifiScanReceiver(this, viewModel)
     }
@@ -65,6 +89,8 @@ class WifiScanActivity : AppCompatActivity() {
         val mAdapter = adaptRecycler(recyclerViewWifiScanResult)
 
         viewModel.wifiScanResult.observe(this) {
+            swipeRefreshLayout.isRefreshing = false
+
             mAdapter.submitList(it)
         }
         viewModel.createWifiEntry.observe(this) {

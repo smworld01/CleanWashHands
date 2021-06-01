@@ -9,12 +9,18 @@ abstract class DeviceNotify: LocationNotify() {
     abstract val deviceEntry: DeviceEntry
     abstract val context: Context
 
+    override fun onNotify() {
+        if (deviceInfoIsNotExist(findDeviceInDB())) {
+            registerDeviceInDB()
+        }
+
+        super.onNotify()
+    }
+
     override fun doNotify() {
         val deviceInfo: DeviceEntry? = findDeviceInDB()
 
         if (deviceInfoIsNotExist(deviceInfo)) {
-            registerDeviceInDB()
-
             sendNewDeviceNotify()
         } else if (deviceInfoIsRegistered(deviceInfo!!)) {
             sendNotify(deviceInfo)
