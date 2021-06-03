@@ -43,22 +43,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var drawLayout: DrawerLayout
     private lateinit var navLayout: RelativeLayout
+    private val gpsManager = SystemSettingsGpsManager(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_maps)
 
         initActionBar()
-
-        val gpsManager = SystemSettingsGpsManager(this)
-
-        gpsManager.registerDisableCallBack {
-            Toast.makeText(this, "위치 서비스가 활성화되지 않았습니다.", Toast.LENGTH_SHORT)
-                .show()
-            finish()
-        }
-        gpsManager.registerCancelCallback { finish() }
-        gpsManager.onRequest()
 
         mapsViewModel = ViewModelProvider(this).get(MapsViewModel::class.java)
 
@@ -141,21 +132,34 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
 
-    private fun onCallBack(location: Location) {
-        Log.e("current location", location.toString())
-        val currentLocation = LatLng(location.latitude, location.longitude)
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 18f))
-    }
-
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
         mMapController = MapController(this, googleMap)
         mMapListener = MapListener(this, mapsViewModel, googleMap, mMapController)
 
-        fusedLocationClient.lastLocation
-            .addOnSuccessListener { location : Location ->
-                onCallBack(location)
-            }
+        requestLocationService()
+    }
+
+    private fun requestLocationService() {
+        gpsManager.registerEnableCallBack {
+            fusedLocationClient.lastLocation
+                .addOnSuccessListener { location : Location? ->
+                    if (location != null) {
+                        val currentLocation = LatLng(location.latitude, location.longitude)
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 18f))
+                    } else {
+                        Toast.makeText(this, "위치 정보를 불러올 수 없습니다.", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                }
+        }
+        gpsManager.registerDisableCallBack {
+            Toast.makeText(this, "위치 서비스가 활성화되지 않았습니다.", Toast.LENGTH_SHORT)
+                .show()
+            finish()
+        }
+        gpsManager.registerCancelCallback { finish() }
+        gpsManager.onRequest()
     }
 
     class MapListener(
