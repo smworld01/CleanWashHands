@@ -35,7 +35,7 @@ class WifiSettingActivity : AppCompatActivity() {
     }
 
     private fun initActionBar() {
-        supportActionBar?.title = "와이파이 설정"
+        supportActionBar?.title = "Wi-Fi 설정"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
     // 상단바 뒤로가기 버튼 이벤트

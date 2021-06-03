@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:contentTitle="GPS 알림"
-        app:contentContext="널 사랑하지 않아~"
+        app:contentContext="등록한 위치 접근 시 알림이 옵니다."
         />
 
 
@@ -26,8 +26,8 @@
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
         android:paddingHorizontal="20dp"
-        app:contentTitle="등록된 위치 관리"
-        app:contentContext="할말이 있나?"
+        app:contentTitle="등록한 위치 관리"
+        app:contentContext="앱에 등록한 위치를 관리합니다."
         />
 
     <com.hands.clean.view.CustomTextViewDescription
@@ -36,8 +36,8 @@
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
         android:paddingHorizontal="20dp"
-        app:contentTitle="지도에서 등록할 위치찾기"
-        app:contentContext="할말이 있나?"
+        app:contentTitle="지도에서 위치 등록하기"
+        app:contentContext="지도에서 위치를 등록합니다."
         />
 
 </LinearLayout>

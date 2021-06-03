@@ -17,8 +17,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:contentImage="@drawable/ic_baseline_wifi_24"
-        app:contentTitle="와이파이 설정"
-        app:contentContext="와이파이를 통해 설정합니다."
+        app:contentTitle="Wi-Fi 설정"
+        app:contentContext="Wi-Fi와 관련된 설정을 합니다."
         />
 
     <com.hands.clean.view.CustomButton
@@ -27,8 +27,8 @@
         android:background="?attr/selectableItemBackground"
         android:layout_height="wrap_content"
         app:contentImage="@drawable/ic_baseline_bluetooth_24"
-        app:contentTitle="블루투스 설정"
-        app:contentContext="블루투스를 통해 설정합니다."
+        app:contentTitle="Bluetooth 설정"
+        app:contentContext="Bluetooth와 관련된 설정을 합니다."
         />
     <com.hands.clean.view.CustomButton
         android:id="@+id/buttonGPS"
@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         app:contentImage="@drawable/ic_baseline_gps_fixed_24"
         app:contentTitle="GPS 설정"
-        app:contentContext="GPS를 통해 설정합니다."
+        app:contentContext="GPS와 관련된 설정을 합니다."
         />
     <com.hands.clean.view.CustomButton
         android:id="@+id/buttonSwitch"

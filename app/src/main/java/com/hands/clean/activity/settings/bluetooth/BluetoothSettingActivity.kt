@@ -30,7 +30,7 @@ class BluetoothSettingActivity : AppCompatActivity() {
     }
 
     private fun initActionBar() {
-        supportActionBar?.title = "블루투스 설정"
+        supportActionBar?.title = "Bluetooth 설정"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 

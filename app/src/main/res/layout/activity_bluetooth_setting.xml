@@ -15,16 +15,16 @@
         android:id="@+id/switchBluetooth"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:contentTitle="블루투스 알림"
-        app:contentContext="널 사랑하지 않아~"
+        app:contentTitle="Bluetooth 알림"
+        app:contentContext="등록한 Bluetooth 연결 시 알림이 옵니다."
         />
 
     <com.hands.clean.view.CustomSwitch
         android:id="@+id/switchNewDeviceBluetooth"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:contentTitle="새로운 기기 연결시 등록 여부 알림"
-        app:contentContext="할말이 없어~~"
+        app:contentTitle="새로운 Bluetooth 기기 알림"
+        app:contentContext="새로운 Bluetooth 연결 시 등록 여부 알림이 옵니다."
         />
 
     <com.hands.clean.view.CustomTextViewDescription
@@ -33,8 +33,8 @@
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
         android:paddingHorizontal="20dp"
-        app:contentTitle="등록된 블루투스 기기 관리"
-        app:contentContext="할말이 있나?"
+        app:contentTitle="등록한 Bluetooth 기기 관리"
+        app:contentContext="앱에 등록한 Bluetooth를 관리합니다."
         />
 
     <com.hands.clean.view.CustomTextViewDescription
@@ -43,8 +43,8 @@
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
         android:paddingHorizontal="20dp"
-        app:contentTitle="시스템에 등록된 블루투스에서 등록하기"
-        app:contentContext="할말이 있나??"
+        app:contentTitle="시스템에서 Bluetooth 등록하기"
+        app:contentContext="이전에 연결되었던 Bluetooth에서 등록합니다."
         />
 
 </LinearLayout>

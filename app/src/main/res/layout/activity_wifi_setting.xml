@@ -14,8 +14,8 @@
         android:id="@+id/switchWifi"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:contentTitle="와이파이 알림"
-        app:contentContext="설명"
+        app:contentTitle="Wi-Fi 알림"
+        app:contentContext="등록한 Wi-Fi 연결 시 알림이 옵니다."
         />
 
 
@@ -23,16 +23,16 @@
         android:id="@+id/switchNewDeviceWifi"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:contentTitle="새로운 기기 연결시 등록 알림"
-        app:contentContext="설명"
+        app:contentTitle="새로운 Wi-Fi 기기 알림"
+        app:contentContext="새로운 Wi-Fi 연결 시 등록 여부 알림이 옵니다."
         />
 
     <com.hands.clean.view.CustomSwitch
         android:id="@+id/switchEncryptionWifi"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:contentTitle="비밀번호가 있는 와이파이 연결시 알림"
-        app:contentContext="설명"
+        app:contentTitle="암호화된 Wi-Fi 알림"
+        app:contentContext="비밀번호가 있는 Wi-Fi 연결 시 알림이 옵니다."
         />
 
     <com.hands.clean.view.CustomTextViewDescription
@@ -41,8 +41,8 @@
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
         android:paddingHorizontal="20dp"
-        app:contentTitle="등록된 와이파이 기기 관리"
-        app:contentContext="설명"
+        app:contentTitle="등록한 Wi-Fi 관리"
+        app:contentContext="앱에 등록한 Wi-Fi를 관리합니다."
         />
 
     <com.hands.clean.view.CustomTextViewDescription
@@ -51,8 +51,8 @@
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
         android:paddingHorizontal="20dp"
-        app:contentTitle="주변 와이파이 스캔해서 등록하기"
-        app:contentContext="설명"
+        app:contentTitle="근처 Wi-Fi 등록하기"
+        app:contentContext="근처 Wi-Fi를 스캔하여 등록합니다."
         />
 
     <com.hands.clean.view.CustomTextViewDescription
@@ -61,7 +61,7 @@
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
         android:paddingHorizontal="20dp"
-        app:contentTitle="연결되었던 와이파이에서 등록하기"
-        app:contentContext="설명"
+        app:contentTitle="연결되었던 Wi-Fi 등록하기"
+        app:contentContext="앱이 서비스되는 동안 연결되었던 Wi-Fi에서 등록합니다."
         />
 </LinearLayout>
