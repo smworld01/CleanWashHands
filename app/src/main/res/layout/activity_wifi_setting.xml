@@ -55,13 +55,13 @@
         app:contentContext="설명"
         />
 
-    <Button
+    <com.hands.clean.view.CustomTextViewDescription
         android:id="@+id/buttonDetectedWifi"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
-        android:padding="15dp"
-        android:gravity="start|center"
-        android:text="연결되었던 와이파이에서 등록하기"
+        android:layout_marginStart="20dp"
+        app:contentTitle="연결되었던 와이파이에서 등록하기"
+        app:contentContext="설명"
         />
 </LinearLayout>
