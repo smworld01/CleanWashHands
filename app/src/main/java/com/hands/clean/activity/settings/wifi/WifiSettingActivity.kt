@@ -79,7 +79,7 @@ class WifiSettingActivity : AppCompatActivity() {
     private fun initButtons() {
         val buttonTrackerList: CustomTextViewDescription = findViewById(R.id.buttonTrackerList)
         val buttonWifiScan: CustomTextViewDescription = findViewById(R.id.buttonWifiScan)
-        val buttonDetectedWifi: Button = findViewById(R.id.buttonDetectedWifi)
+        val buttonDetectedWifi: CustomTextViewDescription = findViewById(R.id.buttonDetectedWifi)
 
         buttonTrackerList.setOnClickListener {
             val intent = Intent(this, TrackerListActivity::class.java)
