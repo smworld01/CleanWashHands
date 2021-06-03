@@ -5,4 +5,12 @@
         <attr name="contentTitle" format="reference|string" />
         <attr name="contentContext" format="reference|string" />
     </declare-styleable>
+    <declare-styleable name="SettingsButtonNonImage">
+        <attr name="contentTitleNonImage" format="reference|string" />
+        <attr name="contentContextNonImage" format="reference|string" />
+    </declare-styleable>
+    <declare-styleable name="SwitchSettings">
+        <attr name="contentTitleSwitch" format="reference|string" />
+        <attr name="contentContextSwitch" format="reference|string" />
+    </declare-styleable>
 </resources>
