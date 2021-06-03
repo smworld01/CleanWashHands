@@ -3,39 +3,26 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/layoutSwitch"
+    android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:paddingVertical="1dp"
     android:layout_margin="20dp">
 
 
-    <TextView
-        android:id="@+id/textViewTitleSwitch"
+    <com.hands.clean.view.CustomTextViewDescription
+        android:id="@+id/content"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="10dp"
-        android:text="블루투스"
-        android:textSize="17sp"
+        app:contentTitle="제목"
+        app:contentContext="설명"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textViewContextSwitch"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginBottom="10dp"
-        android:text="블루투스 기능"
-        android:textSize="10sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewTitleSwitch" />
+        app:layout_constraintEnd_toStartOf="@+id/customSwitch"
+        app:layout_constraintTop_toTopOf="parent"
+        />
 
     <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/switch1"
+        android:id="@+id/customSwitch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

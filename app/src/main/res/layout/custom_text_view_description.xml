@@ -3,34 +3,28 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/layoutNonImage"
+    android:id="@+id/layout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="20dp">
+    android:layout_height="wrap_content">
 
 
     <TextView
-        android:id="@+id/textViewTitleNonImage"
-        android:layout_width="0dp"
+        android:id="@+id/textViewTitle"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginLeft="5dp"
         android:layout_marginTop="10dp"
         android:text="블루투스"
-        android:textSize="17sp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textViewContextNonImage"
-        android:layout_width="0dp"
+        android:id="@+id/textViewContext"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginLeft="5dp"
+        android:layout_marginTop="2dp"
         android:layout_marginBottom="10dp"
         android:text="블루투스 기능"
-        android:textSize="10sp"
+        android:textColor="@color/description"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewTitleNonImage" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewTitle" />
 </androidx.constraintlayout.widget.ConstraintLayout>
