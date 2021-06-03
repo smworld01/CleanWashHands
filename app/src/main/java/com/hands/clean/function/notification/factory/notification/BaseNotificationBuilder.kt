@@ -12,7 +12,7 @@ open class BaseNotificationBuilder(
 ) : NotificationCompat.Builder(context, channelId) {
     init {
         this
-            .setSmallIcon(R.drawable.ic_baseline_home_24)
+            .setSmallIcon(R.drawable.ic_app_icon)
             .setColor(ContextCompat.getColor(context, R.color.blue_500))
             .setDefaults(Notification.FLAG_NO_CLEAR)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
