@@ -13,6 +13,8 @@ import com.hands.clean.function.notification.type.NotifyType
 import com.hands.clean.function.permission.GpsPermissionRequesterWithBackground
 import com.hands.clean.service.WashLocationServiceManager
 import com.hands.clean.function.settings.WashSettingsManager
+import com.hands.clean.view.CustomSwitch
+import com.hands.clean.view.CustomTextViewDescription
 
 class GpsSettingActivity : AppCompatActivity(){
     private val permissionRequester = GpsPermissionRequesterWithBackground(this)
@@ -48,7 +50,7 @@ class GpsSettingActivity : AppCompatActivity(){
     }
 
     private fun initSwitch() {
-        val switchGps = findViewById<SwitchCompat>(R.id.switchGPS)
+        val switchGps = findViewById<CustomSwitch>(R.id.switchGPS).switch
 
         switchGps.isChecked = settings.gpsNotify
 
@@ -64,14 +66,14 @@ class GpsSettingActivity : AppCompatActivity(){
     }
 
     private fun initButton() {
-        val buttonMap = findViewById<Button>(R.id.buttonMap)
+        val buttonMap = findViewById<CustomTextViewDescription>(R.id.buttonMap)
         buttonMap.setOnClickListener {
             val intent = Intent(applicationContext, MapsActivity::class.java)
             startActivity(intent)
         }
 
 
-        val buttonTrackerList: Button = findViewById(R.id.buttonTrackerList)
+        val buttonTrackerList = findViewById<CustomTextViewDescription>(R.id.buttonTrackerList)
         buttonTrackerList.setOnClickListener {
             val intent = Intent(applicationContext, TrackerListActivity::class.java)
             intent.putExtra("type", NotifyType.GPS.channelId)

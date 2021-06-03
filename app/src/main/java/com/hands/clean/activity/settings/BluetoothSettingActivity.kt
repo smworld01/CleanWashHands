@@ -1,18 +1,15 @@
 package com.hands.clean.activity.settings
 
-import android.bluetooth.BluetoothAdapter
-import android.bluetooth.BluetoothDevice
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.Button
 import androidx.appcompat.widget.SwitchCompat
 import com.hands.clean.R
-import com.hands.clean.function.room.entry.BluetoothEntry
 import com.hands.clean.function.settings.WashSettingsManager
 import com.hands.clean.function.notification.type.NotifyType
-import com.hands.clean.function.room.entry.TrackerEntry
+import com.hands.clean.view.CustomTextViewDescription
+import com.hands.clean.view.CustomSwitch
 
 class BluetoothSettingActivity : AppCompatActivity() {
     private val settings = WashSettingsManager(this)
@@ -48,14 +45,14 @@ class BluetoothSettingActivity : AppCompatActivity() {
     }
 
     private fun initSwitchViews() {
-        val switchBluetooth: SwitchCompat = findViewById(R.id.switchBluetooth)
+        val switchBluetooth: SwitchCompat = findViewById<CustomSwitch>(R.id.switchBluetooth).switch
         switchBluetooth.isChecked = settings.bluetoothNotify
 
         switchBluetooth.setOnCheckedChangeListener{ _, isChecked: Boolean ->
             settings.bluetoothNotify = isChecked
         }
 
-        val switchNewDeviceBluetooth: SwitchCompat = findViewById(R.id.switchNewDeviceBluetooth)
+        val switchNewDeviceBluetooth: SwitchCompat = findViewById<CustomSwitch>(R.id.switchNewDeviceBluetooth).switch
         switchNewDeviceBluetooth.isChecked = settings.bluetoothNewDeviceNotify
 
         switchNewDeviceBluetooth.setOnCheckedChangeListener{ _, isChecked: Boolean ->
@@ -64,7 +61,7 @@ class BluetoothSettingActivity : AppCompatActivity() {
     }
 
     private fun initButtons() {
-        val buttonTrackerList: Button = findViewById(R.id.buttonTrackerList)
+        val buttonTrackerList: CustomTextViewDescription = findViewById(R.id.buttonTrackerList)
 
         buttonTrackerList.setOnClickListener {
             val intent = Intent(applicationContext, TrackerListActivity::class.java)

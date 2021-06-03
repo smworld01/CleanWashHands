@@ -10,49 +10,49 @@
     android:showDividers="middle|end"
     >
 
-    <androidx.appcompat.widget.SwitchCompat
+    <com.hands.clean.view.CustomSwitch
         android:id="@+id/switchWifi"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="와이파이 알림"
-        android:padding="15dp"
+        app:contentTitle="와이파이 알림"
+        app:contentContext="설명"
         />
 
 
-    <androidx.appcompat.widget.SwitchCompat
+    <com.hands.clean.view.CustomSwitch
         android:id="@+id/switchNewDeviceWifi"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="새로운 기기 연결시 등록 알림"
-        android:padding="15dp"
+        app:contentTitle="새로운 기기 연결시 등록 알림"
+        app:contentContext="설명"
         />
 
-    <androidx.appcompat.widget.SwitchCompat
+    <com.hands.clean.view.CustomSwitch
         android:id="@+id/switchEncryptionWifi"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="비밀번호가 있는 와이파이 연결시 알림"
-        android:padding="15dp"
+        app:contentTitle="비밀번호가 있는 와이파이 연결시 알림"
+        app:contentContext="설명"
         />
 
-    <Button
+    <com.hands.clean.view.CustomTextViewDescription
         android:id="@+id/buttonTrackerList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
-        android:padding="15dp"
-        android:gravity="start|center"
-        android:text="등록된 와이파이 기기 관리"
+        android:layout_marginStart="20dp"
+        app:contentTitle="등록된 와이파이 기기 관리"
+        app:contentContext="설명"
         />
 
-    <Button
+    <com.hands.clean.view.CustomTextViewDescription
         android:id="@+id/buttonWifiScan"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
-        android:padding="15dp"
-        android:gravity="start|center"
-        android:text="주변 와이파이 스캔해서 등록하기"
+        android:layout_marginStart="20dp"
+        app:contentTitle="주변 와이파이 스캔해서 등록하기"
+        app:contentContext="설명"
         />
 
 </LinearLayout>

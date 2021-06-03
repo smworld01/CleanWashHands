@@ -12,6 +12,8 @@ import com.hands.clean.function.permission.GpsPermissionRequesterWithBackground
 import com.hands.clean.function.settings.WashSettingsManager
 import com.hands.clean.function.notification.type.NotifyType
 import com.hands.clean.service.WashLocationServiceManager
+import com.hands.clean.view.CustomSwitch
+import com.hands.clean.view.CustomTextViewDescription
 
 class WifiSettingActivity : AppCompatActivity() {
     private val permissionRequester = GpsPermissionRequesterWithBackground(this)
@@ -49,9 +51,9 @@ class WifiSettingActivity : AppCompatActivity() {
     }
 
     private fun initSwitchViews() {
-        val switchWifi: SwitchCompat = findViewById(R.id.switchWifi)
-        val switchNewDeviceWifi: SwitchCompat = findViewById(R.id.switchNewDeviceWifi)
-        val switchEncryptionWifi: SwitchCompat = findViewById(R.id.switchEncryptionWifi)
+        val switchWifi = findViewById<CustomSwitch>(R.id.switchWifi).switch
+        val switchNewDeviceWifi = findViewById<CustomSwitch>(R.id.switchNewDeviceWifi).switch
+        val switchEncryptionWifi = findViewById<CustomSwitch>(R.id.switchEncryptionWifi).switch
 
         switchWifi.isChecked = settings.wifiNotify
         switchNewDeviceWifi.isChecked = settings.wifiNewDeviceNotify
@@ -76,8 +78,8 @@ class WifiSettingActivity : AppCompatActivity() {
     }
 
     private fun initButtons() {
-        val buttonTrackerList: Button = findViewById(R.id.buttonTrackerList)
-        val buttonWifiScan: Button = findViewById(R.id.buttonWifiScan)
+        val buttonTrackerList: CustomTextViewDescription = findViewById(R.id.buttonTrackerList)
+        val buttonWifiScan: CustomTextViewDescription = findViewById(R.id.buttonWifiScan)
 
         buttonTrackerList.setOnClickListener {
             val intent = Intent(this, TrackerListActivity::class.java)
