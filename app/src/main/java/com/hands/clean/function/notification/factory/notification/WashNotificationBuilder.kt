@@ -24,6 +24,7 @@ open class WashNotificationBuilder(
         this
             .setContentTitle("손을 씻어주세요.")
             .setContentText(getContentText())
+            .setGroup(context.getString(R.string.wash_notify_group_key))
     }
 
     override fun build(): Notification {

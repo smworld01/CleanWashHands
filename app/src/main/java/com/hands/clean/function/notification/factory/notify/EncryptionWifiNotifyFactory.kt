@@ -1,5 +1,6 @@
 package com.hands.clean.function.notification.factory.notify
 
+import android.app.Notification
 import android.content.Context
 import com.hands.clean.function.notification.NotificationIdCounter
 import com.hands.clean.function.notification.factory.notification.EncryptionWifiNotificationBuilder
@@ -14,19 +15,11 @@ import java.util.*
 class EncryptionWifiNotifyFactory(
     private val context: Context,
     private val wifiEntry: WifiEntry
-) : LimiterNotifyFactory(context) {
+) : WashNotifyFactory(context, wifiEntry) {
     private val notificationId = NotificationIdCounter.getNotificationId()
 
-    override fun onBuild(): Notify {
+    override fun createNotification(): Notification {
         val notificationFactory = EncryptionWifiNotificationBuilder(context, wifiEntry, notificationId)
-        val notification = notificationFactory.build()
-
-        val mFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.UK)
-        val date: String = mFormat.format(Date())
-        wifiEntry.lastNotifyTime = date
-
-        DB.getInstance().wifiDao().updateAll(wifiEntry)
-
-        return BasicNotify(context, notification, notificationId)
+        return notificationFactory.build()
     }
 }

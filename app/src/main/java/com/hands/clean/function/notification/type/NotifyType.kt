@@ -1,7 +1,7 @@
 package com.hands.clean.function.notification.type
 
 object NotifyType {
-    private val notifyTypeList = arrayListOf(Bluetooth, GPS, Wifi, NoticeService)
+    private val notifyTypeList = arrayListOf(Bluetooth, GPS, Wifi, NoticeService, NotifySummary)
 
     object Bluetooth: NotifyInfo {
         override val channelId: String = "Bluetooth"
@@ -24,8 +24,13 @@ object NotifyType {
     object NoticeService: NotifyInfo {
         override val channelId: String = "NoticeService"
         override val channelName: String = "알림 상태"
-        override val channelDescription: String = "GPS, WiFi 알림을 위한 서비스입니다."
+        override val channelDescription: String = "GPS, WiFi 서비스 알림입니다."
+    }
 
+    object NotifySummary: NotifyInfo {
+        override val channelId: String = "NotifySummary"
+        override val channelName: String = "알림 요약"
+        override val channelDescription: String = "손 씻기 요약 알림입니다."
     }
 
     fun iterator(): MutableIterator<NotifyInfo> {

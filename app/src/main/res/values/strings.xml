@@ -19,4 +19,9 @@
     <string name="notification_title">손을 씻어주세요</string>
 
     <string name="today_notify_count">오늘은 %d번 알림을 받으셨어요</string>
+
+
+
+
+    <string name="wash_notify_group_key">com.hands.clean.WASH_NOTIFY</string>
 </resources>
