@@ -13,4 +13,5 @@
 
     <color name="logs_wash">#C8E6C9</color>
     <color name="logs_don_wash">#FFCDD2</color>
+    <color name="description">#a0a0a0</color>
 </resources>

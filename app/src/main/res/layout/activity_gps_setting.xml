@@ -11,32 +11,33 @@
     >
 
 
-    <androidx.appcompat.widget.SwitchCompat
+    <com.hands.clean.view.CustomSwitch
         android:id="@+id/switchGPS"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="GPS 알림"
-        android:padding="15dp"
+        app:contentTitle="GPS 알림"
+        app:contentContext="널 사랑하지 않아~"
         />
 
-    <Button
+
+    <com.hands.clean.view.CustomTextViewDescription
         android:id="@+id/buttonTrackerList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
-        android:padding="15dp"
-        android:gravity="start|center"
-        android:text="등록된 위치 관리"
+        android:layout_marginStart="20dp"
+        app:contentTitle="등록된 위치 관리"
+        app:contentContext="할말이 있나?"
         />
 
-    <Button
+    <com.hands.clean.view.CustomTextViewDescription
         android:id="@+id/buttonMap"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
-        android:padding="15dp"
-        android:gravity="start|center"
-        android:text="지도에서 등록할 위치찾기"
+        android:layout_marginStart="20dp"
+        app:contentTitle="지도에서 등록할 위치찾기"
+        app:contentContext="할말이 있나?"
         />
 
 </LinearLayout>

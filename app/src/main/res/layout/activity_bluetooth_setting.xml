@@ -11,40 +11,40 @@
     >
 
 
-    <androidx.appcompat.widget.SwitchCompat
+    <com.hands.clean.view.CustomSwitch
         android:id="@+id/switchBluetooth"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="블루투스 알림"
-        android:padding="15dp"
+        app:contentTitle="블루투스 알림"
+        app:contentContext="널 사랑하지 않아~"
         />
 
-    <androidx.appcompat.widget.SwitchCompat
+    <com.hands.clean.view.CustomSwitch
         android:id="@+id/switchNewDeviceBluetooth"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="새로운 기기 연결시 등록 여부 알림"
-        android:padding="15dp"
+        app:contentTitle="새로운 기기 연결시 등록 여부 알림"
+        app:contentContext="할말이 없어~~"
         />
 
-    <Button
+    <com.hands.clean.view.CustomTextViewDescription
         android:id="@+id/buttonTrackerList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
-        android:padding="15dp"
-        android:gravity="start|center"
-        android:text="앱에 등록된 블루투스 기기 관리"
+        android:layout_marginStart="20dp"
+        app:contentTitle="등록된 블루투스 기기 관리"
+        app:contentContext="할말이 있나?"
         />
 
-    <Button
+    <com.hands.clean.view.CustomTextViewDescription
         android:id="@+id/buttonSystemBluetoothList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
-        android:padding="15dp"
-        android:gravity="start|center"
-        android:text="시스템에 등록된 블루투스에서 등록하기"
+        android:layout_marginStart="20dp"
+        app:contentTitle="시스템에 등록된 블루투스에서 등록하기"
+        app:contentContext="할말이 있나??"
         />
 
 </LinearLayout>

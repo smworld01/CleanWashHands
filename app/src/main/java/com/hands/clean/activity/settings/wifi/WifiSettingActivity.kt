@@ -1,17 +1,18 @@
 package com.hands.clean.activity.settings.wifi
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Button
-import androidx.appcompat.widget.SwitchCompat
+import androidx.appcompat.app.AppCompatActivity
 import com.hands.clean.R
 import com.hands.clean.activity.settings.TrackerListActivity
+import com.hands.clean.function.notification.type.NotifyType
 import com.hands.clean.function.permission.GpsPermissionRequesterWithBackground
 import com.hands.clean.function.settings.WashSettingsManager
-import com.hands.clean.function.notification.type.NotifyType
 import com.hands.clean.service.TrackerServiceManager
+import com.hands.clean.view.CustomSwitch
+import com.hands.clean.view.CustomTextViewDescription
 
 class WifiSettingActivity : AppCompatActivity() {
     private val permissionRequester = GpsPermissionRequesterWithBackground(this)
@@ -49,9 +50,9 @@ class WifiSettingActivity : AppCompatActivity() {
     }
 
     private fun initSwitchViews() {
-        val switchWifi: SwitchCompat = findViewById(R.id.switchWifi)
-        val switchNewDeviceWifi: SwitchCompat = findViewById(R.id.switchNewDeviceWifi)
-        val switchEncryptionWifi: SwitchCompat = findViewById(R.id.switchEncryptionWifi)
+        val switchWifi = findViewById<CustomSwitch>(R.id.switchWifi).switch
+        val switchNewDeviceWifi = findViewById<CustomSwitch>(R.id.switchNewDeviceWifi).switch
+        val switchEncryptionWifi = findViewById<CustomSwitch>(R.id.switchEncryptionWifi).switch
 
         switchWifi.isChecked = settings.wifiNotify
         switchNewDeviceWifi.isChecked = settings.wifiNewDeviceNotify
@@ -76,8 +77,8 @@ class WifiSettingActivity : AppCompatActivity() {
     }
 
     private fun initButtons() {
-        val buttonTrackerList: Button = findViewById(R.id.buttonTrackerList)
-        val buttonWifiScan: Button = findViewById(R.id.buttonWifiScan)
+        val buttonTrackerList: CustomTextViewDescription = findViewById(R.id.buttonTrackerList)
+        val buttonWifiScan: CustomTextViewDescription = findViewById(R.id.buttonWifiScan)
         val buttonDetectedWifi: Button = findViewById(R.id.buttonDetectedWifi)
 
         buttonTrackerList.setOnClickListener {

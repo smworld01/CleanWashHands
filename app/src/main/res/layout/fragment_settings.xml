@@ -11,7 +11,7 @@
 
 
 
-    <com.hands.clean.view.SettingsButton
+    <com.hands.clean.view.CustomButton
         android:id="@+id/buttonWifi"
         android:background="?attr/selectableItemBackground"
         android:layout_width="match_parent"
@@ -21,7 +21,7 @@
         app:contentContext="와이파이를 통해 설정합니다."
         />
 
-    <com.hands.clean.view.SettingsButton
+    <com.hands.clean.view.CustomButton
         android:id="@+id/buttonBluetooth"
         android:layout_width="match_parent"
         android:background="?attr/selectableItemBackground"
@@ -30,7 +30,7 @@
         app:contentTitle="블루투스 설정"
         app:contentContext="블루투스를 통해 설정합니다."
         />
-    <com.hands.clean.view.SettingsButton
+    <com.hands.clean.view.CustomButton
         android:id="@+id/buttonGPS"
         android:background="?attr/selectableItemBackground"
         android:layout_width="match_parent"
@@ -39,7 +39,7 @@
         app:contentTitle="GPS 설정"
         app:contentContext="GPS를 통해 설정합니다."
         />
-    <com.hands.clean.view.SettingsButton
+    <com.hands.clean.view.CustomButton
         android:id="@+id/buttonSwitch"
         android:background="?attr/selectableItemBackground"
         android:layout_width="match_parent"
@@ -48,7 +48,7 @@
         app:contentTitle="손 씻기 인식 설정"
         app:contentContext="음성인식과 화면인식을 통해 인식종류를 설정합니다."
         />
-    <com.hands.clean.view.SettingsButton
+    <com.hands.clean.view.CustomButton
         android:id="@+id/buttonTutorial"
         android:background="?attr/selectableItemBackground"
         android:layout_width="match_parent"
