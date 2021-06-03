@@ -40,7 +40,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
-        android:layout_marginStart="20dp"
+        android:paddingHorizontal="20dp"
         app:contentTitle="등록된 와이파이 기기 관리"
         app:contentContext="설명"
         />
@@ -50,7 +50,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
-        android:layout_marginStart="20dp"
+        android:paddingHorizontal="20dp"
         app:contentTitle="주변 와이파이 스캔해서 등록하기"
         app:contentContext="설명"
         />
@@ -60,7 +60,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
-        android:layout_marginStart="20dp"
+        android:paddingHorizontal="20dp"
         app:contentTitle="연결되었던 와이파이에서 등록하기"
         app:contentContext="설명"
         />

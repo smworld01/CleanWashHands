@@ -32,7 +32,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
-        android:layout_marginStart="20dp"
+        android:paddingHorizontal="20dp"
         app:contentTitle="등록된 블루투스 기기 관리"
         app:contentContext="할말이 있나?"
         />
@@ -42,7 +42,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
-        android:layout_marginStart="20dp"
+        android:paddingHorizontal="20dp"
         app:contentTitle="시스템에 등록된 블루투스에서 등록하기"
         app:contentContext="할말이 있나??"
         />
