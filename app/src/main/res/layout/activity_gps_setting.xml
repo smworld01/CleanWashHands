@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:contentTitle="GPS 알림"
-        app:contentContext="등록한 위치 접근 시 알림이 옵니다."
+        app:contentContext="등록한 위치에 접근 시 알림이 옵니다."
         />
 
 

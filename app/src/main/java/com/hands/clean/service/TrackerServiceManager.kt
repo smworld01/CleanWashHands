@@ -6,10 +6,12 @@ import android.content.Intent
 import android.os.Build
 import androidx.core.content.ContextCompat.startForegroundService
 import com.hands.clean.function.gps.SystemSettingsGpsChecker
+import com.hands.clean.function.settings.WashSettingsManager
 
 class TrackerServiceManager(
     private val context: Context
 ) {
+    private val washSettingsManager = WashSettingsManager(context)
     private val emptyServiceManager = EmptyServiceManager(context)
     private val washLocationServiceManager = WashLocationServiceManager(context)
 
@@ -21,7 +23,7 @@ class TrackerServiceManager(
         }
     }
 
-    fun changeServiceState() {
+    fun changeService() {
         if (isServiceRunning()) {
             if (SystemSettingsGpsChecker(context).isEnabled()) {
                 emptyServiceManager.onStopService()
@@ -31,6 +33,27 @@ class TrackerServiceManager(
                 emptyServiceManager.onStartService()
             }
         }
+    }
+
+    fun changeServiceState() {
+        if (isServiceRunning()) {
+            if (serviceSettingsIsDisable()) {
+                onStopService()
+            }
+        } else {
+            if (serviceSettingsIsEnable()) {
+                onStartService()
+            }
+        }
+    }
+
+    private fun serviceSettingsIsEnable(): Boolean {
+        return washSettingsManager.wifiNotify || washSettingsManager.wifiNewDeviceNotify
+                || washSettingsManager.wifiEncryptionNotify || washSettingsManager.gpsNotify
+    }
+
+    private fun serviceSettingsIsDisable(): Boolean {
+        return !serviceSettingsIsEnable()
     }
 
     fun isNotServiceRunning(): Boolean {

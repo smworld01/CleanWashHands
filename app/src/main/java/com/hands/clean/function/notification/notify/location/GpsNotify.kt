@@ -20,19 +20,11 @@ class GpsNotify(
     }
 
     override fun doNotify() {
-        thread {
+        if (notifySettingsIsEnable()) {
             val gpsEntry = findGpsEntryInDB()
 
-            Log.e("notify", gpsEntry.toString())
-
-            if (gpsEntry != null && gpsEntry.isNotification) {
-                sendNotify(gpsEntry)
-            }
+            sendNotify(gpsEntry)
         }
-    }
-
-    private fun sendNotify(gpsEntry : GpsEntry) {
-        WashNotifyFactory(context, gpsEntry).onBuildWithLimiter()?.onNotify()
     }
 
     private fun findGpsEntryInDB(): GpsEntry? {
@@ -44,6 +36,12 @@ class GpsNotify(
             DB.getInstance().gpsDao().findByRequestIds(requestIdList)[0]
         } catch (e: IndexOutOfBoundsException) {
             null
+        }
+    }
+
+    private fun sendNotify(gpsEntry : GpsEntry?) {
+        if (gpsEntry != null && gpsEntry.isNotification) {
+            WashNotifyFactory(context, gpsEntry).onBuildWithLimiter()?.onNotify()
         }
     }
 }

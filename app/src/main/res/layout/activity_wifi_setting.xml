@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:contentTitle="Wi-Fi 알림"
-        app:contentContext="등록한 Wi-Fi 연결 시 알림이 옵니다."
+        app:contentContext="등록한 Wi-Fi에 연결 시 알림이 옵니다."
         />
 
 
@@ -24,7 +24,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:contentTitle="새로운 Wi-Fi 기기 알림"
-        app:contentContext="새로운 Wi-Fi 연결 시 등록 여부 알림이 옵니다."
+        app:contentContext="새로운 Wi-Fi에 연결 시 등록 여부 알림이 옵니다."
         />
 
     <com.hands.clean.view.CustomSwitch
@@ -32,7 +32,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:contentTitle="암호화된 Wi-Fi 알림"
-        app:contentContext="비밀번호가 있는 Wi-Fi 연결 시 알림이 옵니다."
+        app:contentContext="비밀번호가 있는 Wi-Fi에 연결 시 알림이 옵니다."
         />
 
     <com.hands.clean.view.CustomTextViewDescription
@@ -62,6 +62,6 @@
         android:background="?attr/selectableItemBackground"
         android:paddingHorizontal="20dp"
         app:contentTitle="연결되었던 Wi-Fi 등록하기"
-        app:contentContext="앱이 서비스되는 동안 연결되었던 Wi-Fi에서 등록합니다."
+        app:contentContext="앱이 서비스되는 동안 연결되었던 Wi-Fi 목록에서 등록합니다."
         />
 </LinearLayout>

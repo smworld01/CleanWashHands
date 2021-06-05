@@ -53,6 +53,7 @@ class WifiSettingActivity : AppCompatActivity() {
         val switchWifi = findViewById<CustomSwitch>(R.id.switchWifi).switch
         val switchNewDeviceWifi = findViewById<CustomSwitch>(R.id.switchNewDeviceWifi).switch
         val switchEncryptionWifi = findViewById<CustomSwitch>(R.id.switchEncryptionWifi).switch
+        val wsm = TrackerServiceManager(this)
 
         switchWifi.isChecked = settings.wifiNotify
         switchNewDeviceWifi.isChecked = settings.wifiNewDeviceNotify
@@ -61,18 +62,18 @@ class WifiSettingActivity : AppCompatActivity() {
 
         switchWifi.setOnCheckedChangeListener{ _, isChecked ->
             settings.wifiNotify = isChecked
-            val wsm = TrackerServiceManager(this)
+            wsm.changeServiceState()
             // Todo waiting
-            if (isChecked)
-                wsm.onStartService()
-            else if (!settings.gpsNotify)
-                wsm.onStopService()
         }
         switchNewDeviceWifi.setOnCheckedChangeListener { _, isChecked ->
             settings.wifiNewDeviceNotify = isChecked
+            wsm.changeServiceState()
+            // Todo waiting
         }
         switchEncryptionWifi.setOnCheckedChangeListener { _, isChecked ->
             settings.wifiEncryptionNotify = isChecked
+            wsm.changeServiceState()
+            // Todo waiting
         }
     }
 

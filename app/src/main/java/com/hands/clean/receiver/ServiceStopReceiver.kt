@@ -15,16 +15,16 @@ class ServiceStopReceiver : BroadcastReceiver() {
 
         when (intent.action) {
             LocationManager.PROVIDERS_CHANGED_ACTION -> {
-                changeServiceState()
+                changeService()
             }
             else -> {
                 stopService(context)
             }
         }
     }
-    private fun changeServiceState() {
+    private fun changeService() {
         val serviceManager = TrackerServiceManager(mContext)
-        serviceManager.changeServiceState()
+        serviceManager.changeService()
     }
 
     private fun stopService(context: Context) {

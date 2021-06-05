@@ -52,11 +52,8 @@ class GpsSettingActivity : AppCompatActivity(){
         switchGps.setOnCheckedChangeListener{ _, isChecked ->
             settings.gpsNotify = isChecked
             val wsm = TrackerServiceManager(this)
+            wsm.changeServiceState()
             // Todo waiting
-            if (isChecked)
-                wsm.onStartService()
-            else if (!settings.wifiNotify)
-                wsm.onStopService()
         }
     }
 

@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:contentTitle="Bluetooth 알림"
-        app:contentContext="등록한 Bluetooth 연결 시 알림이 옵니다."
+        app:contentContext="등록한 Bluetooth에 연결 시 알림이 옵니다."
         />
 
     <com.hands.clean.view.CustomSwitch
@@ -24,7 +24,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:contentTitle="새로운 Bluetooth 기기 알림"
-        app:contentContext="새로운 Bluetooth 연결 시 등록 여부 알림이 옵니다."
+        app:contentContext="새로운 Bluetooth에 연결 시 등록 여부 알림이 옵니다."
         />
 
     <com.hands.clean.view.CustomTextViewDescription

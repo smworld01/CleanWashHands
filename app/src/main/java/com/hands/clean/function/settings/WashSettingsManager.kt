@@ -3,7 +3,6 @@ package com.hands.clean.function.settings
 import android.content.Context
 
 class WashSettingsManager(val context: Context) {
-
     var bluetoothNotify: Boolean
         get() = getPreferences(::bluetoothNotify.name)
         set(value) = setPreferences(::bluetoothNotify.name, value)
