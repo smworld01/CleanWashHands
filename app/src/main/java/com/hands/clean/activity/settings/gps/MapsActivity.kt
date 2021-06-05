@@ -1,8 +1,12 @@
 package com.hands.clean.activity.settings.gps
 
+import android.app.AlertDialog
+import android.content.Intent
 import android.graphics.Color
 import android.location.Location
+import android.net.Uri
 import android.os.Bundle
+import android.provider.Settings
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -30,6 +34,7 @@ import com.hands.clean.function.gps.SystemSettingsGpsManager
 import com.hands.clean.function.room.DB
 import com.hands.clean.function.room.entry.GpsEntry
 import com.hands.clean.function.room.entry.TrackerEntry
+import com.hands.clean.function.settings.WashSettingsManager
 
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
@@ -44,6 +49,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var drawLayout: DrawerLayout
     private lateinit var navLayout: RelativeLayout
     private val gpsManager = SystemSettingsGpsManager(this)
+    private val washSettingsManager = WashSettingsManager(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -138,6 +144,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mMapListener = MapListener(this, mapsViewModel, googleMap, mMapController)
 
         requestLocationService()
+        showTutorial()
     }
 
     private fun requestLocationService() {
@@ -160,6 +167,24 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         }
         gpsManager.registerCancelCallback { finish() }
         gpsManager.onRequest()
+    }
+
+    private fun showTutorial() {
+        if (!washSettingsManager.tutorialMaps) {
+            washSettingsManager.tutorialMaps = true
+            AlertDialog.Builder(this).apply {
+                setTitle("사용 방법")
+                setMessage(
+                    """
+                    지도에서 특정 위치를 길게 누르면 위치를 등록할 수 있습니다.
+                """.trimIndent()
+                )
+                setPositiveButton("확인") { dialog, _ ->
+                    dialog.cancel()
+                }
+                create().show()
+            }
+        }
     }
 
     class MapListener(

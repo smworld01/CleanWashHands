@@ -23,9 +23,13 @@ class WashSettingsManager(val context: Context) {
     var wifiEncryptionNotify: Boolean
         get() = getPreferences(::wifiEncryptionNotify.name)
         set(value) = setPreferences(::wifiEncryptionNotify.name, value)
+
     var tutorial: Boolean
         get() = getPreferences(::tutorial.name)
         set(value) = setPreferences(::tutorial.name, value)
+    var tutorialMaps: Boolean
+        get() = getPreferences(::tutorialMaps.name)
+        set(value) = setPreferences(::tutorialMaps.name, value)
 
 
     private fun setPreferences(key: String, value: Boolean) {
