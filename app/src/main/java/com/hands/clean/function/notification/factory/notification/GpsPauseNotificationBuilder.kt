@@ -18,6 +18,7 @@ class GpsPauseNotificationBuilder(
             .setContentTitle("서비스 일시정지됨")
             .setContentText("GPS가 비활성화 되어 서비스가 일시정지 되었습니다.")
             .addAction(getAction())
+            .setGroup(context.getString(R.string.wash_notify_group_key))
     }
 
     private fun getAction(): NotificationCompat.Action {

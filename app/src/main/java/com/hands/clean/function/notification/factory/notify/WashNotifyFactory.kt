@@ -31,7 +31,7 @@ open class WashNotifyFactory(
             is GpsEntry -> DB.getInstance().gpsDao().updateAll(trackerInfo)
         }
 
-        return WashSummaryNotify(context, notification, notificationId)
+        return BasicNotify(context, notification, notificationId)
     }
 
     open fun createNotification(): Notification {

@@ -18,6 +18,7 @@ class ForegroundNotificationBuilder(
             .setContentTitle("서비스 시작됨")
             .setContentText("WiFi와 GPS를 확인하고 있습니다.")
             .addAction(getAction())
+            .setGroup(context.getString(R.string.wash_notify_group_key))
     }
 
     private fun getAction(): NotificationCompat.Action {

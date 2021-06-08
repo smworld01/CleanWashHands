@@ -24,7 +24,6 @@ open class WashNotificationBuilder(
         this
             .setContentTitle("손을 씻어주세요.")
             .setContentText(getContentText())
-            .setGroup(context.getString(R.string.wash_notify_group_key))
     }
 
     override fun build(): Notification {
@@ -58,7 +57,7 @@ open class WashNotificationBuilder(
     private fun getWashAction(): NotificationCompat.Action {
         val intent: Intent = getIntent()
         val pendingIntent: PendingIntent =
-            PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_ONE_SHOT)
+            PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_IMMUTABLE)
         return NotificationCompat.Action.Builder(
             R.drawable.ic_baseline_home_24, "손 씻음", pendingIntent
         )
@@ -68,6 +67,7 @@ open class WashNotificationBuilder(
         return Intent(context, WashReceiver::class.java)
             .putExtra("recordId", getWashUid(onBuildWashEntry()))
             .putExtra("notificationId", notificationId)
+            .setAction("action" + System.currentTimeMillis())
     }
     private fun getWashUid(entry: WashEntry): Long {
         return DB.getInstance().washDao().insertAll(entry)[0]

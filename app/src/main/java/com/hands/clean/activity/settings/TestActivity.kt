@@ -10,6 +10,8 @@ import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import com.hands.clean.R
 import com.hands.clean.dialog.ProgressDialog
+import com.hands.clean.function.notification.factory.notify.WashNotifyFactory
+import com.hands.clean.function.room.entry.WifiEntry
 
 class TestActivity : AppCompatActivity() {
     private lateinit var fusedLocationClient: FusedLocationProviderClient
@@ -34,12 +36,14 @@ class TestActivity : AppCompatActivity() {
         val test = ProgressDialog(this)
 
         buttonSendNotification.setOnClickListener {
-            test.show()
-
-            val handler = Handler()
-            handler.postDelayed({
-                                test.dismiss()
-            }, 5000) //5 seconds
+            val a = WifiEntry(0, "1234", "1234", "", true)
+            WashNotifyFactory(this, a).onBuild().onNotify()
+//            test.show()
+//
+//            val handler = Handler()
+//            handler.postDelayed({
+//                                test.dismiss()
+//            }, 5000) //5 seconds
         }
 
         buttonChangeNotificationChannel.setOnClickListener {
